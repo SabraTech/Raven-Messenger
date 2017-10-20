@@ -22,19 +22,19 @@ class Login extends Component {
     </KeyboardAvoidingView>
 
 
-// define your styles
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#2c3e50',
-    },
-    loginContainer:{
-        alignItems: 'center',
-        flexGrow: 1,
-        justifyContent: 'center'
-    },
-    logo: {
-        position: 'absolute',
-        width: 300,
-        height: 100
-    }
+    // define your styles
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#2c3e50',
+        },
+        loginContainer:{
+            alignItems: 'center',
+            flexGrow: 1,
+            justifyContent: 'center'
+        },
+        logo: {
+            position: 'absolute',
+            width: 300,
+            height: 100
+        }
