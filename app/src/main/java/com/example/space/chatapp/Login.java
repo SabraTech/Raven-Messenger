@@ -53,12 +53,12 @@ public class Login extends AppCompatActivity {
                 passwordString = password.getText().toString();
 
                 if (TextUtils.isEmpty(emailString)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    email.setError("Enter email address!");
                     return;
                 }
 
                 if (TextUtils.isEmpty(passwordString)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    password.setError("Enter password!");
                     return;
                 }
 

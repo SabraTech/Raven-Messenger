@@ -4,4 +4,6 @@
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
+    <string name="register_button">New User</string>
+    <string name="login_button">Login</string>
 </resources>
