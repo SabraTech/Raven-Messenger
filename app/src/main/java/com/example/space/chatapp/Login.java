@@ -1,5 +1,6 @@
 package com.example.space.chatapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ public class Login extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
 
-    private Button loginButton, registerButton;
+    private Button loginButton, registerButton, resetButton;
     private EditText email, password;
     private String emailString, passwordString;
     private ProgressBar progressBar;
@@ -31,12 +32,20 @@ public class Login extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         registerButton = findViewById(R.id.register);
+        resetButton = findViewById(R.id.resetPassword);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         progressBar = findViewById(R.id.progressBar);
 
         // Initialize FirebaseAuth
         mFirebaseAuth = FirebaseAuth.getInstance();
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login.this, ResetPassword.class));
+            }
+        });
 
 //        registerButton.setOnClickListener(new View.OnClickListener(){
 //            @Override
