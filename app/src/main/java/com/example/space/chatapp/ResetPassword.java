@@ -59,7 +59,6 @@ public class ResetPassword extends AppCompatActivity {
                         } else {
                             Toast.makeText(ResetPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                         }
-
                         progressBar.setVisibility(View.GONE);
                     }
                 });
