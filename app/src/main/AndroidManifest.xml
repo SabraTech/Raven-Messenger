@@ -21,6 +21,10 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".Signup" />
+        <activity
+            android:name=".Users"
+            android:label="@string/title_activity_users"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

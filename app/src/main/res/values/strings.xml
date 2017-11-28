@@ -13,4 +13,5 @@
     <string name="btn_reset_password">Reset Password</string>
     <string name="btn_back"><![CDATA[<< Back]]></string>
     <string name="signup_button">Register</string>
+    <string name="title_activity_users">Users</string>
 </resources>

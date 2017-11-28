@@ -87,8 +87,8 @@ public class Login extends AppCompatActivity {
                             }
                         } else {
                             Toast.makeText(Login.this, "Welcome Back :D", Toast.LENGTH_LONG).show();
-//                          startActivity(new Intent(Login.this, Users.class));
-//                          finish();
+                            startActivity(new Intent(Login.this, Users.class));
+                            finish();
                         }
                     }
                 });
