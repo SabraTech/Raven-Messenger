@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "191238331151",
-    "firebase_url": "https://chatapp-49c92.firebaseio.com",
-    "project_id": "chatapp-49c92",
-    "storage_bucket": "chatapp-49c92.appspot.com"
+    "project_number": "494148310549",
+    "firebase_url": "https://chatapp-ac930.firebaseio.com",
+    "project_id": "chatapp-ac930",
+    "storage_bucket": "chatapp-ac930.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:191238331151:android:67e02a9ec1237f32",
+        "mobilesdk_app_id": "1:494148310549:android:67e02a9ec1237f32",
         "android_client_info": {
           "package_name": "com.example.space.chatapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "191238331151-s41ee3mangv93r50i3lakfucbu0g77g7.apps.googleusercontent.com",
+          "client_id": "494148310549-rn2m42tad0ikseob2qdj4juvv0ndmdc7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.space.chatapp",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "191238331151-fit0u3bpg14hp3v8i5j1drdsan29vvfc.apps.googleusercontent.com",
+          "client_id": "494148310549-6b75cii69velheds2tam8vl66cs18p1c.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDeHSqpCLkA-7WhMEdgk0yvPdo8IgU8CMA"
+          "current_key": "AIzaSyDzjkuSVrVsea8VcRDrfVQbnnzp_DD6tYI"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "191238331151-fit0u3bpg14hp3v8i5j1drdsan29vvfc.apps.googleusercontent.com",
+              "client_id": "494148310549-6b75cii69velheds2tam8vl66cs18p1c.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
