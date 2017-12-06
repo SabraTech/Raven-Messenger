@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/padding_small"
+    android:paddingEnd="@dimen/padding_avg"
+    android:paddingStart="@dimen/padding_avg"
+    android:paddingTop="@dimen/padding_small">
+
+    <TextView
+        android:id="@+id/text_view_user_alphabet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/circle_accent"
+        android:gravity="center"
+        android:maxEms="1"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/grey_100"
+        android:textStyle="bold"
+        tools:text="e" />
+
+    <TextView
+        android:id="@+id/text_view_chat_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_huge"
+        android:background="@drawable/chat_rounded_bg"
+        android:padding="@dimen/padding_small"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/grey_100"
+        tools:text="Hello back !" />
+
+</LinearLayout>
