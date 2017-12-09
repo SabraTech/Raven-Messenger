@@ -13,6 +13,6 @@ build/
 
 # IntelliJ
 *.iml
-/.idea
+/*.idea
 
 

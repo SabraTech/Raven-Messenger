@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
@@ -25,11 +25,14 @@
         android:textStyle="bold"
         tools:text="e" />
 
+    <android.support.v4.widget.Space
+        android:layout_width="@dimen/space_avg"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/text_view_chat_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_huge"
         android:background="@drawable/chat_rounded_bg"
         android:padding="@dimen/padding_small"
         android:textAppearance="?android:attr/textAppearanceMedium"
