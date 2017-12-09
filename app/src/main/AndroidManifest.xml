@@ -36,7 +36,6 @@
         <activity
             android:name=".ui.activities.ChatActivity"
             android:label="@string/app_name"
-            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activities.ResetPasswordActivity" />
     </application>

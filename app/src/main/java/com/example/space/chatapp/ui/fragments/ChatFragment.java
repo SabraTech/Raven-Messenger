@@ -185,7 +185,7 @@ public class ChatFragment extends Fragment implements TextView.OnEditorActionLis
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Toast.makeText(getActivity(), "Unable to get message: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
                         }
                     });
                 } else if (dataSnapshot.hasChild(room2)) {
@@ -222,7 +222,7 @@ public class ChatFragment extends Fragment implements TextView.OnEditorActionLis
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-                            Toast.makeText(getActivity(), "Unable to get message: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+
                         }
                     });
                 } else {
