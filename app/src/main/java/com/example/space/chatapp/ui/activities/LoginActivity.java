@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout_content_login,
+        fragmentTransaction.replace(R.id.frame_layout_content_login,//in chat login layout
                 LoginFragment.newInstance(),
                 LoginFragment.class.getSimpleName());
         fragmentTransaction.commit();

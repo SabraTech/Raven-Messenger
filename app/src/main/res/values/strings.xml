@@ -14,6 +14,7 @@
     <string name="btn_back"><![CDATA[<< Back]]></string>
     <string name="signup_button">Register</string>
 
+
     <string name="user_successfully_added">User successfully added!</string>
     <string name="user_unable_to_add">Unable to add user!</string>
     <string name="adding_user_to_db">Adding user to database.</string>
@@ -24,4 +25,15 @@
     <string name="logout">Logout</string>
     <string name="are_you_sure">Are you sure ?</string>
     <string name="cancel">Cancel</string>
+
+    <!--Gehad-->
+    <string name ="register_label"> REGISTER </string>
+    <string name ="email_label"> Email </string>
+    <string name ="password_label"> Password </string>
+    <string name ="repeat_password_label"> Repeat Password </string>
+    <string name ="enter_button"> Enter </string>
+
+
+
+
 </resources>
