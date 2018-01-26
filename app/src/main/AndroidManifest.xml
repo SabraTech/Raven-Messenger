@@ -11,15 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar.Splash">
+            android:label="@string/app_name">
+           &lt;!&ndash; android:theme="@style/AppTheme.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>&ndash;&gt;
         </activity>
         <activity
             android:name=".ui.activities.LoginActivity"
@@ -38,6 +40,20 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activities.ResetPasswordActivity" />
+        -->
+
+
+        <!-- Gehad -->
+        <activity
+            android:name=".ui.activities.TabsActivity"
+            android:label="ChatApp">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activities.ProfileSettingActivity"></activity>
     </application>
 
 </manifest>

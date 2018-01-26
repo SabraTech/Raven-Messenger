@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark">#303f9f</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="red_50">#FFEBEE</color>
@@ -159,10 +159,10 @@
     <color name="light_green_600">#7CB342</color>
     <color name="light_green_700">#689F38</color>
     <color name="light_green_800">#558B2F</color>
-    <color name="light_green_900">#33691E</color>
+    <color name="light_green_900">#33691e</color>
     <color name="light_green_A100">#CCFF90</color>
     <color name="light_green_A200">#B2FF59</color>
-    <color name="light_green_A400">#76FF03</color>
+    <color name="light_green_A400">#76ff03</color>
     <color name="light_green_A700">#64DD17</color>
 
     <color name="amber_50">#FFF8E1</color>
