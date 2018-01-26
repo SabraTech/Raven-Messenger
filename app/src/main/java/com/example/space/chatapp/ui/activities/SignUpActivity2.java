@@ -21,28 +21,29 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.space.chatapp.R;
-import com.example.space.chatapp.models.StaticConfig;
+import com.example.space.chatapp.data.StaticConfig;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class SignUpActivity2  extends AppCompatActivity{
-   private FloatingActionButton fab ;
-   private CardView cardView ;
    private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-   private EditText emailEditText,passwordEditText ,repeatPasswordEditText ;
+    private FloatingActionButton fab;
+    private CardView cardView;
+    private EditText nameEditText, emailEditText, passwordEditText, repeatPasswordEditText;
 
    @Override
     protected void onCreate(Bundle savedInstanceState){
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_signup2);
-       fab = (FloatingActionButton)findViewById(R.id.fab);
-       cardView = (CardView)findViewById(R.id.cv_add);
-       emailEditText=(EditText)findViewById(R.id.et_email);
-       passwordEditText=(EditText)findViewById(R.id.et_password);
-       repeatPasswordEditText=(EditText)findViewById(R.id.et_repeatpassword);
+       fab = findViewById(R.id.fab);
+       cardView = findViewById(R.id.cv_add);
+       nameEditText = findViewById(R.id.et_name);
+       emailEditText = findViewById(R.id.et_email);
+       passwordEditText = findViewById(R.id.et_password);
+       repeatPasswordEditText = findViewById(R.id.et_repeatpassword);
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
            showEnterAnimation();
        }
@@ -134,11 +135,13 @@ public class SignUpActivity2  extends AppCompatActivity{
     }
 
         public void clickRegister(View view) {
+            String nameString = nameEditText.getText().toString();
             String emailString = emailEditText.getText().toString();
             String passwordString = passwordEditText.getText().toString();
             String repeatPasswordString = repeatPasswordEditText.getText().toString();
             if(validate(emailString, passwordString, repeatPasswordString)){
                 Intent data = new Intent();
+                data.putExtra(StaticConfig.STR_EXTRA_NAME, nameString);
                 data.putExtra(StaticConfig.STR_EXTRA_USERNAME, emailString);
                 data.putExtra(StaticConfig.STR_EXTRA_PASSWORD, passwordString);
                 data.putExtra(StaticConfig.STR_EXTRA_ACTION, "register");

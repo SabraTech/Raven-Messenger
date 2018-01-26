@@ -6,7 +6,8 @@
     <string name="hint_password">Password</string>
     <string name="hint_password_2">Re-enter Password</string>
     <string name="register_button">Not a member? Get registered now! </string>
-    <string name="login_button">Login</string>
+    <string name="login">Login</string>
+    <string name="btn_login">Enter</string>
     <string name="btn_forgot_password">Forgot your Password?</string>
     <string name="lbl_forgot_password">Forgot Password?</string>
     <string name="forgot_password_msg">We need your Email address to send password reset Email.</string>
@@ -26,13 +27,14 @@
     <string name="are_you_sure">Are you sure ?</string>
     <string name="cancel">Cancel</string>
 
-    <!--Gehad-->
+
     <string name ="register_label"> REGISTER </string>
     <string name ="email_label"> Email </string>
     <string name ="password_label"> Password </string>
     <string name ="repeat_password_label"> Repeat Password </string>
     <string name ="enter_button"> Enter </string>
 
+    <string name="name_label">Name</string>
 
 
 

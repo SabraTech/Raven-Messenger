@@ -1,6 +1,7 @@
 package com.example.space.chatapp.ui.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +27,9 @@ public class SplashActivity extends AppCompatActivity {
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                     UserListingActivity.startActivity(SplashActivity.this);
                 } else {
-                    LoginActivity.startIntent(SplashActivity.this);
+//                    LoginActivity.startIntent(SplashActivity.this);
+                    startActivity(new Intent(SplashActivity.this, LoginActivity2.class));
+                    SplashActivity.this.finish();
                 }
                 finish();
             }

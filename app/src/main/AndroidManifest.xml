@@ -38,6 +38,17 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activities.ResetPasswordActivity" />
+
+        <activity
+            android:name=".ui.activities.LoginActivity2"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentBackground" />
+        <activity
+            android:name=".ui.activities.SignUpActivity2"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Translucent" />
     </application>
 
 </manifest>
