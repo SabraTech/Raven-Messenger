@@ -25,7 +25,8 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // check if user in already logged in or not
                 if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                    UserListingActivity.startActivity(SplashActivity.this);
+                    startActivity(new Intent(SplashActivity.this, TabsActivity.class));
+//                    UserListingActivity.startActivity(SplashActivity.this);
                 } else {
 //                    LoginActivity.startIntent(SplashActivity.this);
                     startActivity(new Intent(SplashActivity.this, LoginActivity2.class));

@@ -146,7 +146,7 @@ public class LoginActivity2 extends AppCompatActivity {
                         } else {
                             initNewUserInfo(task.getResult().getUser(), nameString);
                             Toast.makeText(LoginActivity2.this, "Register and Login success", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity2.this, UserListingActivity.class));
+                            startActivity(new Intent(LoginActivity2.this, TabsActivity.class));
                             LoginActivity2.this.finish();
                         }
                     }
@@ -194,7 +194,7 @@ public class LoginActivity2 extends AppCompatActivity {
                         } else {
                             saveUserInfo();
                             progressDialog.dismiss();
-                            startActivity(new Intent(LoginActivity2.this, UserListingActivity.class));
+                            startActivity(new Intent(LoginActivity2.this, TabsActivity.class));
                             LoginActivity2.this.finish();
                         }
                     }

@@ -49,6 +49,9 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Translucent" />
+
+        <activity android:name=".ui.activities.TabsActivity" />
+        <activity android:name=".ui.activities.ProfileSettingActivity" />
     </application>
 
 </manifest>
