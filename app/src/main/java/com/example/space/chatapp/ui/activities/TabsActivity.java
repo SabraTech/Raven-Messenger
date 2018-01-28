@@ -16,7 +16,7 @@ import com.example.space.chatapp.ui.adapters.TabsPageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * Created by gehad on 26/01/18.
+ * Class to handle tabs and upper pop up menu
  */
 
 public class TabsActivity extends AppCompatActivity {
@@ -40,6 +40,12 @@ public class TabsActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * handle upper pop menu
+     *
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_user_listing, menu);
@@ -50,16 +56,16 @@ public class TabsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.menu_profile) {
-            Intent profileIntent = new Intent(
-                    TabsActivity.this, ProfileSettingActivity.class);
-            startActivity(profileIntent);
+        if (item.getItemId() == R.id.menu_friends) {
+            Intent friendsIntent = new Intent(
+                    TabsActivity.this, FriendsActivity.class);
+            startActivity(friendsIntent);
 
         }
         if (item.getItemId() == R.id.menu_all_users) {
-            Intent profileIntent = new Intent(
-                    TabsActivity.this, UserListingActivity.class);
-            startActivity(profileIntent);
+            Intent allUsersIntent = new Intent(
+                    TabsActivity.this, AllUsersActivity.class);
+            startActivity(allUsersIntent);
 
         }
         if (item.getItemId() == R.id.action_logout) {

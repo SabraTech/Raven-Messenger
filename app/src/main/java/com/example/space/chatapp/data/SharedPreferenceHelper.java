@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 
 import com.example.space.chatapp.models.User;
 
+/**
+ * to keep track of user who logged in now
+ */
+
 public class SharedPreferenceHelper {
     private static SharedPreferenceHelper instance = null;
     private static SharedPreferences preferences;

@@ -10,4 +10,9 @@ public class Constants {
     public static final String ARG_FIREBASE_TOKEN = "firebaseToken";
     public static final String ARG_FRIENDS = "friends";
     public static final String ARG_UID = "uid";
+
+    public static final String USERNAME_LABEL = "Username";
+    public static final String EMAIL_LABEL = "Email";
+    public static final String SIGNOUT_LABEL = "Sign out";
+    public static final String RESETPASS_LABEL = "Change Password";
 }

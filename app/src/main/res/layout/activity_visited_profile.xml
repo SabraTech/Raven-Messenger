@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_100"
+    tools:context="com.example.space.chatapp.ui.activities.VisitedProfileActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/visited_profile_image"
+        android:layout_width="373dp"
+        android:layout_height="207dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:src="@drawable/default_avata" />
+
+    <TextView
+        android:id="@+id/visited_profile_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visited_profile_image"
+        android:layout_centerInParent="true"
+        android:text="Username"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <!-- <TextView
+         android:id="@+id/visited_profile_status"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/visited_profile_username"
+         android:text="User Status"
+         android:textColor="@android:color/background_dark"
+         android:textSize="20dp" />-->
+
+    <Button
+        android:id="@+id/send_request_btn"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="65dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="Send Friend Request"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/cancel_request_btn"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/send_request_btn"
+        android:background="@color/colorPrimaryDark"
+        android:text="Cancel Friend Request"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

@@ -5,8 +5,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.space.chatapp.ui.fragments.FriendsFragment;
+import com.example.space.chatapp.ui.fragments.GroupsFragment;
+import com.example.space.chatapp.ui.fragments.MyProfileFragment;
 import com.example.space.chatapp.ui.fragments.RequestsFragment;
+
+/**
+ * the Adapter is a bridge between the UI components and
+ * the data source that fill data into the UI Component
+ */
 
 public class TabsPageAdapter extends FragmentPagerAdapter {
     public TabsPageAdapter(FragmentManager fm) {
@@ -26,8 +32,11 @@ public class TabsPageAdapter extends FragmentPagerAdapter {
 //                return chatFragment;
 
             case 2:
-                FriendsFragment friendsFragment = new FriendsFragment();
-                return friendsFragment;
+                return new GroupsFragment();
+
+            case 3:
+                MyProfileFragment myProfileFragment = new MyProfileFragment();
+                return myProfileFragment;
 
             default:
                 return null;
@@ -38,19 +47,22 @@ public class TabsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Requests";
+                return "notif";
 
             case 1:
                 return "Chat";
 
             case 2:
-                return "Friends";
+                return "Groups";
+
+            case 3:
+                return "Profile";
 
             default:
                 return null;
