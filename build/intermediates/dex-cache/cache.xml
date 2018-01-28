@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/play-services-tasks-11.6.2.aar/e490b7a1aba061ed90deff6e9488b126/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="225f093d9a041f8206d812d3055a886a816ac365">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-common-11.6.2.aar/2571cee0eb8cb670886f29b36f3e64c3/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4d7b1a23cecd2855bdfbd8266650d140e9e6977c">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/modules-2/files-2.1/com.android.support/support-annotations/26.1.0/814258103cf26a15fcc26ecce35f5b7d24b73f8/support-annotations-26.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0814258103cf26a15fcc26ecce35f5b7d24b73f8">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-database-11.6.2.aar/c55311dbeaacb0c37caf9e63c33b349f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1eb02c1033c29e736e558db646bbf0d522fecb53">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/percent-26.1.0.aar/aad6ebed8a65c0ddf73c87b8d5a53591/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c6f28bfbd0f56ac2ab6e8c57503b610b35d116c9">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-v4-26.1.0.aar/9c6fb6e433830476c466f355a54a7c85/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/85030a29541bfd5cfdb2272bceb4a513/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/recyclerview-v7-26.1.0.aar/8bd3e074b7407de779d2afceb26d0232/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-vector-drawable-26.1.0.aar/8f43b0a9c8e0b282809f99ceb461f0f7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/animated-vector-drawable-26.1.0.aar/bafe8926e860e02967ef69cc045682e6/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/e154ff0aa8dfe564b0c833c58a9303b9/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-auth-11.6.2.aar/a4390b1ae763ae90c125d069d864185c/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="19e55bee106350a20251b6aa7bd30fa5e25c36c8">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-database-connection-11.6.2.aar/42b335e748ecfc5ed2c5b776e67df217/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b09006b74a6b6ad5d696af2d85db540f7723521e">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/play-services-base-11.6.2.aar/82306324109dfa36d622320a511d5a1a/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e9dc052d4d36b53c3a1bb2d5bf634fcac5d35037">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/b5608e895d2d212715db8cd44a87a15d/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/circleimageview-2.1.0.aar/b65c210c52acd4ea86dde3aba0b5d641/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/lovely-dialog-1.0.4.aar/2ec1f3076d96ebe302701e5ff9bc11bf/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="736afb22391a31d5fb14d282179c06c5649c46fe">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.2/constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-core-utils-26.1.0.aar/16c0b55a936271a4bc4e0c2089ccd36f/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="233f60a165ae622c8b36731502ebbda0f65e1930">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.0.2.aar/9031e0ad9bbfa6dd340382916ae139f7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/cb87a2010d3c0003da4532dbab37b5d3/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/play-services-basement-11.6.2.aar/df95230dd52c8346de53496ae5048bdc/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fd6ae8c61bd548b134265ef3c37807d4efcc854c">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/4823b84a8f6ed06991e7ed2f4bb8b78b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-fragment-26.1.0.aar/7eed265ba39a39eca33856d47c5866f3/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-11.6.2.aar/a17c4144d7f688e8756c967be8c2df7b/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="108c3cdbdb89a05d388a170bd3549b1e43ad6d54">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/modules-2/files-2.1/android.arch.core/common/1.0.0/a2d487452376193fc8c103dd2b9bd5f2b1b44563/common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-analytics-11.6.2.aar/3fe20de4c3eb83bc9f08b3d34310e4c7/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a0b869be21f2e39e9b337bec395d9a7e111da21e">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/cardview-v7-26.1.0.aar/346d12e6cc1647849f8a6f93228ead3c/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b4d6fbbb48b42dd03fd9c5a09b3b7a53266df6ed">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/common/1.0.0/e414a4cb28434e25c4f6aa71426eb20cf4874ae9/common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/41.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/bc1d5c425e82314cd72a6b482e0804ce/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/support-core-ui-26.1.0.aar/01e26ea646320ebf4a31457360551e22/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="508f50705b4fde51a16259f29c854201a3044516">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/gehad/.gradle/caches/transforms-1/files-1.1/firebase-iid-11.6.2.aar/e0ad9ac02c90174c95110a55d8520640/jars/classes.jar"
+        jumboMode="false"
+        min-sdk-version="21"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b0ae7bfe4591746f6491a4a270ee56712062d1ca">
+        <dex dex="/home/gehad/AndroidStudioProjects/Bot-Assistant-Messenger/app/build/intermediates/transforms/preDex/release/13.jar" />
+    </item>
+
+</items>

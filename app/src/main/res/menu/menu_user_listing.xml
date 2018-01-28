@@ -5,9 +5,9 @@
     tools:context="com.example.space.chatapp.ui.activities.LoginActivity">
 
     <item
-        android:id="@+id/menu_profile"
+        android:id="@+id/menu_friends"
         android:orderInCategory="100"
-        android:title="Profile"
+        android:title="Friends"
         app:showAsAction="never" />
 
     <item

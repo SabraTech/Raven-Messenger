@@ -17,7 +17,7 @@
     <color name="red_A100">#FF8A80</color>
     <color name="red_A200">#FF5252</color>
     <color name="red_A400">#FF1744</color>
-    <color name="red_A700">#D50000</color>
+    <color name="red_A700">#d50000</color>
 
     <color name="deep_purple_50">#EDE7F6</color>
     <color name="deep_purple_100">#D1C4E9</color>
@@ -155,11 +155,11 @@
     <color name="light_green_200">#C5E1A5</color>
     <color name="light_green_300">#AED581</color>
     <color name="light_green_400">#9CCC65</color>
-    <color name="light_green_500">#8BC34A</color>
+    <color name="light_green_500">#8bc34a</color>
     <color name="light_green_600">#7CB342</color>
     <color name="light_green_700">#689F38</color>
     <color name="light_green_800">#558B2F</color>
-    <color name="light_green_900">#33691E</color>
+    <color name="light_green_900">#33691e</color>
     <color name="light_green_A100">#CCFF90</color>
     <color name="light_green_A200">#B2FF59</color>
     <color name="light_green_A400">#76FF03</color>

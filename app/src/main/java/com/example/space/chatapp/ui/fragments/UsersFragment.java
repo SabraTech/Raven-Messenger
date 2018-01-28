@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.models.User;
 import com.example.space.chatapp.ui.activities.ChatActivity;
-import com.example.space.chatapp.ui.adapters.UserListingRecyclerAdapter;
+import com.example.space.chatapp.ui.adapters.UserListingRecyclerOldAdapter;
 import com.example.space.chatapp.utils.Constants;
 import com.example.space.chatapp.utils.ItemClickSupport;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +36,7 @@ public class UsersFragment extends Fragment implements ItemClickSupport.OnItemCl
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerViewAllUsers;
-    private UserListingRecyclerAdapter userListingRecyclerAdapter;
+    private UserListingRecyclerOldAdapter userListingRecyclerAdapter;
 
     public static UsersFragment newInstance(String type) {
         Bundle args = new Bundle();
@@ -103,7 +103,7 @@ public class UsersFragment extends Fragment implements ItemClickSupport.OnItemCl
                         }
                     });
 
-                    userListingRecyclerAdapter = new UserListingRecyclerAdapter(users);
+                    userListingRecyclerAdapter = new UserListingRecyclerOldAdapter(users);
                     recyclerViewAllUsers.setAdapter(userListingRecyclerAdapter);
                     userListingRecyclerAdapter.notifyDataSetChanged();
                 }

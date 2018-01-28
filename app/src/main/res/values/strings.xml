@@ -28,14 +28,16 @@
     <string name="cancel">Cancel</string>
 
 
-    <string name ="register_label"> REGISTER </string>
-    <string name ="email_label"> Email </string>
-    <string name ="password_label"> Password </string>
-    <string name ="repeat_password_label"> Repeat Password </string>
-    <string name ="enter_button"> Enter </string>
+    <string name="register_label"> REGISTER </string>
+    <string name="email_label"> Email </string>
+    <string name="password_label"> Password </string>
+    <string name="repeat_password_label"> Repeat Password </string>
+    <string name="enter_button"> Enter </string>
 
     <string name="name_label">Name</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

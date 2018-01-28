@@ -20,7 +20,7 @@
             android:background="?attr/colorPrimary"
             app:elevation="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/app_name" />
+            />
 
     </android.support.design.widget.AppBarLayout>
 
