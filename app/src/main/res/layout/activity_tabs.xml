@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.space.chatapp.ui.activities.TabsActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.TabLayout
             android:id="@+id/main_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.design.widget.TabLayout>
+            android:layout_gravity="bottom"
+            app:tabGravity="fill"
+            app:tabMode="fixed" />
     </android.support.design.widget.AppBarLayout>
 
+    <include layout="@layout/content_tabs" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/main_tabs_pager"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/appBarLayout">
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_float_button" />
 
-    </android.support.v4.view.ViewPager>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

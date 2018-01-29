@@ -169,8 +169,7 @@ public class MyProfileFragment extends Fragment {
 
         //get current user and its data to display it
         myAccount = new User();
-        userDB = FirebaseDatabase.getInstance().getReference().child("user").child("NhtUQj9Y9YNtKQkcDZKCkeiWM2c2");
-        Log.e(MyProfileFragment.class.getName(), "************ \n StaticConfig.UID:: " + StaticConfig.UID);
+        userDB = FirebaseDatabase.getInstance().getReference().child("user").child(StaticConfig.UID);
         //apply the event listener to this database
         userDB.addListenerForSingleValueEvent(userListener);
         auth = FirebaseAuth.getInstance();

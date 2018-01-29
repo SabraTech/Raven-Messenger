@@ -175,7 +175,7 @@ public class AllUsersActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     String visitUserId = userListingRecyclerAdapter.getUser(position).getUid();
                     Intent visitedProfileIntent = new Intent(AllUsersActivity.this, VisitedProfileActivity.class);
-                    //  visitedProfileIntent.putExtra("visit",visitUserId);
+                    visitedProfileIntent.putExtra("visit", visitUserId);
                     startActivity(visitedProfileIntent);
                 }
             });
