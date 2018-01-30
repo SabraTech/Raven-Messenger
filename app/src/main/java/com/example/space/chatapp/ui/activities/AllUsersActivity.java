@@ -74,7 +74,7 @@ public class AllUsersActivity extends AppCompatActivity {
     }
 
     /*
-    this function get user from database and put them on recycler view
+    this function get user from database and call adapter to put them on recycler view
      */
     private void getUsers() {
 
@@ -85,8 +85,15 @@ public class AllUsersActivity extends AppCompatActivity {
                 List<User> users = new ArrayList<>();
                 while (dataSnapshotIterator.hasNext()) {
                     DataSnapshot dataSnapshotChild = dataSnapshotIterator.next();
-                    User user = dataSnapshotChild.getValue(User.class);
+                    // User user = dataSnapshotChild.getValue(User.class);
+                    User user = new User();
+                    user.setName(dataSnapshotChild.child("name").getValue(String.class));
+                    user.setEmail(dataSnapshotChild.child("email").getValue(String.class));
+                    user.setAvatar(dataSnapshotChild.child("avatar").getValue(String.class));
+                    user.setUid(dataSnapshotChild.getKey().toString());
+                    Log.e(AllUsersActivity.class.getName(), "name:: " + user.getName());
                     Log.e(AllUsersActivity.class.getName(), "uid:: " + user.getUid());
+                    //to view other users
                     if (!TextUtils.equals(user.getUid(), FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         users.add(user);
                     }
@@ -163,9 +170,9 @@ public class AllUsersActivity extends AppCompatActivity {
         public void onBindViewHolder(ViewHolder holder, final int position) {
             User user = users.get(position);
 
-            if (user.getEmail() != null) {
-                holder.txtUsername.setText(user.getEmail());
-                //holder.txtStatus.setText();
+            if (user.getName() != null) {
+                holder.txtUsername.setText(user.getName());
+                //todo gholder.txtStatus.setText();
                 setProfileImage(holder.imageViewProfile, user.getAvatar());
             }
 

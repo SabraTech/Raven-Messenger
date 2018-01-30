@@ -56,7 +56,9 @@
             android:name=".ui.activities.AllUsersActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.activities.VisitedProfileActivity" />
+        <activity
+            android:name=".ui.activities.VisitedProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
