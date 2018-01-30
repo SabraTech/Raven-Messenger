@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.ui.adapters.TabsPageAdapter;
+import com.example.space.chatapp.ui.fragments.FriendsFragment;
 import com.example.space.chatapp.ui.fragments.GroupsFragment;
 import com.example.space.chatapp.ui.fragments.MyProfileFragment;
 import com.example.space.chatapp.ui.fragments.NotificationFragment;
-import com.example.space.chatapp.ui.fragments.RequestsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -102,7 +102,7 @@ public class TabsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager pager) {
         tabsPageAdapter = new TabsPageAdapter(getSupportFragmentManager());
-        tabsPageAdapter.addFrag(new RequestsFragment(), STR_CHAT_FRAGMENT);
+        tabsPageAdapter.addFrag(new FriendsFragment(), STR_CHAT_FRAGMENT);
         tabsPageAdapter.addFrag(new GroupsFragment(), STR_GROUP_FRAGMENT);
         tabsPageAdapter.addFrag(new NotificationFragment(), STR_NOTIF_FRAGMENT);
         tabsPageAdapter.addFrag(new MyProfileFragment(), STR_PROFILE_FRAGMENT);
@@ -120,7 +120,7 @@ public class TabsActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 // service stop
-                if (tabsPageAdapter.getItem(position) instanceof RequestsFragment) {
+                if (tabsPageAdapter.getItem(position) instanceof FriendsFragment) {
                     setActionBarTitle(STR_CHAT_FRAGMENT);
                     floatingButton.setVisibility(View.VISIBLE);
                     // floatingButton.setOnClickListener();

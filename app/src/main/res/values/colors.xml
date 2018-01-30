@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#0288D1</color>
     <color name="colorAccent">#4FA881</color>
 
+    <color name="colorCardView">#F7F7F7</color>
+
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>
     <color name="red_200">#EF9A9A</color>
