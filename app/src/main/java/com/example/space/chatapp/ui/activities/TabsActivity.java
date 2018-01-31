@@ -162,12 +162,6 @@ public class TabsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
-        if (item.getItemId() == R.id.menu_friends) {
-            Intent friendsIntent = new Intent(
-                    TabsActivity.this, FriendsActivity.class);
-            startActivity(friendsIntent);
-
-        }
         if (item.getItemId() == R.id.menu_all_users) {
             Intent allUsersIntent = new Intent(
                     TabsActivity.this, AllUsersActivity.class);
@@ -192,7 +186,7 @@ public class TabsActivity extends AppCompatActivity {
                         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                             FirebaseAuth.getInstance().signOut();
                             Toast.makeText(TabsActivity.this, "Successfully logged out!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(TabsActivity.this, LoginActivity2.class));
+                            startActivity(new Intent(TabsActivity.this, LoginActivity.class));
                         } else {
                             Toast.makeText(TabsActivity.this, "No user logged in yet!", Toast.LENGTH_SHORT).show();
                         }

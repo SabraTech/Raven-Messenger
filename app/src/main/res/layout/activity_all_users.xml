@@ -9,14 +9,14 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="552dp"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteY="51dp" />
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/all_users_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="496dp"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:scrollbars="vertical"
         tools:layout_editor_absoluteY="53dp" />

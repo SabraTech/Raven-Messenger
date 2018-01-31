@@ -37,7 +37,7 @@ public class SignUpActivity2  extends AppCompatActivity{
    @Override
     protected void onCreate(Bundle savedInstanceState){
        super.onCreate(savedInstanceState);
-       setContentView(R.layout.activity_signup2);
+       setContentView(R.layout.activity_signup);
        fab = findViewById(R.id.fab);
        cardView = findViewById(R.id.cv_add);
        nameEditText = findViewById(R.id.et_name);

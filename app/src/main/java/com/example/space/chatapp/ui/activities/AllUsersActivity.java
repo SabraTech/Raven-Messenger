@@ -139,7 +139,7 @@ public class AllUsersActivity extends AppCompatActivity {
         private void setProfileImage(ImageView profileImage, String img) {
             try {
                 if (img.equals("default")) {
-                    profileImage.setImageResource(R.drawable.default_avata);
+                    profileImage.setImageResource(R.drawable.default_avatar);
                 } else {
                     Bitmap src;
                     byte[] decodedString = Base64.decode(img, Base64.DEFAULT);
@@ -156,7 +156,7 @@ public class AllUsersActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             //set to new item layout
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_all_user2, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_all_user, parent, false);
             return new ViewHolder(view);
         }
 

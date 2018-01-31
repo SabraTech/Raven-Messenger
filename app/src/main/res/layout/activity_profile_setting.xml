@@ -27,7 +27,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
-                android:src="@drawable/default_avata" />
+                android:src="@drawable/default_avatar" />
 
             <TextView
                 android:id="@+id/profile_username"

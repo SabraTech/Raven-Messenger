@@ -8,7 +8,6 @@ public class User {
     private String avatar;
     private Status status;
     private Message message;
-    private String firebaseToken;
 
     public User() {
         status = new Status();
@@ -19,12 +18,6 @@ public class User {
         message.idSender = "0";
         message.text = "";
         message.timestamp = 0;
-    }
-
-    public User(String uid, String email, String firebaseToken) {
-        this.uid = uid;
-        this.email = email;
-        this.firebaseToken = firebaseToken;
     }
 
     public String getName() {
@@ -74,13 +67,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFirebaseToken() {
-        return firebaseToken;
-    }
-
-    public void setFirebaseToken(String firebaseToken) {
-        this.firebaseToken = firebaseToken;
     }
 }

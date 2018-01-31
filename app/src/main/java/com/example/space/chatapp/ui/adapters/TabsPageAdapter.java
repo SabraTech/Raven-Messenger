@@ -24,27 +24,7 @@ public class TabsPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         return fragmentList.get(position);
-//        switch (position) {
-//            case 0:
-//                RequestsFragment requestsFragment = new RequestsFragment();
-//                return requestsFragment;
-//
-//            case 1:
-////                ChatFragment chatFragment=new ChatFragment();
-////                return chatFragment;
-//
-//            case 2:
-//                return new GroupsFragment();
-//
-//            case 3:
-//                MyProfileFragment myProfileFragment = new MyProfileFragment();
-//                return myProfileFragment;
-//
-//            default:
-//                return null;
-
     }
 
     @Override

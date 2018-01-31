@@ -211,7 +211,7 @@ public class MyProfileFragment extends Fragment {
             Resources res = getResources();
             Bitmap src;
             if (img.equals("default")) {
-                src = BitmapFactory.decodeResource(res, R.drawable.default_avata);
+                src = BitmapFactory.decodeResource(res, R.drawable.default_avatar);
             } else {
                 byte[] decodedString = Base64.decode(img, Base64.DEFAULT);
                 src = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
@@ -330,7 +330,7 @@ public class MyProfileFragment extends Fragment {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View itemView = LayoutInflater
                     .from(parent.getContext())
-                    .inflate(R.layout.list_info_item, parent, false);
+                    .inflate(R.layout.profile_info_item, parent, false);
 
             return new ViewHolder(itemView);
         }

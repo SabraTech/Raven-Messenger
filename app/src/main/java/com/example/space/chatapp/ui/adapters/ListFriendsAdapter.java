@@ -31,9 +31,6 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by sabra on 30/01/18.
- */
 
 public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -91,7 +88,7 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                    byte[] decodedString = Base64.decode(avatar, Base64.DEFAULT);
 //                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
 //                } else {
-//                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(),R.drawable.default_avata));
+//                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(),R.drawable.default_avatar));
 //                }
 //
 //                markMap.put(id, null);
@@ -182,7 +179,7 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         if (friendList.getFriendsList().get(position).getAvatar().equals(StaticConfig.STR_DEFAULT_BASE64)) {
-            ((ItemFriendViewHolder) holder).avatar.setImageResource(R.drawable.default_avata);
+            ((ItemFriendViewHolder) holder).avatar.setImageResource(R.drawable.default_avatar);
         } else {
             byte[] decodedString = Base64.decode(friendList.getFriendsList().get(position).getAvatar(), Base64.DEFAULT);
             Bitmap src = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

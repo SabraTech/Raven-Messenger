@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_friends"
-        android:orderInCategory="100"
-        android:title="Friends"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/menu_all_users"
         android:orderInCategory="100"
         android:title="All Users"
