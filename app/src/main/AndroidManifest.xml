@@ -54,8 +54,7 @@
         <activity android:name=".ui.activities.FriendsActivity" />
         <activity
             android:name=".ui.activities.AllUsersActivity"
-            android:parentActivityName=".ui.activities.TabsActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:parentActivityName=".ui.activities.TabsActivity" />
         <activity android:name=".ui.activities.VisitedProfileActivity" />
     </application>
 

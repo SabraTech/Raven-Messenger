@@ -6,13 +6,6 @@
     tools:context="com.example.space.chatapp.ui.activities.AllUsersActivity">
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/all_users_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
@@ -25,7 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="496dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/all_users_toolbar"
         android:scrollbars="vertical"
         tools:layout_editor_absoluteY="53dp" />
 

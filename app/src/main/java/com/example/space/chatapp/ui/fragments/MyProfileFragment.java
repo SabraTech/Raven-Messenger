@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.SharedPreferenceHelper;
-import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.ProfileItem;
 import com.example.space.chatapp.models.User;
 import com.example.space.chatapp.utils.Constants;
@@ -84,7 +83,7 @@ public class MyProfileFragment extends Fragment {
             myAccount.setName(dataSnapshot.child("name").getValue(String.class));
             myAccount.setEmail(dataSnapshot.child("email").getValue(String.class));
             myAccount.setAvatar(dataSnapshot.child("avatar").getValue(String.class));
-            Log.e(MyProfileFragment.class.getName(), "************ \n my profile .name:: " + dataSnapshot.child("name").getValue(String.class));
+            Log.e(MyProfileFragment.class.getName(), "************ \n my profile .name:: " + myAccount.getName());
 
             //put these new data in array
             fillProfileItemList(myAccount);
@@ -169,19 +168,12 @@ public class MyProfileFragment extends Fragment {
 
         //get current user and its data to display it
         myAccount = new User();
-        userDB = FirebaseDatabase.getInstance().getReference().child("user").child(StaticConfig.UID);
+        String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        userDB = FirebaseDatabase.getInstance().getReference().child("user").child(currentUid);
+        Log.e(MyProfileFragment.class.getName(), "************ \n user.UID:: " + currentUid);
         //apply the event listener to this database
         userDB.addListenerForSingleValueEvent(userListener);
         auth = FirebaseAuth.getInstance();
-
-
-        //set values with this user info
-      /*  SharedPreferenceHelper prefHelper = SharedPreferenceHelper.getInstance(context);
-        myAccount = prefHelper.getUserInfo();
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        fillProfileItemList(myAccount);
-        setProfileImage(context, myAccount.getAvatar());
-        tvUserName.setText(myAccount.getName());*/
 
 
         //get recyclerView and set adapter and manager layout for it
@@ -214,6 +206,7 @@ public class MyProfileFragment extends Fragment {
     }
 
     private void setProfileImage(Context context, String img) {
+        //decode from string ->bitmap->drawable
         try {
             Resources res = getResources();
             Bitmap src;
@@ -263,11 +256,12 @@ public class MyProfileFragment extends Fragment {
                 Bitmap imgBitmap = BitmapFactory.decodeStream(inputStream);
                 //need to make image small
                 imgBitmap = ImageUtil.cropImage(imgBitmap);
+                //convert it to input stream
                 InputStream is = ImageUtil.convertBitmapToInputStream(imgBitmap);
                 final Bitmap liteImage = ImageUtil.makeImageLite(is,
                         imgBitmap.getWidth(), imgBitmap.getHeight(),
                         ImageUtil.AVATAR_WIDTH, ImageUtil.AVATAR_HEIGHT);
-
+                //encode it
                 String imageBase64 = ImageUtil.encodeBase64(liteImage);
                 myAccount.setAvatar(imageBase64);
                 SharedPreferenceHelper preferenceHelper = SharedPreferenceHelper.getInstance(context);
