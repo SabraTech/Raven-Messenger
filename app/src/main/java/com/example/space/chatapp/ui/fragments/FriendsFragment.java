@@ -17,6 +17,7 @@ import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.Friend;
 import com.example.space.chatapp.models.FriendList;
 import com.example.space.chatapp.ui.adapters.ListFriendsAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,14 +28,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- * Created by sabra on 30/01/18.
- */
-
 public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static int ACTION_START_CHAT = 1;
-    public FragFriendClickFloatButton onClickFloatButton;
     private RecyclerView recyclerView;
     private ListFriendsAdapter adapter;
     private FriendList friendList = null;
@@ -42,11 +38,12 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private SwipeRefreshLayout swipeRefreshLayout;
     private CountDownTimer detectFriendOnline;
     private LovelyProgressDialog progressDialog;
+    private String currentUid;
 //    public static final String ACTION_DELETE_FRIEND;
 //    private BroadcastReceiver deleteFriendReceiver;
 
     public FriendsFragment() {
-        onClickFloatButton = new FragFriendClickFloatButton();
+
     }
 
     @Override
@@ -56,6 +53,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         detectFriendOnline = new CountDownTimer(System.currentTimeMillis(), StaticConfig.TIME_TO_REFRESH) {
             @Override
             public void onTick(long l) {
@@ -132,15 +130,14 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void getFriendListUid() {
-        FirebaseDatabase.getInstance().getReference().child("friend").child(StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("friends").child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                    HashMap recordMap = (HashMap) dataSnapshot.getValue();
-                    Iterator keyList = recordMap.keySet().iterator();
+                    Iterator<DataSnapshot> keyList = dataSnapshot.getChildren().iterator();
                     while (keyList.hasNext()) {
-                        String key = keyList.next().toString();
-                        friendsListId.add(recordMap.get(key).toString());
+                        DataSnapshot child = keyList.next();
+                        friendsListId.add(child.getKey().toString());
                     }
                     getAllFriendInfo(0);
                 } else {
@@ -173,7 +170,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
                         user.setEmail((String) userInfoMap.get("email"));
                         user.setAvatar((String) userInfoMap.get("avatar"));
                         user.id = id;
-                        user.idRoom = id.compareTo(StaticConfig.UID) > 0 ? (StaticConfig.UID + id).hashCode() + "" : "" + (id + StaticConfig.UID).hashCode();
+                        user.idRoom = id.compareTo(currentUid) > 0 ? (currentUid + id).hashCode() + "" : "" + (id + currentUid).hashCode();
                         friendList.getFriendsList().add(user);
                         FriendDB.getInstance(getContext()).addFriend(user);
                     }
@@ -185,14 +182,6 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
                 }
             });
-        }
-    }
-
-    public class FragFriendClickFloatButton implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-            // view the All user activity to add new friends
         }
     }
 }

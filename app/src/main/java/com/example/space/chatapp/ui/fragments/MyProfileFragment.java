@@ -32,6 +32,7 @@ import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.SharedPreferenceHelper;
 import com.example.space.chatapp.models.ProfileItem;
 import com.example.space.chatapp.models.User;
+import com.example.space.chatapp.ui.activities.LoginActivity;
 import com.example.space.chatapp.utils.Constants;
 import com.example.space.chatapp.utils.ImageUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -315,6 +316,32 @@ public class MyProfileFragment extends Fragment {
 
     }
 
+    private void logout() {
+        new android.support.v7.app.AlertDialog.Builder(getContext())
+                .setTitle(R.string.logout)
+                .setMessage(R.string.are_you_sure)
+                .setPositiveButton(R.string.logout, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                            FirebaseAuth.getInstance().signOut();
+                            Toast.makeText(getActivity(), "Successfully logged out!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getActivity(), LoginActivity.class));
+                        } else {
+                            Toast.makeText(getActivity(), "No user logged in yet!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
+    }
+
     public class ProfileInfoAdapter extends RecyclerView.Adapter<ProfileInfoAdapter.ViewHolder> {
 
         private List<ProfileItem> profileItemList;
@@ -346,7 +373,7 @@ public class MyProfileFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     if (profileItem.getLabel().equals(Constants.SIGNOUT_LABEL)) {
-                        //logout
+                        logout();
                     }
 
                     if (profileItem.getLabel().equals(Constants.USERNAME_LABEL)) {

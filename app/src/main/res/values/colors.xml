@@ -223,6 +223,8 @@
     <color name="blue_A400">#2979FF</color>
     <color name="blue_A700">#2962FF</color>
 
+    <color name="fb_blue">#3B5998</color>
+
     <color name="teal_50">#E0F2F1</color>
     <color name="teal_100">#B2DFDB</color>
     <color name="teal_200">#80CBC4</color>

@@ -108,6 +108,7 @@ public class VisitedProfileActivity extends AppCompatActivity {
                 //todo String status =dataSnapshot.child("status").getValue(String.class);
                 profileName.setText(personName);
                 setProfileImage(image);
+                setActionBarTitle(personName);
 
                 /*handle send friend request button changing */
                 //1-If there is Friend request between them
@@ -185,6 +186,10 @@ public class VisitedProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(personName);
     }
 
     private void setProfileImage(String img) {

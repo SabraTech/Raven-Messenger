@@ -43,6 +43,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.VisitedProfileActivity"
+            android:parentActivityName=".ui.activities.AllUsersActivity"
             android:screenOrientation="portrait" />
     </application>
 

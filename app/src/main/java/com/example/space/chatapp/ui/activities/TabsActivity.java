@@ -50,6 +50,12 @@ public class TabsActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewpager);
         floatingButton = findViewById(R.id.fab);
+        floatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(TabsActivity.this, AllUsersActivity.class));
+            }
+        });
         initTab();
     }
 
@@ -123,7 +129,12 @@ public class TabsActivity extends AppCompatActivity {
                 if (tabsPageAdapter.getItem(position) instanceof FriendsFragment) {
                     setActionBarTitle(STR_CHAT_FRAGMENT);
                     floatingButton.setVisibility(View.VISIBLE);
-                    // floatingButton.setOnClickListener();
+                    floatingButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startActivity(new Intent(TabsActivity.this, AllUsersActivity.class));
+                        }
+                    });
                     floatingButton.setImageResource(R.drawable.plus);
                 } else if (tabsPageAdapter.getItem(position) instanceof GroupsFragment) {
                     setActionBarTitle(STR_GROUP_FRAGMENT);
@@ -162,6 +173,7 @@ public class TabsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
+
         if (item.getItemId() == R.id.menu_all_users) {
             Intent allUsersIntent = new Intent(
                     TabsActivity.this, AllUsersActivity.class);

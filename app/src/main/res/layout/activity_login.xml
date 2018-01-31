@@ -107,7 +107,7 @@
                     android:onClick="clickLogin"
                     android:stateListAnimator="@drawable/state_list_animator_z"
                     android:text="@string/btn_login"
-                    android:textColor="#d3d3d3" />
+                    android:textColor="#ffffff" />
 
             </RelativeLayout>
 
