@@ -283,4 +283,8 @@
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="while_normal">#fafafa</color>
+    <color name="while_pressed">#f1f1f1</color>
+    <color name="half_black">#808080</color>
 </resources>

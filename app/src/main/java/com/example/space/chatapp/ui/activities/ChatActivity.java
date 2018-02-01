@@ -10,8 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.SharedPreferenceHelper;
@@ -19,6 +19,8 @@ import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.Conversation;
 import com.example.space.chatapp.models.Message;
 import com.example.space.chatapp.ui.adapters.ListMessageAdapter;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
+import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -40,9 +45,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private String roomId;
     private ArrayList<CharSequence> idFriend;
     private Conversation conversation;
-    private ImageButton btnSend;
-    private EditText editTextMessage;
+    private ImageButton btnSend, btnEmoij;
+    private EmojiconEditText editTextMessage;
+    private EmojIconActions emojIconActions;
+    private View rootView;
     private LinearLayoutManager linearLayoutManager;
+    private FloatingActionsMenu btnMenu;
+    private FloatingActionButton btnCam, btnPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +63,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         String friendName = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_FRIEND);
 
         conversation = new Conversation();
+        rootView = findViewById(R.id.root_view);
         btnSend = findViewById(R.id.btn_send);
         btnSend.setOnClickListener(this);
+        btnEmoij = findViewById(R.id.btn_emoji);
+        editTextMessage = findViewById(R.id.edit_write_message);
+
+        emojIconActions = new EmojIconActions(this, rootView, editTextMessage, btnEmoij);
+        emojIconActions.ShowEmojIcon();
+
+        btnMenu = findViewById(R.id.btn_add_image);
+        btnCam = findViewById(R.id.cam);
+        btnPhoto = findViewById(R.id.photo);
+        btnMenu.setOnClickListener(this);
+        btnCam.setOnClickListener(this);
+        btnPhoto.setOnClickListener(this);
 
         // debug this if the return works
         String base64AvatarUser = SharedPreferenceHelper.getInstance(this).getUserInfo().getAvatar();
@@ -65,8 +87,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             bitmapAvataruser = null;
         }
-
-        editTextMessage = findViewById(R.id.edit_write_message);
 
         if (idFriend != null && friendName != null) {
             getSupportActionBar().setTitle(friendName);
@@ -148,6 +168,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 message.timestamp = System.currentTimeMillis();
                 FirebaseDatabase.getInstance().getReference().child("message").child(roomId).push().setValue(message);
             }
+        } else if (view.getId() == R.id.cam) {
+            Toast.makeText(ChatActivity.this, "take photo", Toast.LENGTH_SHORT).show();
+        } else if (view.getId() == R.id.photo) {
+            Toast.makeText(ChatActivity.this, "photos", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
