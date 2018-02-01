@@ -1,6 +1,7 @@
 package com.example.space.chatapp.ui.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.FriendList;
+import com.example.space.chatapp.ui.activities.ChatActivity;
 import com.example.space.chatapp.ui.fragments.FriendsFragment;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,22 +80,22 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             public void onClick(View view) {
                 ((ItemFriendViewHolder) holder).txtMessage.setTypeface(Typeface.DEFAULT);
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT);
-//                Intent intent = new Intent(context, ChatActivity.class);
-//                intent.putExtra(StaticConfig.INTENT_KEY_CHAT_FRIEND, name);
-//                ArrayList<CharSequence> idFriend = new ArrayList<>();
-//                idFriend.add(id);
-//                intent.putCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID, idFriend);
-//                intent.putExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID, idRoom);
-//                ChatActivity.bitmapAvatarFriend = new HashMap<>();
-//                if(!avatar.equals(StaticConfig.STR_DEFAULT_BASE64)){
-//                    byte[] decodedString = Base64.decode(avatar, Base64.DEFAULT);
-//                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-//                } else {
-//                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(),R.drawable.default_avatar));
-//                }
-//
-//                markMap.put(id, null);
-//                friendsFragment.startActivityForResult(intent, FriendsFragment.ACTION_START_CHAT);
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra(StaticConfig.INTENT_KEY_CHAT_FRIEND, name);
+                ArrayList<CharSequence> idFriend = new ArrayList<>();
+                idFriend.add(id);
+                intent.putCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID, idFriend);
+                intent.putExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID, idRoom);
+                ChatActivity.bitmapAvatarFriend = new HashMap<>();
+                if (!avatar.equals(StaticConfig.STR_DEFAULT_BASE64)) {
+                    byte[] decodedString = Base64.decode(avatar, Base64.DEFAULT);
+                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+                } else {
+                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
+                }
+
+                markMap.put(id, null);
+                friendsFragment.startActivityForResult(intent, FriendsFragment.ACTION_START_CHAT);
             }
         });
 
