@@ -9,11 +9,13 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.Conversation;
+import com.example.space.chatapp.models.Message;
 import com.example.space.chatapp.ui.activities.ChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
@@ -57,40 +60,91 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemMessageFriendHolder) {
-            ((ItemMessageFriendHolder) holder).txtContent.setText(conversation.getMessages().get(position).text);
-            Bitmap currentAvatar = bitmapHashMapAvatar.get(conversation.getMessages().get(position).idSender);
-            if (currentAvatar != null) {
-                ((ItemMessageFriendHolder) holder).avatar.setImageBitmap(currentAvatar);
-            } else {
-                final String id = conversation.getMessages().get(position).idSender;
-                if (referenceHashMapAvatar.get(id) == null) {
-                    referenceHashMapAvatar.put(id, FirebaseDatabase.getInstance().getReference().child("user").child(id).child("avatar"));
-                    referenceHashMapAvatar.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() != null) {
-                                String avatarString = (String) dataSnapshot.getValue();
-                                if (!avatarString.equals(StaticConfig.STR_DEFAULT_BASE64)) {
-                                    byte[] decodedString = Base64.decode(avatarString, Base64.DEFAULT);
-                                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-                                } else {
-                                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
+            if (conversation.getMessages().get(position).type == Message.TEXT) {
+                ((ItemMessageFriendHolder) holder).imageContent.setVisibility(View.INVISIBLE);
+                ((ItemMessageFriendHolder) holder).txtContent.setText(conversation.getMessages().get(position).text);
+                Bitmap currentAvatar = bitmapHashMapAvatar.get(conversation.getMessages().get(position).idSender);
+                if (currentAvatar != null) {
+                    ((ItemMessageFriendHolder) holder).avatar.setImageBitmap(currentAvatar);
+                } else {
+                    final String id = conversation.getMessages().get(position).idSender;
+                    if (referenceHashMapAvatar.get(id) == null) {
+                        referenceHashMapAvatar.put(id, FirebaseDatabase.getInstance().getReference().child("user").child(id).child("avatar"));
+                        referenceHashMapAvatar.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.getValue() != null) {
+                                    String avatarString = (String) dataSnapshot.getValue();
+                                    if (!avatarString.equals(StaticConfig.STR_DEFAULT_BASE64)) {
+                                        byte[] decodedString = Base64.decode(avatarString, Base64.DEFAULT);
+                                        ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+                                    } else {
+                                        ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
+                                    }
+                                    notifyDataSetChanged();
                                 }
-                                notifyDataSetChanged();
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
+                }
+            } else if (conversation.getMessages().get(position).type == Message.IMAGE) {
+                ((ItemMessageFriendHolder) holder).txtContent.setVisibility(View.INVISIBLE);
+                ((ItemMessageFriendHolder) holder).txtContent.setPadding(0, 0, 0, 0);
+
+                Picasso.with(context).load(conversation.getMessages().get(position).text).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent);
+
+                Bitmap currentAvatar = bitmapHashMapAvatar.get(conversation.getMessages().get(position).idSender);
+                if (currentAvatar != null) {
+                    ((ItemMessageFriendHolder) holder).avatar.setImageBitmap(currentAvatar);
+                } else {
+                    final String id = conversation.getMessages().get(position).idSender;
+                    if (referenceHashMapAvatar.get(id) == null) {
+                        referenceHashMapAvatar.put(id, FirebaseDatabase.getInstance().getReference().child("user").child(id).child("avatar"));
+                        referenceHashMapAvatar.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.getValue() != null) {
+                                    String avatarString = (String) dataSnapshot.getValue();
+                                    if (!avatarString.equals(StaticConfig.STR_DEFAULT_BASE64)) {
+                                        byte[] decodedString = Base64.decode(avatarString, Base64.DEFAULT);
+                                        ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+                                    } else {
+                                        ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
+                                    }
+                                    notifyDataSetChanged();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
             }
+
         } else if (holder instanceof ItemMessageUserHolder) {
-            ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getMessages().get(position).text);
-            if (bitmapAvatarUser != null) {
-                ((ItemMessageUserHolder) holder).avatar.setImageBitmap(bitmapAvatarUser);
+            if (conversation.getMessages().get(position).type == Message.TEXT) {
+                ((ItemMessageUserHolder) holder).imageContent.setVisibility(View.INVISIBLE);
+                ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getMessages().get(position).text);
+                if (bitmapAvatarUser != null) {
+                    ((ItemMessageUserHolder) holder).avatar.setImageBitmap(bitmapAvatarUser);
+                }
+            } else if (conversation.getMessages().get(position).type == Message.IMAGE) {
+                ((ItemMessageUserHolder) holder).txtContent.setVisibility(View.INVISIBLE);
+                ((ItemMessageUserHolder) holder).txtContent.setPadding(0, 0, 0, 0);
+
+                Picasso.with(context).load(conversation.getMessages().get(position).text).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent);
+
+                if (bitmapAvatarUser != null) {
+                    ((ItemMessageUserHolder) holder).avatar.setImageBitmap(bitmapAvatarUser);
+                }
             }
         }
 
@@ -115,10 +169,12 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 class ItemMessageUserHolder extends RecyclerView.ViewHolder {
     public TextView txtContent;
     public CircleImageView avatar;
+    public ImageView imageContent;
 
     public ItemMessageUserHolder(View view) {
         super(view);
         txtContent = view.findViewById(R.id.textContentUser);
+        imageContent = view.findViewById(R.id.imageContentUser);
         avatar = view.findViewById(R.id.image_view_user);
     }
 }
@@ -126,10 +182,12 @@ class ItemMessageUserHolder extends RecyclerView.ViewHolder {
 class ItemMessageFriendHolder extends RecyclerView.ViewHolder {
     public TextView txtContent;
     public CircleImageView avatar;
+    public ImageView imageContent;
 
     public ItemMessageFriendHolder(View view) {
         super(view);
         txtContent = view.findViewById(R.id.textContentFriend);
+        imageContent = view.findViewById(R.id.imageContentFriend);
         avatar = view.findViewById(R.id.image_view_friend);
     }
 }

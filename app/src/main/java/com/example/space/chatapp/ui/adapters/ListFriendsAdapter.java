@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.FriendList;
+import com.example.space.chatapp.models.Message;
 import com.example.space.chatapp.ui.activities.ChatActivity;
 import com.example.space.chatapp.ui.fragments.FriendsFragment;
 import com.google.firebase.database.ChildEventListener;
@@ -109,11 +110,19 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((ItemFriendViewHolder) holder).txtTime.setVisibility(View.VISIBLE);
 
             if (!friendList.getFriendsList().get(position).getMessage().text.startsWith(id)) {
-                ((ItemFriendViewHolder) holder).txtMessage.setText(friendList.getFriendsList().get(position).getMessage().text);
+                if (friendList.getFriendsList().get(position).getMessage().type == Message.IMAGE) {
+                    ((ItemFriendViewHolder) holder).txtMessage.setText("Image");
+                } else {
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(friendList.getFriendsList().get(position).getMessage().text);
+                }
                 ((ItemFriendViewHolder) holder).txtMessage.setTypeface(Typeface.DEFAULT);
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT);
             } else {
-                ((ItemFriendViewHolder) holder).txtMessage.setText(friendList.getFriendsList().get(position).getMessage().text.substring((id + "").length()));
+                if (friendList.getFriendsList().get(position).getMessage().type == Message.IMAGE) {
+                    ((ItemFriendViewHolder) holder).txtMessage.setText("Image");
+                } else {
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(friendList.getFriendsList().get(position).getMessage().text.substring((id + "").length()));
+                }
                 ((ItemFriendViewHolder) holder).txtMessage.setTypeface(Typeface.DEFAULT_BOLD);
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT_BOLD);
             }

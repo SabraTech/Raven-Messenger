@@ -30,4 +30,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000" />
 
+    <ImageView
+        android:id="@+id/imageContentFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/image_view_friend"
+        android:background="@drawable/rounded_corner2"
+        android:padding="10dp" />
+
 </RelativeLayout>

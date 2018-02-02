@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:emojicon="http://schemas.android.com/apk/res-auto"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,32 +19,16 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_send" />
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
+    <ImageButton
         android:id="@+id/btn_add_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        fab:fab_addButtonColorNormal="@color/while_normal"
-        fab:fab_addButtonColorPressed="@color/while_pressed"
-        fab:fab_addButtonPlusIconColor="@color/half_black"
-        fab:fab_size="mini">
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/cam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_icon="@drawable/cam"
-            fab:fab_size="mini" />
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_icon="@drawable/photo"
-            fab:fab_size="mini" />
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        android:background="#00000000"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_add_photo" />
 
     <ImageButton
         android:id="@+id/btn_emoji"
@@ -63,7 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_above="@id/btn_send"
-        android:layout_marginBottom="17dp"
         android:background="@color/grey_200" />
 
     <android.support.v7.widget.RecyclerView
