@@ -56,7 +56,6 @@ public class AllUsersActivity extends AppCompatActivity {
             }
         });
 
-        // swipeRefreshLayout.setOnRefreshListener(AllUsersActivity);
 
         //get recycler view and set attributes to it
         recyclerViewAllUsers = findViewById(R.id.all_users_recycler_view);
@@ -166,7 +165,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
             if (user.getName() != null) {
                 holder.txtUsername.setText(user.getName());
-                //todo gholder.txtStatus.setText();
+                //todo holder.txtStatus.setText();
                 setProfileImage(holder.imageViewProfile, user.getAvatar());
             }
 

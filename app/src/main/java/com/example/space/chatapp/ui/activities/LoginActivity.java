@@ -19,14 +19,17 @@ import com.example.space.chatapp.data.StaticConfig;
 import com.example.space.chatapp.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
@@ -43,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private LovelyProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference userReference ;
+    private String userToken, currentUserId;
 
     @Override
     protected void onStart() {
@@ -71,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, floatingButton, floatingButton.getTransitionName());
-            startActivityForResult(new Intent(this, SignUpActivity2.class), StaticConfig.REQUEST_CODE_REGISTER, options.toBundle());
+          //  startActivityForResult(new Intent(this, SignUpActivity2.class), StaticConfig.REQUEST_CODE_REGISTER, options.toBundle());
         } else {
             startActivityForResult(new Intent(this, SignUpActivity2.class), StaticConfig.REQUEST_CODE_REGISTER);
         }
@@ -113,6 +118,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void createUser(String emailString, String passwordString, final String nameString) {
+
+
         progressDialog.setIcon(R.drawable.ic_add_friend)
                 .setTitle("Registering...")
                 .setTopColor(getResources().getColor(R.color.colorPrimary))
@@ -144,6 +151,11 @@ public class LoginActivity extends AppCompatActivity {
                                     .setCancelable(false)
                                     .show();
                         } else {
+                            //set token to use it in notification
+                            currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            userToken = FirebaseInstanceId.getInstance().getToken();
+                            userReference=FirebaseDatabase.getInstance().getReference().child("user");
+                            //Gehad
                             initNewUserInfo(task.getResult().getUser(), nameString);
                             Toast.makeText(LoginActivity.this, "Register and Login success", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, TabsActivity.class));
@@ -159,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn(String emailString, String passwordString) {
+
         progressDialog.setIcon(R.drawable.ic_person_low)
                 .setTitle("Login...")
                 .setTopColor(getResources().getColor(R.color.colorPrimary))
@@ -192,10 +205,20 @@ public class LoginActivity extends AppCompatActivity {
                                     .setConfirmButtonText("Ok")
                                     .show();
                         } else {
+                            //for notification and token
+                            currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                            userToken = FirebaseInstanceId.getInstance().getToken();
+                            userReference=FirebaseDatabase.getInstance().getReference().child("user");
+                            userReference.child(currentUserId).child("token").setValue(userToken);
+                            Toast.makeText(LoginActivity.this,userToken,Toast.LENGTH_SHORT).show();
+                            //Gehad
                             saveUserInfo();
                             progressDialog.dismiss();
                             startActivity(new Intent(LoginActivity.this, TabsActivity.class));
                             LoginActivity.this.finish();
+
+
+
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -232,5 +255,7 @@ public class LoginActivity extends AppCompatActivity {
         newUser.setName(name);
         newUser.setAvatar(StaticConfig.STR_DEFAULT_BASE64);
         FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid()).setValue(newUser);
+        //for notification token
+        userReference.child(currentUserId).child("token").setValue(userToken);
     }
 }

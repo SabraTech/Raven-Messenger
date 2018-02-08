@@ -27,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class VisitedProfileActivity extends AppCompatActivity {
 
@@ -229,28 +230,28 @@ public class VisitedProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                               /* //notifications
+                                                //notifications
                                                 HashMap<String,String> notificationsData = new HashMap<>();
                                                 notificationsData.put("from",senderUid);
                                                 notificationsData.put("type ","request");
                                                 notificationsReference.child(receiverUid)
-                                                        .push()
+                                                        .push() //will be given unique random key
                                                         .setValue(notificationsData)
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 //update the UI buttons
-                                                                if(task.isSuccessful()) {*/
-                                                sendRequestBtn.setEnabled(true);
-                                                currentState = "requestSent";
-                                                sendRequestBtn.setText("Cancel Friend Request");
-                                                //hide and disable decline btn
-                                                declineRequestbtn.setVisibility(View.INVISIBLE);
-                                                declineRequestbtn.setEnabled(false);
-                                                      /*          }
+                                                                if(task.isSuccessful()) {
+                                                                    sendRequestBtn.setEnabled(true);
+                                                                    currentState = "requestSent";
+                                                                    sendRequestBtn.setText("Cancel Friend Request");
+                                                                    //hide and disable decline btn
+                                                                    declineRequestbtn.setVisibility(View.INVISIBLE);
+                                                                    declineRequestbtn.setEnabled(false);
+                                                               }
                                                             }
                                                         });
-*/
+
                                             }
                                         }
                                     });
