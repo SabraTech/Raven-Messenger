@@ -285,7 +285,7 @@ public class MyProfileFragment extends Fragment {
                                     SharedPreferenceHelper preferenceHelper = SharedPreferenceHelper.getInstance(context);
                                     preferenceHelper.saveUserInfo(myAccount);
                                     Drawable d = new BitmapDrawable(getResources(), liteImage);
-
+                                    // draw the new images
                                     profileImage.setImageDrawable(d);
 
                                     new LovelyInfoDialog(context)
@@ -438,8 +438,7 @@ public class MyProfileFragment extends Fragment {
             myAccount.setName(newName);
             SharedPreferenceHelper prefHelper = SharedPreferenceHelper.getInstance(context);
             prefHelper.saveUserInfo(myAccount);
-            //tvUserName.setText(newName);
-            //fillProfileItemList(myAccount);
+            // add the listener to upload data again
             userDB.addListenerForSingleValueEvent(userListener);
         }
 

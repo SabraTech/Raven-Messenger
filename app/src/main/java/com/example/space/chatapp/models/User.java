@@ -8,6 +8,7 @@ public class User {
     private String avatar;
     private Status status;
     private Message message;
+    private String token;
 
     public User() {
         status = new Status();
@@ -50,6 +51,14 @@ public class User {
 
     public void setMessage(Message message) {
         this.message = message;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getUid() {

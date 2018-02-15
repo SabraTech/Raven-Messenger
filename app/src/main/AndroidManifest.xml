@@ -18,6 +18,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--Service for notification service-->
+        <service android:name=".services.FBMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity
             android:name=".ui.activities.SplashActivity"
             android:label="@string/app_name"
@@ -28,7 +34,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.ResetPasswordActivity" />
+        <activity
+            android:name=".ui.activities.ResetPasswordActivity"
+            android:parentActivityName=".ui.activities.LoginActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.activities.LoginActivity"
@@ -51,12 +60,22 @@
         <activity
             android:name=".ui.activities.VisitedProfileActivity"
             android:parentActivityName=".ui.activities.AllUsersActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <!--To make clicking on notification get here-->
+            <intent-filter>
+                <action android:name="com.example.space.chatapp_TARGET_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
         <activity
             android:name=".ui.activities.ChatActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
             android:screenOrientation="portrait" />
+
+
     </application>
 
 </manifest>
