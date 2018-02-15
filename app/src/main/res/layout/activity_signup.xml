@@ -105,7 +105,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColorHint="#f0f7f4"
-                        android:theme="@style/TextLabel">
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleEnabled="true">
 
                         <EditText
                             android:id="@+id/et_password"
@@ -135,7 +136,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColorHint="#f0f7f4"
-                        android:theme="@style/TextLabel">
+                        android:theme="@style/TextLabel"
+                        app:passwordToggleEnabled="true">
 
                         <EditText
                             android:id="@+id/et_repeatpassword"
