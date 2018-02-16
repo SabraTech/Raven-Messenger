@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.edit_text_password);
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new LovelyProgressDialog(this).setCancelable(false);
+        userReference = FirebaseDatabase.getInstance().getReference().child("user");
+        userReference.keepSynced(true);
     }
 
     public void clickRegisterLayout(View view) {
@@ -153,7 +155,6 @@ public class LoginActivity extends AppCompatActivity {
                             //set token to use it in notification
                             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             userToken = FirebaseInstanceId.getInstance().getToken();
-                            userReference = FirebaseDatabase.getInstance().getReference().child("user");
                             //Gehad
                             initNewUserInfo(task.getResult().getUser(), nameString);
                             Toast.makeText(LoginActivity.this, "Register and Login success", Toast.LENGTH_SHORT).show();
@@ -207,7 +208,6 @@ public class LoginActivity extends AppCompatActivity {
                             //for notification and token
                             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             userToken = FirebaseInstanceId.getInstance().getToken();
-                            userReference = FirebaseDatabase.getInstance().getReference().child("user");
                             userReference.child(currentUserId).child("token").setValue(userToken);
                             Toast.makeText(LoginActivity.this, userToken, Toast.LENGTH_SHORT).show();
                             //Gehad

@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
@@ -36,6 +37,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Notifications notifications;
     private Context context;
     private NotificationFragment notificationFragment;
+    private DatabaseReference requestReference;
+    private DatabaseReference friendsReference;
 
     public RequestAdapter(Context context, Notifications notifications, NotificationFragment notificationFragment) {
         this.context = context;
@@ -45,6 +48,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         // maps here
 
         progressDialog = new LovelyProgressDialog(context);
+        friendsReference = FirebaseDatabase.getInstance().getReference().child("friends");
+        friendsReference.keepSynced(true);
+        requestReference = FirebaseDatabase.getInstance().getReference().child("friend_request");
+        requestReference.keepSynced(true);
     }
 
 
@@ -82,24 +89,24 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 Calendar friendsDate = Calendar.getInstance();
                 final SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
                 final String saveCurrentDate = currentDate.format(friendsDate.getTime());
-                FirebaseDatabase.getInstance().getReference().child("friends").child(currentUid).child(receiverUid)
+                friendsReference.child(currentUid).child(receiverUid)
                         .setValue(saveCurrentDate)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                FirebaseDatabase.getInstance().getReference().child("friends").child(receiverUid).child(currentUid)
+                                friendsReference.child(receiverUid).child(currentUid)
                                         .setValue(saveCurrentDate)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                FirebaseDatabase.getInstance().getReference().child("friend_request")
+                                                requestReference
                                                         .child(currentUid).child(receiverUid)
                                                         .removeValue()
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                 if (task.isSuccessful()) {
-                                                                    FirebaseDatabase.getInstance().getReference().child("friend_request")
+                                                                    requestReference
                                                                             .child(receiverUid).child(currentUid)
                                                                             .removeValue()
                                                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -131,14 +138,14 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             public void onClick(View view) {
                 final String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final String receiverUid = notifications.getRequests().get(position).getUid();
-                FirebaseDatabase.getInstance().getReference().child("friend_request")
+                requestReference
                         .child(currentUid).child(receiverUid)
                         .removeValue()
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    FirebaseDatabase.getInstance().getReference().child("friend_request")
+                                    requestReference
                                             .child(receiverUid).child(currentUid)
                                             .removeValue()
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.android.support:percent:26.1.0'
     implementation 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
     implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.squareup.okhttp:okhttp:2.5.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

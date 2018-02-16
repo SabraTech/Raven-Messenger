@@ -63,6 +63,7 @@ public class MyProfileFragment extends Fragment {
     private LovelyProgressDialog waitingDialog;
 
     private DatabaseReference userDB;
+    private DatabaseReference usersReference;
     private FirebaseAuth auth;
     private User myAccount;
     private Context context;
@@ -148,6 +149,9 @@ public class MyProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        usersReference = FirebaseDatabase.getInstance().getReference().child("user");
+        usersReference.keepSynced(true);
     }
 
     @Nullable
@@ -170,7 +174,7 @@ public class MyProfileFragment extends Fragment {
         //get current user and its data to display it
         myAccount = new User();
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        userDB = FirebaseDatabase.getInstance().getReference().child("user").child(currentUid);
+        userDB = usersReference.child(currentUid);
         Log.e(MyProfileFragment.class.getName(), "************ \n user.UID:: " + currentUid);
         //apply the event listener to this database
         userDB.addListenerForSingleValueEvent(userListener);

@@ -20,7 +20,6 @@ import com.example.space.chatapp.ui.fragments.GroupsFragment;
 import com.example.space.chatapp.ui.fragments.MyProfileFragment;
 import com.example.space.chatapp.ui.fragments.NotificationFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /**
  * Class to handle tabs and upper pop up menu
@@ -37,11 +36,6 @@ public class TabsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private TabsPageAdapter tabsPageAdapter;
     private FloatingActionButton floatingButton;
-    private TabsPageAdapter adapter;
-
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -20,6 +20,7 @@ import com.example.space.chatapp.ui.adapters.RequestAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
@@ -39,6 +40,8 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     private LovelyProgressDialog progressDialog;
     private String currentUid;
     private BroadcastReceiver requestRemoved;
+    private DatabaseReference requestReference;
+    private DatabaseReference usersRefererence;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -48,6 +51,12 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestReference = FirebaseDatabase.getInstance().getReference().child("friend_request");
+        requestReference.keepSynced(true);
+
+        usersRefererence = FirebaseDatabase.getInstance().getReference().child("user");
+        usersRefererence.keepSynced(true);
     }
 
     @Override
@@ -111,7 +120,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     }
 
     private void getNotifications() {
-        FirebaseDatabase.getInstance().getReference().child("friend_request").child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
+        requestReference.child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
@@ -143,7 +152,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
             swipeRefreshLayout.setRefreshing(false);
         } else {
             final String id = requestUsersId.get(index);
-            FirebaseDatabase.getInstance().getReference().child("user").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            usersRefererence.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {

@@ -25,6 +25,7 @@ import com.example.space.chatapp.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -37,6 +38,7 @@ public class AllUsersActivity extends AppCompatActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerViewAllUsers;
     private UserListingRecyclerAdapter userListingRecyclerAdapter;
+    private DatabaseReference databaseReference;
 
 
     @Override
@@ -63,6 +65,10 @@ public class AllUsersActivity extends AppCompatActivity {
         recyclerViewAllUsers.setHasFixedSize(true);
         recyclerViewAllUsers.setLayoutManager(new LinearLayoutManager(this));
 
+        // for enable offline read of the database
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("user");
+        databaseReference.keepSynced(true);
+
         getUsers();
 
     }
@@ -72,7 +78,7 @@ public class AllUsersActivity extends AppCompatActivity {
      */
     private void getUsers() {
 
-        FirebaseDatabase.getInstance().getReference().child("user").addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataSnapshotIterator = dataSnapshot.getChildren().iterator();

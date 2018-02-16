@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -36,6 +38,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private HashMap<String, Bitmap> bitmapHashMapAvatar;
     private HashMap<String, DatabaseReference> referenceHashMapAvatar;
     private Bitmap bitmapAvatarUser;
+    private DatabaseReference usersReference;
 
     public ListMessageAdapter(Context context, Conversation conversation, HashMap<String, Bitmap> bitmapHashMapAvatar, Bitmap bitmapAvatarUser) {
         this.context = context;
@@ -43,6 +46,8 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.bitmapHashMapAvatar = bitmapHashMapAvatar;
         this.bitmapAvatarUser = bitmapAvatarUser;
         referenceHashMapAvatar = new HashMap<>();
+        usersReference = FirebaseDatabase.getInstance().getReference().child("user");
+        usersReference.keepSynced(true);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ItemMessageFriendHolder) {
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageFriendHolder) holder).imageContent.setVisibility(View.INVISIBLE);
@@ -69,7 +74,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     final String id = conversation.getMessages().get(position).idSender;
                     if (referenceHashMapAvatar.get(id) == null) {
-                        referenceHashMapAvatar.put(id, FirebaseDatabase.getInstance().getReference().child("user").child(id).child("avatar"));
+                        referenceHashMapAvatar.put(id, usersReference.child(id).child("avatar"));
                         referenceHashMapAvatar.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -96,7 +101,17 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((ItemMessageFriendHolder) holder).txtContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageFriendHolder) holder).txtContent.setPadding(0, 0, 0, 0);
 
-                Picasso.with(context).load(conversation.getMessages().get(position).text).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent);
+                Picasso.with(context).load(conversation.getMessages().get(position).text).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        Picasso.with(context).load(conversation.getMessages().get(position).text).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent);
+                    }
+                });
 
                 Bitmap currentAvatar = bitmapHashMapAvatar.get(conversation.getMessages().get(position).idSender);
                 if (currentAvatar != null) {
@@ -104,7 +119,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 } else {
                     final String id = conversation.getMessages().get(position).idSender;
                     if (referenceHashMapAvatar.get(id) == null) {
-                        referenceHashMapAvatar.put(id, FirebaseDatabase.getInstance().getReference().child("user").child(id).child("avatar"));
+                        referenceHashMapAvatar.put(id, usersReference.child(id).child("avatar"));
                         referenceHashMapAvatar.get(id).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -140,7 +155,17 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((ItemMessageUserHolder) holder).txtContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageUserHolder) holder).txtContent.setPadding(0, 0, 0, 0);
 
-                Picasso.with(context).load(conversation.getMessages().get(position).text).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent);
+                Picasso.with(context).load(conversation.getMessages().get(position).text).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent, new Callback() {
+                    @Override
+                    public void onSuccess() {
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        Picasso.with(context).load(conversation.getMessages().get(position).text).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent);
+                    }
+                });
 
                 if (bitmapAvatarUser != null) {
                     ((ItemMessageUserHolder) holder).avatar.setImageBitmap(bitmapAvatarUser);

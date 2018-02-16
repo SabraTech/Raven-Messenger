@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
@@ -62,6 +63,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private EmojIconActions emojIconActions;
     private View rootView;
     private LinearLayoutManager linearLayoutManager;
+    private DatabaseReference messageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         btnImage = findViewById(R.id.btn_add_image);
         btnImage.setOnClickListener(this);
 
+        messageReference = FirebaseDatabase.getInstance().getReference().child("message");
+        messageReference.keepSynced(true);
+
         // debug this if the return works
         String base64AvatarUser = SharedPreferenceHelper.getInstance(this).getUserInfo().getAvatar();
         if (!base64AvatarUser.equals(StaticConfig.STR_DEFAULT_BASE64)) {
@@ -100,7 +105,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             recyclerChat = findViewById(R.id.recycler_chat);
             recyclerChat.setLayoutManager(linearLayoutManager);
             adapter = new ListMessageAdapter(this, conversation, bitmapAvatarFriend, bitmapAvataruser);
-            FirebaseDatabase.getInstance().getReference().child("message").child(roomId).addChildEventListener(new ChildEventListener() {
+            messageReference.child(roomId).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     if (dataSnapshot.getValue() != null) {
@@ -174,7 +179,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 message.idSender = currentUid;
                 message.idReceiver = roomId;
                 message.timestamp = System.currentTimeMillis();
-                FirebaseDatabase.getInstance().getReference().child("message").child(roomId).push().setValue(message);
+                messageReference.child(roomId).push().setValue(message);
             }
         } else if (view.getId() == R.id.btn_add_image) {
             final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
@@ -228,7 +233,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         message.idReceiver = roomId;
                         message.timestamp = System.currentTimeMillis();
-                        FirebaseDatabase.getInstance().getReference().child("message").child(roomId).push().setValue(message);
+                        messageReference.child(roomId).push().setValue(message);
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
@@ -258,7 +263,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         message.idReceiver = roomId;
                         message.timestamp = System.currentTimeMillis();
-                        FirebaseDatabase.getInstance().getReference().child("message").child(roomId).push().setValue(message);
+                        messageReference.child(roomId).push().setValue(message);
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();

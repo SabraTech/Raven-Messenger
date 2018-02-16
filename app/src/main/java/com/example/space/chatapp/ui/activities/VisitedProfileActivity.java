@@ -57,6 +57,7 @@ public class VisitedProfileActivity extends AppCompatActivity {
         //get visited user id
         receiverUid = getIntent().getExtras().get("visit").toString();
         userReference = FirebaseDatabase.getInstance().getReference().child("user").child(receiverUid);
+        userReference.keepSynced(true);
 
         //get current user id
         senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -70,7 +71,9 @@ public class VisitedProfileActivity extends AppCompatActivity {
 
         //get friend request and friends node from firebase
         friendRequestReference = FirebaseDatabase.getInstance().getReference().child("friend_request");
+        friendRequestReference.keepSynced(true);
         friendsReference = FirebaseDatabase.getInstance().getReference().child("friends");
+        friendsReference.keepSynced(true);
         notificationsReference = FirebaseDatabase.getInstance().getReference().child("notifications");
         notificationsReference.keepSynced(true);
 

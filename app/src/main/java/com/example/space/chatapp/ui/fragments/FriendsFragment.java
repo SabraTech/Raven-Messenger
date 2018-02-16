@@ -20,6 +20,7 @@ import com.example.space.chatapp.ui.adapters.ListFriendsAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
@@ -39,6 +40,8 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     private CountDownTimer detectFriendOnline;
     private LovelyProgressDialog progressDialog;
     private String currentUid;
+    private DatabaseReference friendsReference;
+    private DatabaseReference usersReference;
 //    public static final String ACTION_DELETE_FRIEND;
 //    private BroadcastReceiver deleteFriendReceiver;
 
@@ -49,6 +52,10 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        friendsReference = FirebaseDatabase.getInstance().getReference().child("friends");
+        friendsReference.keepSynced(true);
+        usersReference = FirebaseDatabase.getInstance().getReference().child("user");
+        usersReference.keepSynced(true);
     }
 
     @Override
@@ -130,7 +137,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
     }
 
     private void getFriendListUid() {
-        FirebaseDatabase.getInstance().getReference().child("friends").child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
+        friendsReference.child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
@@ -160,7 +167,7 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
             detectFriendOnline.start();
         } else {
             final String id = friendsListId.get(index);
-            FirebaseDatabase.getInstance().getReference().child("user").child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            usersReference.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
