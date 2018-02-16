@@ -237,6 +237,8 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo.setName((String) hashUser.get("name"));
                 userInfo.setEmail((String) hashUser.get("email"));
                 userInfo.setAvatar((String) hashUser.get("avatar"));
+                //status
+                userInfo.setBioText((String) hashUser.get("bio"));
                 SharedPreferenceHelper.getInstance(LoginActivity.this).saveUserInfo(userInfo);
             }
 
@@ -251,6 +253,8 @@ public class LoginActivity extends AppCompatActivity {
         User newUser = new User();
         newUser.setEmail(user.getEmail());
         newUser.setName(name);
+        //status but not working
+        newUser.setBioText("I'm here !!");
         newUser.setAvatar(StaticConfig.STR_DEFAULT_BASE64);
         FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid()).setValue(newUser);
         //for notification token

@@ -36,11 +36,13 @@ public class FBMessagingService extends FirebaseMessagingService {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(notificationTitle)
                         .setContentText(notificationBody)
-                        .setSound(notificationSound);
+                        .setSound(notificationSound)
+                        .setOngoing(true);//to open app when it is closed but not working
 
         //go to visited profile on click
         //it knows to go to visited profile activity from manifest
         Intent resultIntent = new Intent(clickAction);
+        //and this need user id
         resultIntent.putExtra("visit", fromSenderId);
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(
@@ -50,6 +52,8 @@ public class FBMessagingService extends FirebaseMessagingService {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
+        //to close notification when click on it
+        mBuilder.setAutoCancel(true);
 
 
         // Sets an unique ID for the notification

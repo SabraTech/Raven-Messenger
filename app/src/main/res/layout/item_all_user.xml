@@ -36,7 +36,7 @@
                 android:id="@+id/all_users_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User status"
+                android:text="I'm here !!"
                 android:textSize="15sp" />
 
         </LinearLayout>

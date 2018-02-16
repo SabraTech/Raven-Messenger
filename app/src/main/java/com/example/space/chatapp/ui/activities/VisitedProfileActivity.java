@@ -109,7 +109,10 @@ public class VisitedProfileActivity extends AppCompatActivity {
                 //get name and image and put them
                 personName = dataSnapshot.child("name").getValue(String.class);
                 String image = dataSnapshot.child("avatar").getValue(String.class);
-                //todo String status =dataSnapshot.child("status").getValue(String.class);
+                //status
+                String bio = dataSnapshot.child("bio").getValue(String.class);
+
+                profileStatus.setText(bio);
                 profileName.setText(personName);
                 setProfileImage(image);
                 setActionBarTitle(personName);

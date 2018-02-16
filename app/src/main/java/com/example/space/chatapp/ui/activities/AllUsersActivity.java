@@ -90,6 +90,8 @@ public class AllUsersActivity extends AppCompatActivity {
                     user.setName(dataSnapshotChild.child("name").getValue(String.class));
                     user.setEmail(dataSnapshotChild.child("email").getValue(String.class));
                     user.setAvatar(dataSnapshotChild.child("avatar").getValue(String.class));
+                    //for status
+                    user.setBioText(dataSnapshotChild.child("bio").getValue(String.class));
                     user.setUid(dataSnapshotChild.getKey().toString());
                     Log.e(AllUsersActivity.class.getName(), "name:: " + user.getName());
                     Log.e(AllUsersActivity.class.getName(), "uid:: " + user.getUid());
@@ -172,8 +174,12 @@ public class AllUsersActivity extends AppCompatActivity {
 
             if (user.getName() != null) {
                 holder.txtUsername.setText(user.getName());
-                //todo gholder.txtStatus.setText();
+
                 setProfileImage(holder.imageViewProfile, user.getAvatar());
+            }
+            //for status
+            if (user.getBioText() != null) {
+                holder.txtStatus.setText(user.getBioText());
             }
 
             //when click on this item -> go to his profile
@@ -208,7 +214,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
             ViewHolder(View itemView) {
                 super(itemView);
-                // txtStatus = itemView.findViewById(R.id.all_users_status);
+                txtStatus = itemView.findViewById(R.id.all_users_status);
                 txtUsername = itemView.findViewById(R.id.all_users_username);
                 imageViewProfile = itemView.findViewById(R.id.all_users_profile_image);
                 holderView = itemView.findViewById(R.id.one_item);

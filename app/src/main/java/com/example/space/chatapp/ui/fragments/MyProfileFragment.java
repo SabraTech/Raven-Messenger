@@ -85,6 +85,7 @@ public class MyProfileFragment extends Fragment {
             myAccount.setName(dataSnapshot.child("name").getValue(String.class));
             myAccount.setEmail(dataSnapshot.child("email").getValue(String.class));
             myAccount.setAvatar(dataSnapshot.child("avatar").getValue(String.class));
+            myAccount.setBioText(dataSnapshot.child("bio").getValue(String.class));
             Log.e(MyProfileFragment.class.getName(), "************ \n my profile .name:: " + myAccount.getName());
 
             //put these new data in array
@@ -199,6 +200,10 @@ public class MyProfileFragment extends Fragment {
         profileItemList.clear();
         ProfileItem userNameItem = new ProfileItem(Constants.USERNAME_LABEL, myAccount.getName(), R.mipmap.ic_account_box);
         profileItemList.add(userNameItem);
+
+        //add status
+        ProfileItem bioItem = new ProfileItem(Constants.BIO_LABEL, myAccount.getBioText(), R.mipmap.ic_account_box);
+        profileItemList.add(bioItem);
 
         ProfileItem emailItem = new ProfileItem(Constants.EMAIL_LABEL, myAccount.getEmail(), R.mipmap.ic_email);
         profileItemList.add(emailItem);
@@ -376,6 +381,8 @@ public class MyProfileFragment extends Fragment {
             ((RelativeLayout) holder.label.getParent()).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    //add action for each item
                     if (profileItem.getLabel().equals(Constants.SIGNOUT_LABEL)) {
                         logout();
                     }
@@ -407,6 +414,33 @@ public class MyProfileFragment extends Fragment {
                                     }
                                 }).show();
                     }
+                    //status
+                    if (profileItem.getLabel().equals(Constants.BIO_LABEL)) {
+                        //make view from edit user dialog
+                        View viewInflater = LayoutInflater.from(context)
+                                .inflate(R.layout.dialog_edit_userbio, (ViewGroup) getView(), false);
+                        final EditText input = viewInflater.findViewById(R.id.edit_user_bio);
+                        input.setText(myAccount.getName());
+                        //pop edit username dialog
+                        new AlertDialog.Builder(context)
+                                .setTitle("Edit Status")
+                                .setView(viewInflater)
+                                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        String newBio = input.getText().toString();
+                                        changeUserBio(newBio);
+                                        dialogInterface.dismiss();
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                }).show();
+                    }
+
 
                     if (profileItem.getLabel().equals(Constants.RESETPASS_LABEL)) {
                         new AlertDialog.Builder(context)
@@ -445,6 +479,18 @@ public class MyProfileFragment extends Fragment {
             // add the listener to upload data again
             userDB.addListenerForSingleValueEvent(userListener);
         }
+
+        private void changeUserBio(String newBio) {
+            userDB.child("bio").setValue(newBio);
+            myAccount.setName(newBio);
+            SharedPreferenceHelper prefHelper = SharedPreferenceHelper.getInstance(context);
+            prefHelper.saveUserInfo(myAccount);
+            // add the listener to upload data again
+            userDB.addListenerForSingleValueEvent(userListener);
+        }
+
+
+
 
         private void resetPassword(String userEmail) {
 

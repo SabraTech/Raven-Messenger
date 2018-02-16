@@ -9,6 +9,8 @@ public class User {
     private Status status;
     private Message message;
     private String token;
+    //status
+    private String bioText = "I'm here !!";
 
     public User() {
         status = new Status();
@@ -76,5 +78,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBioText() {
+        return bioText;
+    }
+
+    public void setBioText(String bioText) {
+        this.bioText = bioText;
     }
 }
