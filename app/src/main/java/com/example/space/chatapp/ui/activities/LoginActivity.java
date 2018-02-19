@@ -77,9 +77,9 @@ public class LoginActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, floatingButton, floatingButton.getTransitionName());
-            startActivityForResult(new Intent(this, SignUpActivity2.class), StaticConfig.REQUEST_CODE_REGISTER, options.toBundle());
+            startActivityForResult(new Intent(this, SignUpActivity.class), StaticConfig.REQUEST_CODE_REGISTER, options.toBundle());
         } else {
-            startActivityForResult(new Intent(this, SignUpActivity2.class), StaticConfig.REQUEST_CODE_REGISTER);
+            startActivityForResult(new Intent(this, SignUpActivity.class), StaticConfig.REQUEST_CODE_REGISTER);
         }
     }
 
@@ -114,6 +114,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validate(String emailString, String passwordString) {
         Matcher matcher = VALID_EMAIL_ADDRESS.matcher(emailString);
+        if (!(passwordString.length() > 0 || passwordString.equals(";"))) {
+            password.setError("Empty Password");
+        }
+
+        if (!matcher.find()) {
+            email.setError("Invalid Email");
+        }
         // try to add regex for the password as well
         return (passwordString.length() > 0 || passwordString.equals(";")) && matcher.find();
     }
@@ -152,11 +159,9 @@ public class LoginActivity extends AppCompatActivity {
                                     .setCancelable(false)
                                     .show();
                         } else {
-                            //set token to use it in notification
                             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             userToken = FirebaseInstanceId.getInstance().getToken();
-                            //Gehad
-                            initNewUserInfo(task.getResult().getUser(), nameString);
+                            initNewUserInfo(task.getResult().getUser(), nameString, userToken);
                             Toast.makeText(LoginActivity.this, "Register and Login success", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, TabsActivity.class));
                             LoginActivity.this.finish();
@@ -205,12 +210,10 @@ public class LoginActivity extends AppCompatActivity {
                                     .setConfirmButtonText("Ok")
                                     .show();
                         } else {
-                            //for notification and token
                             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             userToken = FirebaseInstanceId.getInstance().getToken();
                             userReference.child(currentUserId).child("token").setValue(userToken);
                             Toast.makeText(LoginActivity.this, userToken, Toast.LENGTH_SHORT).show();
-                            //Gehad
                             saveUserInfo();
                             progressDialog.dismiss();
                             startActivity(new Intent(LoginActivity.this, TabsActivity.class));
@@ -228,7 +231,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void saveUserInfo() {
-        FirebaseDatabase.getInstance().getReference().child("user/" + StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener() {
+        userReference.child(StaticConfig.UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 progressDialog.dismiss();
@@ -237,8 +240,8 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo.setName((String) hashUser.get("name"));
                 userInfo.setEmail((String) hashUser.get("email"));
                 userInfo.setAvatar((String) hashUser.get("avatar"));
-                //status
                 userInfo.setBioText((String) hashUser.get("bio"));
+                userInfo.setToken((String) hashUser.get("token"));
                 SharedPreferenceHelper.getInstance(LoginActivity.this).saveUserInfo(userInfo);
             }
 
@@ -249,15 +252,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void initNewUserInfo(FirebaseUser user, String name) {
+    private void initNewUserInfo(FirebaseUser user, String name, String token) {
         User newUser = new User();
         newUser.setEmail(user.getEmail());
         newUser.setName(name);
-        //status but not working
         newUser.setBioText("I'm here !!");
+        newUser.setToken(token);
         newUser.setAvatar(StaticConfig.STR_DEFAULT_BASE64);
-        FirebaseDatabase.getInstance().getReference().child("user").child(user.getUid()).setValue(newUser);
-        //for notification token
-        userReference.child(currentUserId).child("token").setValue(userToken);
+        userReference.child(user.getUid()).setValue(newUser);
     }
 }

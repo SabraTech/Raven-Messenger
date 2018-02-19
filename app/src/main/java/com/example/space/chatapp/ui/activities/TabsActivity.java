@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.ui.adapters.TabsPageAdapter;
 import com.example.space.chatapp.ui.fragments.FriendsFragment;
-import com.example.space.chatapp.ui.fragments.GroupsFragment;
 import com.example.space.chatapp.ui.fragments.MyProfileFragment;
 import com.example.space.chatapp.ui.fragments.NotificationFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,7 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class TabsActivity extends AppCompatActivity {
 
-    public static String STR_CHAT_FRAGMENT = "CHAT";
+    public static String STR_CHAT_FRAGMENT = "CHATS";
     public static String STR_GROUP_FRAGMENT = "GROUPS";
     public static String STR_NOTIF_FRAGMENT = "NOTIFICATION";
     public static String STR_PROFILE_FRAGMENT = "PROFILE";
@@ -56,21 +55,15 @@ public class TabsActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-//        mAuth.addAuthStateListener(mAuthListener);
-        // serviceUtilis friend chat
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-//        if(mAuthListener != null){
-//            mAuth.removeAuthStateListener(mAuthListener);
-//        }
     }
 
     @Override
     protected void onDestroy() {
-        // service start here
         super.onDestroy();
     }
 
@@ -89,7 +82,7 @@ public class TabsActivity extends AppCompatActivity {
     private void setupTabIcons() {
         int[] tabIcons = {
                 R.drawable.ic_tab_person,
-                R.drawable.ic_tab_group,
+                // R.drawable.ic_tab_group,
                 R.drawable.ic_tab_notif,
                 R.drawable.ic_tab_infor
         };
@@ -97,20 +90,20 @@ public class TabsActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        // tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
     private void setupViewPager(ViewPager pager) {
         tabsPageAdapter = new TabsPageAdapter(getSupportFragmentManager());
         tabsPageAdapter.addFrag(new FriendsFragment(), STR_CHAT_FRAGMENT);
-        tabsPageAdapter.addFrag(new GroupsFragment(), STR_GROUP_FRAGMENT);
+        // tabsPageAdapter.addFrag(new GroupsFragment(), STR_GROUP_FRAGMENT);
         tabsPageAdapter.addFrag(new NotificationFragment(), STR_NOTIF_FRAGMENT);
         tabsPageAdapter.addFrag(new MyProfileFragment(), STR_PROFILE_FRAGMENT);
 
         // set the onClick for the floating button with the friendsFragment one
 
         pager.setAdapter(tabsPageAdapter);
-        pager.setOffscreenPageLimit(4);
+        pager.setOffscreenPageLimit(3);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -119,7 +112,6 @@ public class TabsActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // service stop
                 if (tabsPageAdapter.getItem(position) instanceof FriendsFragment) {
                     setActionBarTitle(STR_CHAT_FRAGMENT);
                     floatingButton.setVisibility(View.VISIBLE);
@@ -130,11 +122,12 @@ public class TabsActivity extends AppCompatActivity {
                         }
                     });
                     floatingButton.setImageResource(R.drawable.plus);
-                } else if (tabsPageAdapter.getItem(position) instanceof GroupsFragment) {
-                    setActionBarTitle(STR_GROUP_FRAGMENT);
-                    floatingButton.setVisibility(View.VISIBLE);
-                    // onClick
-                    floatingButton.setImageResource(R.drawable.ic_float_add_group);
+//                } else if (tabsPageAdapter.getItem(position) instanceof GroupsFragment) {
+//                    setActionBarTitle(STR_GROUP_FRAGMENT);
+//                    floatingButton.setVisibility(View.VISIBLE);
+//                    // onClick
+//                    floatingButton.setImageResource(R.drawable.ic_float_add_group);
+//                }
                 } else if (tabsPageAdapter.getItem(position) instanceof NotificationFragment) {
                     setActionBarTitle(STR_NOTIF_FRAGMENT);
                     floatingButton.setVisibility(View.GONE);

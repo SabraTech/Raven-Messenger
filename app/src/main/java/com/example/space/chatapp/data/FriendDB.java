@@ -10,10 +10,6 @@ import android.provider.BaseColumns;
 import com.example.space.chatapp.models.Friend;
 import com.example.space.chatapp.models.FriendList;
 
-/**
- * Created by sabra on 30/01/18.
- */
-
 public class FriendDB {
 
     private static final String TEXT_TYPE = " TEXT";

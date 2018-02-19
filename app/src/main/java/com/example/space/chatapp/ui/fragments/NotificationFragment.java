@@ -66,13 +66,6 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         if (notifications == null && requestUsersId == null) {
             requestUsersId = new ArrayList<>();
             notifications = new Notifications();
-           /* progressDialog=new LovelyProgressDialog(getActivity());
-            progressDialog.setCancelable(false)
-                    .setIcon(getResources().getDrawable(R.drawable.ic_tab_notif))
-                    .setTitle("Get all friends requests...")
-                    .setTopColorRes(R.color.colorPrimary)
-                    .show();
-            getNotifications();*/
             getNotifications();
         }
 

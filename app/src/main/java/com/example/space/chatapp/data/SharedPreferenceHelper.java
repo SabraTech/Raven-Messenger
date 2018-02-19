@@ -19,6 +19,8 @@ public class SharedPreferenceHelper {
     private static String SHARE_KEY_EMAIL = "email";
     private static String SHARE_KEY_AVATAR = "avatar";
     private static String SHARE_KEY_UID = "uid";
+    private static String SHARE_KEY_TOKEN = "token";
+    private static String SHARE_KEY_BIO = "bio";
 
 
     private SharedPreferenceHelper() {
@@ -38,6 +40,8 @@ public class SharedPreferenceHelper {
         editor.putString(SHARE_KEY_EMAIL, user.getEmail());
         editor.putString(SHARE_KEY_AVATAR, user.getAvatar());
         editor.putString(SHARE_KEY_UID, StaticConfig.UID);
+        editor.putString(SHARE_KEY_TOKEN, user.getToken());
+        editor.putString(SHARE_KEY_BIO, user.getBioText());
         editor.apply();
     }
 

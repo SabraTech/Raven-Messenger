@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class SplashActivity extends AppCompatActivity {
-    private static final int SPLASH_TIME_MS = 1000;
+    private static final int SPLASH_TIME_MS = 500;
     private Handler mHandler;
     private Runnable mRunnable;
     private FirebaseUser user;
@@ -31,9 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                 if (user != null) {
                     StaticConfig.UID = user.getUid();
                     startActivity(new Intent(SplashActivity.this, TabsActivity.class));
-//                    UserListingActivity.startActivity(SplashActivity.this);
                 } else {
-//                    LoginActivity.startIntent(SplashActivity.this);
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     SplashActivity.this.finish();
                 }

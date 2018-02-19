@@ -19,6 +19,7 @@ public class User {
         status.isOnline = false;
         status.timestamp = 0;
         message.idReceiverRoom = "0";
+        message.idReceiver = "0";
         message.idSender = "0";
         message.text = "";
         message.timestamp = 0;

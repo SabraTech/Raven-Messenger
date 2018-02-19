@@ -6,10 +6,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-/**
- * Created by sabra on 16/02/18.
- */
-
 public class Cache extends Application {
 
     @Override

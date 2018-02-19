@@ -46,7 +46,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentBackground" />
         <activity
-            android:name=".ui.activities.SignUpActivity2"
+            android:name=".ui.activities.SignUpActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Translucent" />

@@ -420,7 +420,7 @@ public class MyProfileFragment extends Fragment {
                         View viewInflater = LayoutInflater.from(context)
                                 .inflate(R.layout.dialog_edit_userbio, (ViewGroup) getView(), false);
                         final EditText input = viewInflater.findViewById(R.id.edit_user_bio);
-                        input.setText(myAccount.getName());
+                        input.setText(myAccount.getBioText());
                         //pop edit username dialog
                         new AlertDialog.Builder(context)
                                 .setTitle("Edit Status")

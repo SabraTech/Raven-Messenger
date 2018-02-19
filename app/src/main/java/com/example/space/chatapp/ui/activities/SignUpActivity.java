@@ -27,7 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class SignUpActivity2  extends AppCompatActivity{
+public class SignUpActivity extends AppCompatActivity {
    private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private FloatingActionButton fab;
@@ -118,7 +118,7 @@ public class SignUpActivity2  extends AppCompatActivity{
                 cardView.setVisibility(View.INVISIBLE);
                 super.onAnimationEnd(animation);
                 fab.setImageResource(R.drawable.ic_signup);
-                SignUpActivity2.super.onBackPressed();
+                SignUpActivity.super.onBackPressed();
             }
 
             @Override

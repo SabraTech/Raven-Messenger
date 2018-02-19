@@ -2,10 +2,6 @@ package com.example.space.chatapp.models;
 
 import java.util.ArrayList;
 
-/**
- * Created by sabra on 30/01/18.
- */
-
 public class FriendList {
 
     private ArrayList<Friend> friendsList;

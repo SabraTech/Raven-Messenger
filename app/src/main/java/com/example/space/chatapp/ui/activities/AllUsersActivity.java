@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,7 @@ public class AllUsersActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerViewAllUsers;
-    private UserListingRecyclerAdapter userListingRecyclerAdapter;
+    private ListAllUserAdapter userListingRecyclerAdapter;
     private DatabaseReference databaseReference;
 
 
@@ -63,7 +62,7 @@ public class AllUsersActivity extends AppCompatActivity {
         //get recycler view and set attributes to it
         recyclerViewAllUsers = findViewById(R.id.all_users_recycler_view);
         recyclerViewAllUsers.setHasFixedSize(true);
-        recyclerViewAllUsers.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewAllUsers.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         // for enable offline read of the database
         databaseReference = FirebaseDatabase.getInstance().getReference().child("user");
@@ -85,17 +84,14 @@ public class AllUsersActivity extends AppCompatActivity {
                 List<User> users = new ArrayList<>();
                 while (dataSnapshotIterator.hasNext()) {
                     DataSnapshot dataSnapshotChild = dataSnapshotIterator.next();
-                    // User user = dataSnapshotChild.getValue(User.class);
                     User user = new User();
                     user.setName(dataSnapshotChild.child("name").getValue(String.class));
                     user.setEmail(dataSnapshotChild.child("email").getValue(String.class));
                     user.setAvatar(dataSnapshotChild.child("avatar").getValue(String.class));
-                    //for status
                     user.setBioText(dataSnapshotChild.child("bio").getValue(String.class));
                     user.setUid(dataSnapshotChild.getKey().toString());
-                    Log.e(AllUsersActivity.class.getName(), "name:: " + user.getName());
-                    Log.e(AllUsersActivity.class.getName(), "uid:: " + user.getUid());
-                    //to view other users
+
+                    // to view other users not the current user
                     if (!TextUtils.equals(user.getUid(), FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                         users.add(user);
                     }
@@ -108,7 +104,7 @@ public class AllUsersActivity extends AppCompatActivity {
                     }
                 });
 
-                userListingRecyclerAdapter = new UserListingRecyclerAdapter(users);
+                userListingRecyclerAdapter = new ListAllUserAdapter(users);
                 recyclerViewAllUsers.setAdapter(userListingRecyclerAdapter);
                 userListingRecyclerAdapter.notifyDataSetChanged();
             }
@@ -131,11 +127,11 @@ public class AllUsersActivity extends AppCompatActivity {
     adapter class
     I define it here to move between activities
      */
-    public class UserListingRecyclerAdapter extends RecyclerView.Adapter<UserListingRecyclerAdapter.ViewHolder> {
+    public class ListAllUserAdapter extends RecyclerView.Adapter<ListAllUserAdapter.ViewHolder> {
 
         private List<User> users;
 
-        public UserListingRecyclerAdapter(List<User> users) {
+        public ListAllUserAdapter(List<User> users) {
             this.users = users;
         }
 
