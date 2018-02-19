@@ -69,10 +69,19 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
+        bitmapAvatarFriend = new HashMap<>();
+
         Intent intentData = getIntent();
         idFriend = intentData.getCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID);
         roomId = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID);
         String friendName = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_FRIEND);
+        String friendAvatar = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_AVATAR);
+        if (!friendAvatar.equals(StaticConfig.STR_DEFAULT_BASE64)) {
+            byte[] decodedString = Base64.decode(friendAvatar, Base64.DEFAULT);
+            bitmapAvatarFriend.put(idFriend.get(0).toString(), BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
+        } else {
+            bitmapAvatarFriend.put(idFriend.get(0).toString(), BitmapFactory.decodeResource(getResources(), R.drawable.default_avatar));
+        }
 
         conversation = new Conversation();
         rootView = findViewById(R.id.root_view);
@@ -113,6 +122,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         Message message = new Message();
                         message.idSender = (String) messageMap.get("idSender");
                         message.idReceiver = (String) messageMap.get("idReceiver");
+                        message.idReceiverRoom = (String) messageMap.get("idReceiverRoom");
                         message.text = (String) messageMap.get("text");
                         message.type = (long) messageMap.get("type");
                         message.timestamp = (long) messageMap.get("timestamp");
@@ -177,7 +187,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 message.text = content;
                 message.type = Message.TEXT;
                 message.idSender = currentUid;
-                message.idReceiver = roomId;
+                message.idReceiver = idFriend.get(0).toString();
+                message.idReceiverRoom = roomId;
                 message.timestamp = System.currentTimeMillis();
                 messageReference.child(roomId).push().setValue(message);
             }
@@ -231,7 +242,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.text = downloadUrl;
                         message.type = Message.IMAGE;
                         message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        message.idReceiver = roomId;
+                        message.idReceiver = idFriend.get(0).toString();
+                        message.idReceiverRoom = roomId;
                         message.timestamp = System.currentTimeMillis();
                         messageReference.child(roomId).push().setValue(message);
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
@@ -261,7 +273,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.text = downloadUrl;
                         message.type = Message.IMAGE;
                         message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        message.idReceiver = roomId;
+                        message.idReceiver = idFriend.get(0).toString();
+                        message.idReceiverRoom = roomId;
                         message.timestamp = System.currentTimeMillis();
                         messageReference.child(roomId).push().setValue(message);
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();

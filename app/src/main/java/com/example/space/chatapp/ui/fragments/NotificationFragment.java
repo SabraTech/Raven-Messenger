@@ -73,6 +73,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                     .setTopColorRes(R.color.colorPrimary)
                     .show();
             getNotifications();*/
+            getNotifications();
         }
 
         View layout = inflater.inflate(R.layout.fragment_notification, container, false);
@@ -161,8 +162,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
                         HashMap userInfoMap = (HashMap) dataSnapshot.getValue();
                         request.setAvatar((String) userInfoMap.get("avatar"));
                         request.setName((String) userInfoMap.get("name"));
-                        // look at this again
-//                        request.setStatus((String) userInfoMap.get("status"));
+                        request.setStatus((String) userInfoMap.get("bio"));
                         request.setUid(id);
                         notifications.getRequests().add(request);
                     }

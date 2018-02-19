@@ -87,13 +87,7 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 idFriend.add(id);
                 intent.putCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID, idFriend);
                 intent.putExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID, idRoom);
-                ChatActivity.bitmapAvatarFriend = new HashMap<>();
-                if (!avatar.equals(StaticConfig.STR_DEFAULT_BASE64)) {
-                    byte[] decodedString = Base64.decode(avatar, Base64.DEFAULT);
-                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-                } else {
-                    ChatActivity.bitmapAvatarFriend.put(id, BitmapFactory.decodeResource(context.getResources(), R.drawable.default_avatar));
-                }
+                intent.putExtra(StaticConfig.INTENT_KEY_CHAT_AVATAR, avatar);
 
                 markMap.put(id, null);
                 friendsFragment.startActivityForResult(intent, FriendsFragment.ACTION_START_CHAT);

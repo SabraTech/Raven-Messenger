@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--Service for notification service-->
-        <service android:name=".services.FBMessagingService">
+        <service android:name=".services.NotificationService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -65,7 +65,7 @@
 
             <!--To make clicking on notification get here-->
             <intent-filter>
-                <action android:name="com.example.space.chatapp_TARGET_NOTIFICATION" />
+                <action android:name="com.example.space.chatapp_REQUEST_NOTIFICATION" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
@@ -74,7 +74,15 @@
         <activity
             android:name=".ui.activities.ChatActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+            <!--To make clicking on notification get here-->
+            <intent-filter>
+                <action android:name="com.example.space.chatapp_CHAT_NOTIFICATION" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+        </activity>
 
 
     </application>

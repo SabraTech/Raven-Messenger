@@ -33,7 +33,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    LovelyProgressDialog progressDialog;
+    private LovelyProgressDialog progressDialog;
     private Notifications notifications;
     private Context context;
     private NotificationFragment notificationFragment;
@@ -62,7 +62,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         // when click go to profile not implemented yet
         final String name = notifications.getRequests().get(position).getName();
         final String avatar = notifications.getRequests().get(position).getAvatar();
@@ -70,10 +70,10 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         ((ItemRequestViewHolder) holder).txtName.setText(name);
 
-        if (notifications.getRequests().get(position).getAvatar().equals(StaticConfig.STR_DEFAULT_BASE64)) {
+        if (avatar.equals(StaticConfig.STR_DEFAULT_BASE64)) {
             ((ItemRequestViewHolder) holder).avatar.setImageResource(R.drawable.default_avatar);
         } else {
-            byte[] decodedString = Base64.decode(notifications.getRequests().get(position).getAvatar(), Base64.DEFAULT);
+            byte[] decodedString = Base64.decode(avatar, Base64.DEFAULT);
             Bitmap src = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             ((ItemRequestViewHolder) holder).avatar.setImageBitmap(src);
         }
@@ -85,7 +85,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             @Override
             public void onClick(View view) {
                 final String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                final String receiverUid = notifications.getRequests().get(position).getUid();
+                final String receiverUid = notifications.getRequests().get(holder.getAdapterPosition()).getUid();
                 Calendar friendsDate = Calendar.getInstance();
                 final SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
                 final String saveCurrentDate = currentDate.format(friendsDate.getTime());
@@ -137,7 +137,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             @Override
             public void onClick(View view) {
                 final String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                final String receiverUid = notifications.getRequests().get(position).getUid();
+                final String receiverUid = notifications.getRequests().get(holder.getAdapterPosition()).getUid();
                 requestReference
                         .child(currentUid).child(receiverUid)
                         .removeValue()

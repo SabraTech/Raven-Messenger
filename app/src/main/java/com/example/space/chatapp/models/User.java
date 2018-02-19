@@ -10,14 +10,15 @@ public class User {
     private Message message;
     private String token;
     //status
-    private String bioText = "I'm here !!";
+    private String bioText;
 
     public User() {
+        bioText = "I'm Here !!";
         status = new Status();
         message = new Message();
         status.isOnline = false;
         status.timestamp = 0;
-        message.idReceiver = "0";
+        message.idReceiverRoom = "0";
         message.idSender = "0";
         message.text = "";
         message.timestamp = 0;
