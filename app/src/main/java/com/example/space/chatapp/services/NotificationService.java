@@ -1,18 +1,26 @@
 package com.example.space.chatapp.services;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.StaticConfig;
+import com.example.space.chatapp.ui.activities.ChatActivity;
+import com.example.space.chatapp.ui.activities.TabsActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.ArrayList;
+import java.util.Map;
+
 
 /*
  * service to get fore ground notification
@@ -25,32 +33,18 @@ public class NotificationService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
 
         super.onMessageReceived(remoteMessage);
-        //get from index.js
-        String notificationTitle = remoteMessage.getNotification().getTitle();
-        String notificationBody = remoteMessage.getNotification().getBody();
-        String clickAction = remoteMessage.getNotification().getClickAction();
 
-        //define sound
-        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Map<String, String> data = remoteMessage.getData();
+        String notificationTitle = data.get("title");
+        String notificationBody = data.get("body");
 
-        //define builder
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle(notificationTitle)
-                        .setContentText(notificationBody)
-                        .setSound(notificationSound)
-                        .setOngoing(true);//to open app when it is closed but not working
-
-        Intent resultIntent = new Intent(clickAction);
-
-        // get the notification type
+        Intent resultIntent;
         if (notificationTitle.equals("New Message")) {
-            String fromSenderId = remoteMessage.getData().get("from_sender_id").toString();
-            String avatar = remoteMessage.getData().get("avatar").toString();
-            String name = remoteMessage.getData().get("name").toString();
-            String idRoom = remoteMessage.getData().get("id_room").toString();
-
+            resultIntent = new Intent(this, ChatActivity.class);
+            String fromSenderId = data.get("from_user_id");
+            String avatar = data.get("avatar");
+            String name = data.get("name");
+            String idRoom = data.get("id_room");
             resultIntent.putExtra(StaticConfig.INTENT_KEY_CHAT_FRIEND, name);
             ArrayList<CharSequence> idFriend = new ArrayList<>();
             idFriend.add(fromSenderId);
@@ -58,8 +52,8 @@ public class NotificationService extends FirebaseMessagingService {
             resultIntent.putExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID, idRoom);
             resultIntent.putExtra(StaticConfig.INTENT_KEY_CHAT_AVATAR, avatar);
         } else {
-            String fromSenderId = remoteMessage.getData().get("from_sender_id").toString();
-            resultIntent.putExtra("visit", fromSenderId);
+            resultIntent = new Intent(this, TabsActivity.class);
+            resultIntent.putExtra("selected_index", "1");
         }
 
         PendingIntent resultPendingIntent =
@@ -69,18 +63,38 @@ public class NotificationService extends FirebaseMessagingService {
                         resultIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
-        mBuilder.setContentIntent(resultPendingIntent);
-        //to close notification when click on it
-        mBuilder.setAutoCancel(true);
-
 
         // Sets an unique ID for the notification
-        int mNotificationId = (int) System.currentTimeMillis();
-        // Gets an instance of the NotificationManager service
-        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Builds the notification and issues it.
-        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+        String channelId = "fcm_default_channel";
+        int notificationId = (int) System.currentTimeMillis();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId, notificationTitle,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // define sound
+        Uri notificationSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        //define builder
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId);
+        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setContentTitle(notificationTitle);
+        mBuilder.setContentText(notificationBody);
+        mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+        mBuilder.setSound(notificationSound);
+        mBuilder.setContentIntent(resultPendingIntent);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setBadgeIconType(R.drawable.ic_messaging);
+        mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
+        mBuilder.setLights(Color.BLUE, 3000, 3000);
+        Notification notification = mBuilder.build();
+
+        // Builds the notification and issues it.
+        notificationManager.notify(notificationId, notification);
 
     }
 }

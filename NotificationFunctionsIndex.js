@@ -29,14 +29,9 @@ exports.sendNotificationRequest = functions.database.ref('/notifications/{receiv
 			        const token_id = result.val();
 			        console.log('token::   ',token_id);
 			        const payload = {
-					    notification:{
-						    title:"New Friend request",
-						    body:`${senderUserName} has sent you a friend request `,
-						    icon:"default",
-						    sound:"default",
-						    click_action:"com.example.space.chatapp_REQUEST_NOTIFICATION"
-						},
 					    data: {
+					        title:"New Friend request",
+                            body:`${senderUserName} has sent you a friend request `,
 						    from_sender_id: from_sender_id
 						}
 				    };
@@ -78,14 +73,9 @@ exports.sendNotificationChat = functions.database.ref('/message/{room_id}/{messa
                     return token.then(result => {
                         const token_id = result.val();
                         const payload = {
-                            notification:{
+                            data:{
                                 title: "New Message",
                                 body: `${name} has sent a message`,
-                                icon: "default",
-                                sound:"default",
-                                click_action:"com.example.space.chatapp_CHAT_NOTIFICATION"
-                            },
-                            data:{
                                 from_user_id: from_user_id,
                                 name: name,
                                 avatar: avatar,

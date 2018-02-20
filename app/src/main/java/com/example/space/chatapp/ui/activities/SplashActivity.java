@@ -30,7 +30,9 @@ public class SplashActivity extends AppCompatActivity {
                 user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
                     StaticConfig.UID = user.getUid();
-                    startActivity(new Intent(SplashActivity.this, TabsActivity.class));
+                    Intent intent = new Intent(SplashActivity.this, TabsActivity.class);
+                    intent.putExtra("selected_index", "0");
+                    startActivity(intent);
                 } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     SplashActivity.this.finish();

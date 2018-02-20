@@ -163,7 +163,9 @@ public class LoginActivity extends AppCompatActivity {
                             userToken = FirebaseInstanceId.getInstance().getToken();
                             initNewUserInfo(task.getResult().getUser(), nameString, userToken);
                             Toast.makeText(LoginActivity.this, "Register and Login success", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, TabsActivity.class));
+                            Intent intent = new Intent(LoginActivity.this, TabsActivity.class);
+                            intent.putExtra("selected_index", "0");
+                            startActivity(intent);
                             LoginActivity.this.finish();
                         }
                     }
@@ -216,7 +218,9 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, userToken, Toast.LENGTH_SHORT).show();
                             saveUserInfo();
                             progressDialog.dismiss();
-                            startActivity(new Intent(LoginActivity.this, TabsActivity.class));
+                            Intent intent = new Intent(LoginActivity.this, TabsActivity.class);
+                            intent.putExtra("selected_index", "0");
+                            startActivity(intent);
                             LoginActivity.this.finish();
 
 

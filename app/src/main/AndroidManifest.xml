@@ -3,6 +3,7 @@
     package="com.example.space.chatapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--<uses-permission android:name="android.permission.CAMERA" />   -->
     <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
@@ -31,7 +32,6 @@
             android:theme="@style/AppTheme.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -53,7 +53,7 @@
 
         <activity
             android:name=".ui.activities.TabsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.activities.AllUsersActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
@@ -62,26 +62,12 @@
             android:name=".ui.activities.VisitedProfileActivity"
             android:parentActivityName=".ui.activities.AllUsersActivity"
             android:screenOrientation="portrait">
-
-            <!--To make clicking on notification get here-->
-            <intent-filter>
-                <action android:name="com.example.space.chatapp_REQUEST_NOTIFICATION" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
         </activity>
 
         <activity
             android:name=".ui.activities.ChatActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
             android:screenOrientation="portrait">
-
-            <!--To make clicking on notification get here-->
-            <intent-filter>
-                <action android:name="com.example.space.chatapp_CHAT_NOTIFICATION" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
         </activity>
 
 
