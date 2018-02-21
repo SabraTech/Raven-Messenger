@@ -1,5 +1,9 @@
 package com.example.space.chatapp.ui.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +27,7 @@ import java.util.List;
 
 public class AllUsersActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    public static final String ACTION_UPDATE_LIST = "com.example.space.chatapp.UPDATE_LIST";
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerViewAllUsers;
     private ListAllUserAdapter userListingRecyclerAdapter;
@@ -30,8 +35,9 @@ public class AllUsersActivity extends AppCompatActivity implements SwipeRefreshL
     private DatabaseReference friendsReference;
     private DatabaseReference friendRequestReference;
     private List<User> users;
-    private List<String> friendsListId;
+    private List<String> friendsListId, requestSentId, requestReceivedId;
     private String currentUid;
+    private BroadcastReceiver updateLists;
 
 
     @Override
@@ -55,18 +61,83 @@ public class AllUsersActivity extends AppCompatActivity implements SwipeRefreshL
 
         friendsListId = new ArrayList<>();
         users = new ArrayList<>();
+        requestSentId = new ArrayList<>();
+        requestReceivedId = new ArrayList<>();
 
+        getNotifications();
         getFriendListUid();
         getUsers();
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerViewAllUsers = findViewById(R.id.all_users_recycler_view);
         recyclerViewAllUsers.setLayoutManager(linearLayoutManager);
         swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setOnRefreshListener(this);
-        userListingRecyclerAdapter = new ListAllUserAdapter(this, users, friendsListId, currentUid);
+        userListingRecyclerAdapter = new ListAllUserAdapter(this, users, friendsListId, requestSentId, requestReceivedId, currentUid);
         recyclerViewAllUsers.setAdapter(userListingRecyclerAdapter);
 
+        updateLists = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String listType = intent.getStringExtra("type");
+                String idupdated = intent.getExtras().getString("id");
+                if (listType.equals("friends")) {
+                    for (String id : friendsListId) {
+                        if (idupdated.equals(id)) {
+                            friendsListId.remove(id);
+                            break;
+                        }
+                    }
+                } else if (listType.equals("sent")) {
+                    for (String id : requestSentId) {
+                        if (idupdated.equals(id)) {
+                            requestSentId.remove(id);
+                            break;
+                        }
+                    }
+                } else if (listType.equals("received")) {
+                    for (String id : requestReceivedId) {
+                        if (idupdated.equals(id)) {
+                            requestReceivedId.remove(id);
+                            break;
+                        }
+                    }
+                } else if (listType.equals("friendAdd")) {
+                    friendsListId.add(idupdated);
+                }
+                userListingRecyclerAdapter.notifyDataSetChanged();
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter(ACTION_UPDATE_LIST);
+        this.registerReceiver(updateLists, intentFilter);
+
+    }
+
+    private void getNotifications() {
+        friendRequestReference.child(currentUid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    Iterator<DataSnapshot> keyList = dataSnapshot.getChildren().iterator();
+                    while (keyList.hasNext()) {
+                        DataSnapshot child = keyList.next();
+                        String requestType = child.child("request_type").getValue().toString();
+                        if (requestType.equals("sent")) {
+                            requestSentId.add(child.getKey().toString());
+                        } else {
+                            requestReceivedId.add(child.getKey().toString());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getFriendListUid() {

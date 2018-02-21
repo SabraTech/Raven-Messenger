@@ -106,6 +106,7 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
         notifications.getRequests().clear();
         adapter.notifyDataSetChanged();
         getNotifications();
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override

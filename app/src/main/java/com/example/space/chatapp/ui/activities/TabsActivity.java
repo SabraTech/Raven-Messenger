@@ -50,10 +50,16 @@ public class TabsActivity extends AppCompatActivity {
             }
         });
         initTab();
-        // select the tab to open on
-        int index = Integer.parseInt(getIntent().getStringExtra("selected_index"));
-        TabLayout.Tab tab = tabLayout.getTabAt(index);
-        tab.select();
+        int index = 0;
+        if (getIntent().getStringExtra("selected_index") != null) {
+            // select the tab to open on
+            index = Integer.parseInt(getIntent().getStringExtra("selected_index"));
+            TabLayout.Tab tab = tabLayout.getTabAt(index);
+            tab.select();
+        } else {
+            TabLayout.Tab tab = tabLayout.getTabAt(index);
+            tab.select();
+        }
     }
 
     @Override

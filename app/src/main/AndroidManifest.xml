@@ -53,23 +53,16 @@
 
         <activity
             android:name=".ui.activities.TabsActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activities.AllUsersActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.activities.VisitedProfileActivity"
-            android:parentActivityName=".ui.activities.AllUsersActivity"
-            android:screenOrientation="portrait">
-        </activity>
 
         <activity
             android:name=".ui.activities.ChatActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
 
     </application>
 
