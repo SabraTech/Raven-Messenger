@@ -27,7 +27,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -56,6 +55,17 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notificationsReference.keepSynced(true);
         friendsReference = FirebaseDatabase.getInstance().getReference().child("friends");
         friendsReference.keepSynced(true);
+        //remove notification node //for testing
+        notificationsReference
+                .child("NhtUQj9Y9YNtKQkcDZKCkeiWM2c2")
+                .child("bDfoM3iHQ0YJZ8al3YORuj18Zjo2")
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
 
     }
 
@@ -137,6 +147,18 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         public void onClick(DialogInterface dialogInterface, int i) {
                             if (options[i].equals("Accept")) {
                                 acceptFriendRequestMethod(user.getUid());
+                                //remove notification node
+                                //for testing
+                                notificationsReference
+                                        .child(user.getUid())
+                                        .child(senderUid)
+                                        .removeValue()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                            }
+                                        });
                                 Intent intentAdd = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
                                 intentAdd.putExtra("type", "friendAdd");
                                 intentAdd.putExtra("id", user.getUid());
@@ -186,7 +208,10 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void acceptFriendRequestMethod(final String receiverUid) {
+
+
         //get current date to save it as the friendship date
+
         Calendar friendsDate = Calendar.getInstance();
         SimpleDateFormat currentDate = new SimpleDateFormat("dd-MM-yyyy");
         final String saveCurrentDate = currentDate.format(friendsDate.getTime());
@@ -213,15 +238,26 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             //2-remove receiver->sender node
-                                                            friendRequestReference.child(receiverUid)
-                                                                    .child(senderUid)
-                                                                    .removeValue()
+                                                            friendRequestReference.child(receiverUid).child(senderUid).removeValue()
                                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                         @Override
                                                                         public void onComplete(@NonNull Task<Void> task) {
-                                                                            // update notifiaction tab
+                                                                            if (task.isSuccessful()) {
+                                                                                //remove notification node
+                                                                                notificationsReference
+                                                                                        .child(receiverUid).child(senderUid)
+                                                                                        .removeValue()
+                                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<Void> task) {
+
+                                                                                            }
+                                                                                        });
+
+                                                                            }
                                                                         }
                                                                     });
+
                                                         }
                                                     }
                                                 });
@@ -255,12 +291,9 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 //notifications
-                                                HashMap<String, String> notificationsData = new HashMap<>();
-                                                notificationsData.put("from", senderUid);
-                                                notificationsData.put("type ", "request");
                                                 notificationsReference.child(receiverUid)
-                                                        .push() //will be given unique random key
-                                                        .setValue(notificationsData)
+                                                        .child(senderUid) //will be given unique random key
+                                                        .setValue("request")
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
@@ -287,7 +320,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            //rempve second node
+                            //remove second node
                             friendsReference
                                     .child(receiverUid)
                                     .child(senderUid)
@@ -320,7 +353,14 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                //remove notification node
+                                                notificationsReference
+                                                        .child(receiverUid)
+                                                        .child(senderUid)
+                                                        .removeValue();
 
+                                            }
                                         }
                                     });
                         }

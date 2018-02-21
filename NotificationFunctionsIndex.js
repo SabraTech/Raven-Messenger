@@ -4,19 +4,16 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 //define function with name and parameters
-exports.sendNotificationRequest = functions.database.ref('/notifications/{receiver_id}/{notification_id}').onWrite(event=>{
+exports.sendNotificationRequest = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onWrite(event=>{
 
     	const receiver_id = event.params.receiver_id;
-    	const notification_id = event.params.notification_id;
+    	const from_sender_id = event.params.sender_id;
     	console.log('we have notification to send to : ', receiver_id);
     	if(!event.data.val()){
     		return console.log('A notification has been deleted from data base: ', notification_id);
     	}
 
-	    // get sender id
-	    const senderId = admin.database().ref(`/notifications/${receiver_id}/${notification_id}`).once('value');
-	    return senderId.then(senderIdResult => {
-		    const from_sender_id = senderIdResult.val().from;
+
 		    console.log('you have notification from: ', from_sender_id);
 
 		    //get sender name
@@ -42,9 +39,9 @@ exports.sendNotificationRequest = functions.database.ref('/notifications/{receiv
 				        return response;
 				    });
 			    });
-			});
-		});
 });
+});
+
 
 exports.sendNotificationChat = functions.database.ref('/message/{room_id}/{message_id}').onWrite(event=>{
 
