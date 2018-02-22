@@ -39,6 +39,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private DatabaseReference friendRequestReference;
     private DatabaseReference notificationsReference;
     private DatabaseReference friendsReference;
+    private DatabaseReference messageReference;
     private String senderUid;
 
     public ListAllUserAdapter(Context context, List<User> users, List<String> firendsId, List<String> requestSentId, List<String> requestReceivedId, String currentUid) {
@@ -55,17 +56,8 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notificationsReference.keepSynced(true);
         friendsReference = FirebaseDatabase.getInstance().getReference().child("friends");
         friendsReference.keepSynced(true);
-        //remove notification node //for testing
-//        notificationsReference
-//                .child("NhtUQj9Y9YNtKQkcDZKCkeiWM2c2")
-//                .child("bDfoM3iHQ0YJZ8al3YORuj18Zjo2")
-//                .removeValue()
-//                .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<Void> task) {
-//
-//                    }
-//                });
+        messageReference = FirebaseDatabase.getInstance().getReference().child("message");
+        messageReference.keepSynced(true);
 
     }
 
@@ -323,7 +315,8 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-
+                                            messageReference.child((senderUid + receiverUid).hashCode() + "").removeValue();
+                                            messageReference.child("" + (receiverUid + senderUid).hashCode()).removeValue();
                                         }
                                     });
                         }
