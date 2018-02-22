@@ -144,7 +144,6 @@ public class NotificationFragment extends Fragment implements SwipeRefreshLayout
     private void getAllRequestUsersInfo(final int index) {
         if (index == requestUsersId.size()) {
             adapter.notifyDataSetChanged();
-            progressDialog.dismiss();
             swipeRefreshLayout.setRefreshing(false);
         } else {
             final String id = requestUsersId.get(index);

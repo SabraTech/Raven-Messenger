@@ -24,6 +24,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_toStartOf="@id/image_view_user"
+        android:autoLink="web"
         android:background="@drawable/rounded_corner1"
         android:padding="10dp"
         android:text="a"

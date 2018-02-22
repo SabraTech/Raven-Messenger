@@ -114,13 +114,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean validate(String emailString, String passwordString) {
         Matcher matcher = VALID_EMAIL_ADDRESS.matcher(emailString);
-        if (!(passwordString.length() > 0 || passwordString.equals(";"))) {
-            password.setError("Empty Password");
-        }
-
-        if (!matcher.find()) {
-            email.setError("Invalid Email");
-        }
         // try to add regex for the password as well
         return (passwordString.length() > 0 || passwordString.equals(";")) && matcher.find();
     }

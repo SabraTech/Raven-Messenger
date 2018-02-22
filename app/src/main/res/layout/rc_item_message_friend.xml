@@ -24,6 +24,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/image_view_friend"
+        android:autoLink="web"
         android:background="@drawable/rounded_corner2"
         android:padding="10dp"
         android:text="A"

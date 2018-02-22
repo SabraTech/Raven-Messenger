@@ -10,7 +10,7 @@ exports.sendNotificationRequest = functions.database.ref('/notifications/{receiv
     	const from_sender_id = event.params.sender_id;
     	console.log('we have notification to send to : ', receiver_id);
     	if(!event.data.val()){
-    		return console.log('A notification has been deleted from data base: ', notification_id);
+    		return console.log('A notification has been deleted from data base: ', receiver_id);
     	}
 
 
@@ -35,7 +35,7 @@ exports.sendNotificationRequest = functions.database.ref('/notifications/{receiv
 
 			        //send notification
 			        return admin.messaging().sendToDevice(token_id, payload).then(response =>{
-				        console.log( "this was a notification feature :: ", token_id);
+				        console.log( "Notification sent :: ", token_id);
 				        return response;
 				    });
 			    });
@@ -49,7 +49,7 @@ exports.sendNotificationChat = functions.database.ref('/message/{room_id}/{messa
     	const message_id = event.params.message_id;
     	console.log('we have notification to send to the message id : ', message_id);
     	if(!event.data.val()) {
-    		return console.log('A notification has been deleted from data base: ',notification_id);
+    		return console.log('A notification has been deleted from data base: ', room_id);
     	}
     	// get receiver id
     	const receiver_id = admin.database().ref(`/message/${room_id}/${message_id}/idReceiver`).once('value');
@@ -82,7 +82,7 @@ exports.sendNotificationChat = functions.database.ref('/message/{room_id}/{messa
 
                         //send the notification
                         return admin.messaging().sendToDevice(token_id, payload).then(sendResponse =>{
-                            console.log('Notification sent');
+                            console.log( "Notification sent :: ", token_id);
                             return senderResponse;
                         });
                     });

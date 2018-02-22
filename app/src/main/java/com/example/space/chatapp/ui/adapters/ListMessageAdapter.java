@@ -1,6 +1,8 @@
 package com.example.space.chatapp.ui.adapters;
 
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.StaticConfig;
@@ -68,6 +71,16 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageFriendHolder) holder).imageContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageFriendHolder) holder).txtContent.setText(conversation.getMessages().get(position).text);
+                ((ItemMessageFriendHolder) holder).txtContent.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("message", conversation.getMessages().get(position).text);
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(context, "Message Copied!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
                 Bitmap currentAvatar = bitmapHashMapAvatar.get(conversation.getMessages().get(position).idSender);
                 if (currentAvatar != null) {
                     ((ItemMessageFriendHolder) holder).avatar.setImageBitmap(currentAvatar);
@@ -148,6 +161,16 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageUserHolder) holder).imageContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageUserHolder) holder).txtContent.setText(conversation.getMessages().get(position).text);
+                ((ItemMessageUserHolder) holder).txtContent.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("message", conversation.getMessages().get(position).text);
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(context, "Message Copied!", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
                 if (bitmapAvatarUser != null) {
                     ((ItemMessageUserHolder) holder).avatar.setImageBitmap(bitmapAvatarUser);
                 }
