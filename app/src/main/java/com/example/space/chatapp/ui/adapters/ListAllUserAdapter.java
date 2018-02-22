@@ -56,16 +56,16 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         friendsReference = FirebaseDatabase.getInstance().getReference().child("friends");
         friendsReference.keepSynced(true);
         //remove notification node //for testing
-        notificationsReference
-                .child("NhtUQj9Y9YNtKQkcDZKCkeiWM2c2")
-                .child("bDfoM3iHQ0YJZ8al3YORuj18Zjo2")
-                .removeValue()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
+//        notificationsReference
+//                .child("NhtUQj9Y9YNtKQkcDZKCkeiWM2c2")
+//                .child("bDfoM3iHQ0YJZ8al3YORuj18Zjo2")
+//                .removeValue()
+//                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//
+//                    }
+//                });
 
     }
 
@@ -112,6 +112,12 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     intentRemoved.putExtra("type", "friends");
                     intentRemoved.putExtra("id", user.getUid());
                     context.sendBroadcast(intentRemoved);
+
+                    Intent intentRemoved2 = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
+                    intentRemoved2.putExtra("type", "received");
+                    intentRemoved2.putExtra("id", user.getUid());
+                    context.sendBroadcast(intentRemoved2);
+
                     // update the text of the button
                     ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
                 }
@@ -149,16 +155,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                 acceptFriendRequestMethod(user.getUid());
                                 //remove notification node
                                 //for testing
-                                notificationsReference
-                                        .child(user.getUid())
-                                        .child(senderUid)
-                                        .removeValue()
-                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                            }
-                                        });
                                 Intent intentAdd = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
                                 intentAdd.putExtra("type", "friendAdd");
                                 intentAdd.putExtra("id", user.getUid());
@@ -187,7 +184,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     // add friend method and then change the text of button
                     sendFriendRequestMethod(user.getUid());
                     Intent intentAdd = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
-                    intentAdd.putExtra("type", "friendAdd");
+                    intentAdd.putExtra("type", "sentAdd");
                     intentAdd.putExtra("id", user.getUid());
                     context.sendBroadcast(intentAdd);
                     // update the text of the button
@@ -245,15 +242,13 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                                                             if (task.isSuccessful()) {
                                                                                 //remove notification node
                                                                                 notificationsReference
-                                                                                        .child(receiverUid).child(senderUid)
-                                                                                        .removeValue()
-                                                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                            @Override
-                                                                                            public void onComplete(@NonNull Task<Void> task) {
-
-                                                                                            }
-                                                                                        });
-
+                                                                                        .child(receiverUid)
+                                                                                        .child(senderUid)
+                                                                                        .removeValue();
+                                                                                notificationsReference
+                                                                                        .child(senderUid)
+                                                                                        .child(receiverUid)
+                                                                                        .removeValue();
                                                                             }
                                                                         }
                                                                     });
@@ -359,7 +354,10 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                                         .child(receiverUid)
                                                         .child(senderUid)
                                                         .removeValue();
-
+                                                notificationsReference
+                                                        .child(senderUid)
+                                                        .child(receiverUid)
+                                                        .removeValue();
                                             }
                                         }
                                     });

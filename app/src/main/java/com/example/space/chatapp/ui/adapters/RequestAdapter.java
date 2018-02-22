@@ -39,6 +39,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private NotificationFragment notificationFragment;
     private DatabaseReference requestReference;
     private DatabaseReference friendsReference;
+    private DatabaseReference notificationsReference;
 
     public RequestAdapter(Context context, Notifications notifications, NotificationFragment notificationFragment) {
         this.context = context;
@@ -52,6 +53,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         friendsReference.keepSynced(true);
         requestReference = FirebaseDatabase.getInstance().getReference().child("friend_request");
         requestReference.keepSynced(true);
+        notificationsReference = FirebaseDatabase.getInstance().getReference().child("notifications");
+        notificationsReference.keepSynced(true);
     }
 
 
@@ -116,6 +119,16 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                                                                     // so we should add them friends to each other so they can
                                                                                     // appear in the friends fragment
                                                                                     // and remove the request from the list.
+                                                                                    //remove notification node
+                                                                                    notificationsReference
+                                                                                            .child(receiverUid)
+                                                                                            .child(currentUid)
+                                                                                            .removeValue();
+                                                                                    notificationsReference
+                                                                                            .child(currentUid)
+                                                                                            .child(receiverUid)
+                                                                                            .removeValue();
+
                                                                                     Intent intentRemoved = new Intent(NotificationFragment.ACTION_REQUEST_REMOVED);
                                                                                     intentRemoved.putExtra("requestId", receiverUid);
                                                                                     context.sendBroadcast(intentRemoved);
@@ -153,6 +166,17 @@ public class RequestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     // remove the request from the fragment and the list
                                                     // how to refresh the adapter
+
+                                                    //remove notification node
+                                                    notificationsReference
+                                                            .child(receiverUid)
+                                                            .child(currentUid)
+                                                            .removeValue();
+                                                    notificationsReference
+                                                            .child(currentUid)
+                                                            .child(receiverUid)
+                                                            .removeValue();
+
                                                     Intent intentRemoved = new Intent(NotificationFragment.ACTION_REQUEST_REMOVED);
                                                     intentRemoved.putExtra("requestId", receiverUid);
                                                     context.sendBroadcast(intentRemoved);

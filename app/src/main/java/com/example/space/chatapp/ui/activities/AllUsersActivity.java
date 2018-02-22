@@ -105,6 +105,8 @@ public class AllUsersActivity extends AppCompatActivity implements SwipeRefreshL
                     }
                 } else if (listType.equals("friendAdd")) {
                     friendsListId.add(idupdated);
+                } else if (listType.equals("sentAdd")) {
+                    requestSentId.add(idupdated);
                 }
                 userListingRecyclerAdapter.notifyDataSetChanged();
             }
