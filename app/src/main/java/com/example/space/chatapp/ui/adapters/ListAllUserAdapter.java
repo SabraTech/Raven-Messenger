@@ -34,7 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<User> users;
-    private List<String> firendsId, requestSentId, requestReceivedId;
+    private List<String> friendsId, requestSentId, requestReceivedId;
     private Context context;
     private DatabaseReference friendRequestReference;
     private DatabaseReference notificationsReference;
@@ -45,7 +45,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public ListAllUserAdapter(Context context, List<User> users, List<String> firendsId, List<String> requestSentId, List<String> requestReceivedId, String currentUid) {
         this.context = context;
         this.users = users;
-        this.firendsId = firendsId;
+        this.friendsId = firendsId;
         this.requestSentId = requestSentId;
         this.requestReceivedId = requestReceivedId;
         this.senderUid = currentUid;
@@ -92,26 +92,42 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         // set the button text and action
 
-        if (firendsId.contains(user.getUid())) {
+        if (friendsId.contains(user.getUid())) {
             ((ItemAllUserViewHolder) holder).actionBtn.setText("UnFriend");
             ((ItemAllUserViewHolder) holder).actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // unfriend method and then change the text of button
-                    unfriendMethod(user.getUid());
-                    // update the firends list
-                    Intent intentRemoved = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
-                    intentRemoved.putExtra("type", "friends");
-                    intentRemoved.putExtra("id", user.getUid());
-                    context.sendBroadcast(intentRemoved);
+                    new android.app.AlertDialog.Builder(context)
+                            .setTitle("UnFriend")
+                            .setMessage("Are you sure want to unFriend " + user.getName() + " ?")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // unfriend method and then change the text of button
+                                    unfriendMethod(user.getUid());
+                                    // update the friends list
+                                    Intent intentRemoved = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
+                                    intentRemoved.putExtra("type", "friends");
+                                    intentRemoved.putExtra("id", user.getUid());
+                                    context.sendBroadcast(intentRemoved);
 
-                    Intent intentRemoved2 = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
-                    intentRemoved2.putExtra("type", "received");
-                    intentRemoved2.putExtra("id", user.getUid());
-                    context.sendBroadcast(intentRemoved2);
+                                    Intent intentRemoved2 = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
+                                    intentRemoved2.putExtra("type", "received");
+                                    intentRemoved2.putExtra("id", user.getUid());
+                                    context.sendBroadcast(intentRemoved2);
 
-                    // update the text of the button
-                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                                    // update the text of the button
+                                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).show();
+
                 }
             });
         } else if (requestSentId.contains(user.getUid())) {
@@ -119,15 +135,31 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ((ItemAllUserViewHolder) holder).actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // cancel request method and then change the text of button
-                    cancelFriendRequestMethod(user.getUid());
-                    // update the request sent list
-                    Intent intentRemoved = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
-                    intentRemoved.putExtra("type", "sent");
-                    intentRemoved.putExtra("id", user.getUid());
-                    context.sendBroadcast(intentRemoved);
-                    // update the text of the button
-                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                    new android.app.AlertDialog.Builder(context)
+                            .setTitle("Cancel request")
+                            .setMessage("Are you sure want to cancel request to " + user.getName() + " ?")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    // cancel request method and then change the text of button
+                                    cancelFriendRequestMethod(user.getUid());
+                                    // update the request sent list
+                                    Intent intentRemoved = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
+                                    intentRemoved.putExtra("type", "sent");
+                                    intentRemoved.putExtra("id", user.getUid());
+                                    context.sendBroadcast(intentRemoved);
+                                    // update the text of the button
+                                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                                    dialogInterface.dismiss();
+                                }
+                            })
+                            .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
+                                }
+                            }).show();
+
                 }
             });
         } else if (requestReceivedId.contains(user.getUid())) {
@@ -343,6 +375,8 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 //remove notification node
+                                                //note that here direction will be reversed
+
                                                 notificationsReference
                                                         .child(receiverUid)
                                                         .child(senderUid)
