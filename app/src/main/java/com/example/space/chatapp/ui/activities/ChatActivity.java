@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.SharedPreferenceHelper;
 import com.example.space.chatapp.data.StaticConfig;
+import com.example.space.chatapp.encryption.CipherHandler;
 import com.example.space.chatapp.models.Conversation;
 import com.example.space.chatapp.models.Message;
 import com.example.space.chatapp.ui.adapters.ListMessageAdapter;
@@ -184,7 +185,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             if (content.length() > 0) {
                 editTextMessage.setText("");
                 Message message = new Message();
-                message.text = content;
+                message.text = CipherHandler.encrypt(content);
                 message.type = Message.TEXT;
                 message.idSender = currentUid;
                 message.idReceiver = idFriend.get(0).toString();
@@ -239,7 +240,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     if (task.isSuccessful()) {
                         final String downloadUrl = task.getResult().getDownloadUrl().toString();
                         Message message = new Message();
-                        message.text = downloadUrl;
+                        message.text = CipherHandler.encrypt(downloadUrl);
                         message.type = Message.IMAGE;
                         message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         message.idReceiver = idFriend.get(0).toString();
@@ -270,7 +271,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     if (task.isSuccessful()) {
                         final String downloadUrl = task.getResult().getDownloadUrl().toString();
                         Message message = new Message();
-                        message.text = downloadUrl;
+                        message.text = CipherHandler.encrypt(downloadUrl);
                         message.type = Message.IMAGE;
                         message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         message.idReceiver = idFriend.get(0).toString();

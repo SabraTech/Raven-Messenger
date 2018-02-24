@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.space.chatapp.R;
 import com.example.space.chatapp.data.StaticConfig;
+import com.example.space.chatapp.encryption.CipherHandler;
 import com.example.space.chatapp.models.FriendList;
 import com.example.space.chatapp.models.Message;
 import com.example.space.chatapp.ui.activities.ChatActivity;
@@ -74,6 +75,8 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         final String id = friendList.getFriendsList().get(position).id;
         final String idRoom = friendList.getFriendsList().get(position).idRoom;
         final String avatar = friendList.getFriendsList().get(position).getAvatar();
+        final Message message = friendList.getFriendsList().get(position).getMessage();
+        final String messageText = CipherHandler.decrypt(friendList.getFriendsList().get(position).getMessage().text);
 
         ((ItemFriendViewHolder) holder).txtName.setText(name);
         ((View) ((ItemFriendViewHolder) holder).txtName.getParent().getParent().getParent()).setOnClickListener(new View.OnClickListener() {
@@ -99,23 +102,23 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // we need to talk about how will do it
 
 
-        if (friendList.getFriendsList().get(position).getMessage().text.length() > 0) {
+        if (messageText.length() > 0) {
             ((ItemFriendViewHolder) holder).txtMessage.setVisibility(View.VISIBLE);
             ((ItemFriendViewHolder) holder).txtTime.setVisibility(View.VISIBLE);
 
-            if (!friendList.getFriendsList().get(position).getMessage().text.startsWith(id)) {
-                if (friendList.getFriendsList().get(position).getMessage().type == Message.IMAGE) {
+            if (!messageText.startsWith(id)) {
+                if (message.type == Message.IMAGE) {
                     ((ItemFriendViewHolder) holder).txtMessage.setText("Image");
                 } else {
-                    ((ItemFriendViewHolder) holder).txtMessage.setText(friendList.getFriendsList().get(position).getMessage().text);
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(messageText);
                 }
                 ((ItemFriendViewHolder) holder).txtMessage.setTypeface(Typeface.DEFAULT);
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT);
             } else {
-                if (friendList.getFriendsList().get(position).getMessage().type == Message.IMAGE) {
+                if (message.type == Message.IMAGE) {
                     ((ItemFriendViewHolder) holder).txtMessage.setText("Image");
                 } else {
-                    ((ItemFriendViewHolder) holder).txtMessage.setText(friendList.getFriendsList().get(position).getMessage().text.substring((id + "").length()));
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(messageText.substring((id + "").length()));
                 }
                 ((ItemFriendViewHolder) holder).txtMessage.setTypeface(Typeface.DEFAULT_BOLD);
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT_BOLD);
