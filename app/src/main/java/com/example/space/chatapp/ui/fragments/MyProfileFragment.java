@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -39,6 +40,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +53,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class MyProfileFragment extends Fragment {
 
@@ -391,11 +395,11 @@ public class MyProfileFragment extends Fragment {
                         //make view from edit user dialog
                         View viewInflater = LayoutInflater.from(context)
                                 .inflate(R.layout.dialog_edit_username, (ViewGroup) getView(), false);
-                        final EditText input = viewInflater.findViewById(R.id.edit_username);
+                        final AutoCompleteTextView input = viewInflater.findViewById(R.id.edit_username);
                         input.setText(myAccount.getName());
                         //pop edit username dialog
                         new AlertDialog.Builder(context)
-                                .setTitle("Edit username")
+                                .setTitle("Update username")
                                 .setView(viewInflater)
                                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                     @Override
@@ -423,7 +427,7 @@ public class MyProfileFragment extends Fragment {
                         input.setText(myAccount.getBioText());
                         //pop edit username dialog
                         new AlertDialog.Builder(context)
-                                .setTitle("Edit Status")
+                                .setTitle("Update Status")
                                 .setView(viewInflater)
                                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                                     @Override
@@ -449,7 +453,7 @@ public class MyProfileFragment extends Fragment {
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        resetPassword(myAccount.getEmail());
+                                        resetPassword();
                                         dialogInterface.dismiss();
                                     }
                                 })
@@ -490,10 +494,70 @@ public class MyProfileFragment extends Fragment {
         }
 
 
+        private void resetPassword() {
 
 
-        private void resetPassword(String userEmail) {
+            //make view from edit user pwd
+            View viewInflater = LayoutInflater.from(context)
+                    .inflate(R.layout.dialog_edit_user_pwd, (ViewGroup) getView(), false);
+            final AutoCompleteTextView oldPwdInput = viewInflater.findViewById(R.id.edit_user_pwd_old);
+            final AutoCompleteTextView newPwdInput = viewInflater.findViewById(R.id.edit_user_pwd);
+            final AutoCompleteTextView repeatPwdInput = viewInflater.findViewById(R.id.edit_user_pwd_repeated);
 
+            //pop edit username dialog
+            new AlertDialog.Builder(context)
+                    .setTitle("Change password")
+                    .setView(viewInflater)
+                    .setPositiveButton("next", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String pwdOld = oldPwdInput.getText().toString();
+                            String pwd = newPwdInput.getText().toString();
+                            String repeatedPwd = repeatPwdInput.getText().toString();
+                            if (pwdOld.length() > 0 && validate(pwd, repeatedPwd)) {
+                                updatePassword(pwdOld, pwd);
+                            } else {
+                                Toast.makeText(getContext(), "operation fail", Toast.LENGTH_SHORT).show();
+                            }
+
+                            dialogInterface.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    }).show();
+
+
+        }
+
+        private boolean validate(String password, String repeatPassword) {
+            return password.length() > 6 && repeatPassword.equals(password);
+        }
+
+        private void updatePassword(String oldPassword, String password) {
+            FirebaseAuth.getInstance().signOut();
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(myAccount.getEmail(), oldPassword);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            user.updatePassword(password)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getContext(),
+                                        "Password has been updated",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e(TAG, "Error in updating password",
+                                        task.getException());
+                                Toast.makeText(getActivity(),
+                                        "Failed to update password.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
         }
 
         // to get elements from item.xml

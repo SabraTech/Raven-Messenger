@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="18dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/t1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true">
+
+        <AutoCompleteTextView
+            android:id="@+id/edit_user_pwd_old"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter The Current password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/t2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t1"
+        app:passwordToggleEnabled="true">
+
+        <AutoCompleteTextView
+            android:id="@+id/edit_user_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter new password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t2"
+        app:passwordToggleEnabled="true">
+
+        <AutoCompleteTextView
+            android:id="@+id/edit_user_pwd_repeated"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="52dp"
+            android:hint="Repeat new password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</RelativeLayout>
