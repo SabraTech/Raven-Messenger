@@ -4,13 +4,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--<uses-permission android:name="android.permission.CAMERA" />   -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
-    <!--<uses-feature android:name="android.hardware.camera.autofocus" />-->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:name=".offline.Cache"
@@ -20,12 +21,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!--Service for notification service-->
-        <service android:name=".services.NotificationService">
+        <service
+            android:name=".services.NotificationService"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".ui.activities.SplashActivity"
             android:label="@string/app_name"
@@ -35,6 +41,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activities.ResetPasswordActivity"
             android:parentActivityName=".ui.activities.LoginActivity"
@@ -45,6 +52,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentBackground" />
+
         <activity
             android:name=".ui.activities.SignUpActivity"
             android:launchMode="singleTop"
@@ -54,6 +62,7 @@
         <activity
             android:name=".ui.activities.TabsActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ui.activities.AllUsersActivity"
             android:parentActivityName=".ui.activities.TabsActivity"
@@ -65,5 +74,4 @@
             android:screenOrientation="portrait" />
 
     </application>
-
 </manifest>

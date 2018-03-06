@@ -2,6 +2,7 @@ package com.example.space.chatapp.ui.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -30,7 +31,8 @@ public class TabsActivity extends AppCompatActivity {
     public static String STR_GROUP_FRAGMENT = "GROUPS";
     public static String STR_NOTIF_FRAGMENT = "NOTIFICATION";
     public static String STR_PROFILE_FRAGMENT = "PROFILE";
-
+    private final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
+    private final int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private TabsPageAdapter tabsPageAdapter;
@@ -59,6 +61,19 @@ public class TabsActivity extends AppCompatActivity {
         } else {
             TabLayout.Tab tab = tabLayout.getTabAt(index);
             tab.select();
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            int hasReadStoragePermission = checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE);
+            int hasCameraPermission = checkSelfPermission(android.Manifest.permission.CAMERA);
+
+            if ((hasCameraPermission != PackageManager.PERMISSION_GRANTED) && (hasReadStoragePermission != PackageManager.PERMISSION_GRANTED)) {
+                requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA}, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+            } else if (hasCameraPermission != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.CAMERA}, REQUEST_CODE_ASK_PERMISSIONS);
+            } else if (hasReadStoragePermission != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS);
+            }
         }
     }
 
@@ -208,5 +223,33 @@ public class TabsActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED && grantResults[1] == PackageManager.PERMISSION_DENIED) {
+                    // Permission Denied
+                    Toast.makeText(TabsActivity.this, "Permission Denied: you will not be able to use camera and gallery!", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (permissions[0].equals(android.Manifest.permission.CAMERA)) {
+                    if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        Toast.makeText(TabsActivity.this, "Permission Denied: you will not be able to use camera!", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                } else if (permissions[0].equals(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        Toast.makeText(TabsActivity.this, "Permission Denied: you will not be able to view the gallery!", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }
