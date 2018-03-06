@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingTop="5dp"
-                android:text="Name"
+                android:text="@string/name_label"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
@@ -45,7 +45,7 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:paddingBottom="10dp"
-                android:text="Status"
+                android:text="@string/name_label"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <LinearLayout
@@ -62,7 +62,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="5dp"
                     android:background="@drawable/bt_shape_3"
-                    android:text="Accept"
+                    android:text="@string/accept"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/while_normal" />
 
@@ -73,7 +73,7 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/bt_shape_4"
                     android:radius="3dp"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/while_normal" />
             </LinearLayout>

@@ -173,7 +173,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|top"
-            android:onClick="clickBackLogin"
             android:src="@drawable/plus_x"
             android:transitionName="loginFab"
             app:fabSize="normal" />

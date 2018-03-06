@@ -108,7 +108,7 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             if (!messageText.startsWith(id)) {
                 if (message.type == Message.IMAGE) {
-                    ((ItemFriendViewHolder) holder).txtMessage.setText("Image");
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(R.string.image);
                 } else {
                     ((ItemFriendViewHolder) holder).txtMessage.setText(messageText);
                 }
@@ -116,7 +116,7 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT);
             } else {
                 if (message.type == Message.IMAGE) {
-                    ((ItemFriendViewHolder) holder).txtMessage.setText("Image");
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(R.string.image);
                 } else {
                     ((ItemFriendViewHolder) holder).txtMessage.setText(messageText.substring((id + "").length()));
                 }

@@ -147,12 +147,6 @@ public class TabsActivity extends AppCompatActivity {
                         }
                     });
                     floatingButton.setImageResource(R.drawable.plus);
-//                } else if (tabsPageAdapter.getItem(position) instanceof GroupsFragment) {
-//                    setActionBarTitle(STR_GROUP_FRAGMENT);
-//                    floatingButton.setVisibility(View.VISIBLE);
-//                    // onClick
-//                    floatingButton.setImageResource(R.drawable.ic_float_add_group);
-//                }
                 } else if (tabsPageAdapter.getItem(position) instanceof NotificationFragment) {
                     setActionBarTitle(STR_NOTIF_FRAGMENT);
                     floatingButton.setVisibility(View.GONE);

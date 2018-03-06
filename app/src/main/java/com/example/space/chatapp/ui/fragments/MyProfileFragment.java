@@ -167,7 +167,7 @@ public class MyProfileFragment extends Fragment {
         /*it will be inflated by the Android OS which basically means
         that it will be rendered by creating view object in memory.
         and it's also the process of adding a view(.xml) to activity on runtime like (setContentView)*/
-        View view = inflater.inflate(R.layout.activity_profile_setting, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_setting, container, false);
         context = view.getContext();
         //get profile image
         profileImage = view.findViewById(R.id.profile_image);

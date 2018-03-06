@@ -64,7 +64,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //set to new item layout
-        View view = LayoutInflater.from(context).inflate(R.layout.item_all_user, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.rc_item_all_user, parent, false);
         return new ItemAllUserViewHolder(context, view);
     }
 
@@ -93,7 +93,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // set the button text and action
 
         if (friendsId.contains(user.getUid())) {
-            ((ItemAllUserViewHolder) holder).actionBtn.setText("UnFriend");
+            ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.delete_friend);
             ((ItemAllUserViewHolder) holder).actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,7 +117,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     context.sendBroadcast(intentRemoved2);
 
                                     // update the text of the button
-                                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                                    ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.add_friend);
                                     dialogInterface.dismiss();
                                 }
                             })
@@ -131,7 +131,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
         } else if (requestSentId.contains(user.getUid())) {
-            ((ItemAllUserViewHolder) holder).actionBtn.setText("Cancel Request");
+            ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.cancel_request);
             ((ItemAllUserViewHolder) holder).actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -149,7 +149,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                     intentRemoved.putExtra("id", user.getUid());
                                     context.sendBroadcast(intentRemoved);
                                     // update the text of the button
-                                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                                    ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.add_friend);
                                     dialogInterface.dismiss();
                                 }
                             })
@@ -163,7 +163,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
         } else if (requestReceivedId.contains(user.getUid())) {
-            ((ItemAllUserViewHolder) holder).actionBtn.setText("Respond");
+            ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.respond);
             ((ItemAllUserViewHolder) holder).actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -184,14 +184,14 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                 intentAdd.putExtra("type", "friendAdd");
                                 intentAdd.putExtra("id", user.getUid());
                                 context.sendBroadcast(intentAdd);
-                                ((ItemAllUserViewHolder) holder).actionBtn.setText("UnFriend");
+                                ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.delete_friend);
                             } else if (options[i].equals("Delete")) {
                                 cancelFriendRequestMethod(user.getUid());
                                 Intent intentRemoved = new Intent(AllUsersActivity.ACTION_UPDATE_LIST);
                                 intentRemoved.putExtra("type", "received");
                                 intentRemoved.putExtra("id", user.getUid());
                                 context.sendBroadcast(intentRemoved);
-                                ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+                                ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.add_friend);
                             } else if (options.equals("Cancel")) {
                                 dialogInterface.dismiss();
                             }
@@ -201,7 +201,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
         } else {
-            ((ItemAllUserViewHolder) holder).actionBtn.setText("Add Friend");
+            ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.add_friend);
             ((ItemAllUserViewHolder) holder).actionBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -212,7 +212,7 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     intentAdd.putExtra("id", user.getUid());
                     context.sendBroadcast(intentAdd);
                     // update the text of the button
-                    ((ItemAllUserViewHolder) holder).actionBtn.setText("Cancel Request");
+                    ((ItemAllUserViewHolder) holder).actionBtn.setText(R.string.cancel_request);
 
                 }
             });
@@ -316,10 +316,6 @@ public class ListAllUserAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                             @Override
                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                //update the UI buttons
-                                                                if (task.isSuccessful()) {
-
-                                                                }
                                                             }
                                                         });
 

@@ -12,13 +12,13 @@
     android:paddingTop="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.space.chatapp.ui.fragments.MyProfileFragment"
-    tools:showIn="@layout/activity_profile_setting">
+    tools:showIn="@layout/fragment_profile_setting">
 
     <ImageView
         android:id="@+id/img_icon"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/tv_title"
@@ -26,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_toRightOf="@+id/img_icon"
+        android:layout_toEndOf="@+id/img_icon"
         android:clickable="true"
+        android:focusable="true"
         android:textColor="@color/grey_800"
         android:textSize="16sp" />
 
@@ -35,8 +36,8 @@
         android:id="@+id/tv_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tv_title"
+        android:layout_alignEnd="@+id/tv_title"
         android:layout_below="@+id/tv_title"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:textSize="14sp" />
 </RelativeLayout>

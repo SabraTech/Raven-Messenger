@@ -12,7 +12,7 @@
             android:id="@+id/edit_user_bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter a new status"
+            android:hint="@string/hint_status"
             android:imeOptions="actionDone"
             android:inputType="text" />
 

@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.space.chatapp.ui.activities.SplashActivity"></android.support.design.widget.CoordinatorLayout>
+    tools:context="com.example.space.chatapp.ui.activities.SplashActivity" />

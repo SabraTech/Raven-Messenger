@@ -46,7 +46,7 @@ public class AllUsersActivity extends AppCompatActivity implements SwipeRefreshL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_users);
 
-        getSupportActionBar().setTitle("All Users");
+        getSupportActionBar().setTitle(R.string.find_users);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // for enable offline read of the database
