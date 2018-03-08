@@ -104,7 +104,7 @@ exports.sendChatNotification = functions.database.ref('/message/{room_id}/{messa
 });
 
 
-exports.sendWelcomeEmail = functions.database.ref('/user/{user_id}').onWrite((event) => {
+exports.sendWelcomeEmail = functions.database.ref('/user/{user_id}').onCreate((event) => {
     const user_id = event.params.user_id;
     const user = admin.database().ref(`/user/${user_id}`).once('value');
     return user.then(user_data => {

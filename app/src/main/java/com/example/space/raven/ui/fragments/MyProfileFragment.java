@@ -485,7 +485,7 @@ public class MyProfileFragment extends Fragment {
         }
 
         private void changeUserBio(String newBio) {
-            userDB.child("bio").setValue(newBio);
+            userDB.child("bioText").setValue(newBio);
             myAccount.setName(newBio);
             SharedPreferenceHelper prefHelper = SharedPreferenceHelper.getInstance(context);
             prefHelper.saveUserInfo(myAccount);
