@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.space.chatapp"
+        applicationId "com.example.space.raven"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
@@ -30,11 +30,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
     // firebase dependencies
-    implementation 'com.google.firebase:firebase-database:11.6.2'
-    implementation 'com.google.firebase:firebase-auth:11.6.2'
-    implementation 'com.google.firebase:firebase-core:11.6.2'
-    implementation 'com.google.firebase:firebase-storage:11.6.2'
-    implementation 'com.google.firebase:firebase-messaging:11.6.2'
+    implementation 'com.google.firebase:firebase-database:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-storage:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
 
     //newCode
     implementation 'de.hdodenhof:circleimageview:2.1.0'

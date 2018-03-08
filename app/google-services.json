@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "494148310549",
-    "firebase_url": "https://chatapp-ac930.firebaseio.com",
-    "project_id": "chatapp-ac930",
-    "storage_bucket": "chatapp-ac930.appspot.com"
+    "project_number": "661751091080",
+    "firebase_url": "https://raven-1863b.firebaseio.com",
+    "project_id": "raven-1863b",
+    "storage_bucket": "raven-1863b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:494148310549:android:67e02a9ec1237f32",
+        "mobilesdk_app_id": "1:661751091080:android:4e682bb0aaf15f37",
         "android_client_info": {
-          "package_name": "com.example.space.chatapp"
+          "package_name": "com.example.space.raven"
         }
       },
       "oauth_client": [
         {
-          "client_id": "494148310549-rn2m42tad0ikseob2qdj4juvv0ndmdc7.apps.googleusercontent.com",
+          "client_id": "661751091080-i0gnemvve3p5ti3anfq77g6tp7e8bmvh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.space.chatapp",
+            "package_name": "com.example.space.raven",
             "certificate_hash": "7ce70a50d7c11fd0b25504eb91565255509a5e02"
           }
         },
         {
-          "client_id": "494148310549-6b75cii69velheds2tam8vl66cs18p1c.apps.googleusercontent.com",
+          "client_id": "661751091080-n6c8n00ssul3topj5de9ltfhpcnl1era.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDzjkuSVrVsea8VcRDrfVQbnnzp_DD6tYI"
+          "current_key": "AIzaSyAVCyTZ9yQg8mlgP9QA-7R4nC-65EWm7fs"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "494148310549-6b75cii69velheds2tam8vl66cs18p1c.apps.googleusercontent.com",
+              "client_id": "661751091080-n6c8n00ssul3topj5de9ltfhpcnl1era.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
