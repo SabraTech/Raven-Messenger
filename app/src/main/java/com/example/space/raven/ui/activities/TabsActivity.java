@@ -106,10 +106,10 @@ public class TabsActivity extends AppCompatActivity {
 
     private void setupTabIcons() {
         int[] tabIcons = {
-                R.drawable.ic_tab_person,
+                R.drawable.ic_chat,
                 // R.drawable.ic_tab_group,
-                R.drawable.ic_tab_notif,
-                R.drawable.ic_tab_infor
+                R.drawable.ic_notifications_none,
+                R.drawable.ic_account_circle
         };
 
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -146,7 +146,7 @@ public class TabsActivity extends AppCompatActivity {
                             startActivity(new Intent(TabsActivity.this, AllUsersActivity.class));
                         }
                     });
-                    floatingButton.setImageResource(R.drawable.plus);
+                    floatingButton.setImageResource(R.drawable.ic_person_add);
                 } else if (tabsPageAdapter.getItem(position) instanceof NotificationFragment) {
                     setActionBarTitle(STR_NOTIF_FRAGMENT);
                     floatingButton.setVisibility(View.GONE);

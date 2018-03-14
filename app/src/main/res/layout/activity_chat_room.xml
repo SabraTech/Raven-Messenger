@@ -28,7 +28,7 @@
         android:background="#00000000"
         android:padding="10dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_add_photo" />
+        android:src="@drawable/ic_insert_photo" />
 
     <ImageButton
         android:id="@+id/btn_emoji"

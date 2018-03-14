@@ -33,6 +33,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_float_button" />
+        app:srcCompat="@drawable/ic_person_add" />
 
 </android.support.design.widget.CoordinatorLayout>

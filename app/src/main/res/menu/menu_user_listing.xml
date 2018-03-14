@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_all_users"
         android:orderInCategory="100"
-        android:title="All Users"
+        android:title="@string/find_users"
         app:showAsAction="never" />
 
     <item

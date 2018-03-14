@@ -16,7 +16,7 @@
             android:layout_height="360dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            app:cardBackgroundColor="#2ea67f"
+            app:cardBackgroundColor="@color/colorAccent"
             app:cardCornerRadius="6dp"
             app:cardElevation="3dp"
             app:cardUseCompatPadding="true">
@@ -163,7 +163,7 @@
                     android:onClick="clickRegister"
                     android:stateListAnimator="@drawable/state_list_animator_z"
                     android:text="@string/enter_button"
-                    android:textColor="#2fa881" />
+                    android:textColor="@color/colorAccent" />
 
             </LinearLayout>
         </android.support.v7.widget.CardView>

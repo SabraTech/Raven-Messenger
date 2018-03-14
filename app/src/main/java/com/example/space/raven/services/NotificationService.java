@@ -88,7 +88,7 @@ public class NotificationService extends FirebaseMessagingService {
         mBuilder.setSound(notificationSound);
         mBuilder.setContentIntent(resultPendingIntent);
         mBuilder.setAutoCancel(true);
-        mBuilder.setBadgeIconType(R.drawable.ic_messaging);
+        //mBuilder.setBadgeIconType(R.drawable.ic_messaging);
         mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
         mBuilder.setLights(Color.BLUE, 3000, 3000);
         Notification notification = mBuilder.build();

@@ -202,20 +202,20 @@ public class MyProfileFragment extends Fragment {
     private void fillProfileItemList(User myAccount) {
 
         profileItemList.clear();
-        ProfileItem userNameItem = new ProfileItem(Constants.USERNAME_LABEL, myAccount.getName(), R.mipmap.ic_account_box);
+        ProfileItem userNameItem = new ProfileItem(Constants.USERNAME_LABEL, myAccount.getName(), R.drawable.ic_account_box);
         profileItemList.add(userNameItem);
 
         //add status
-        ProfileItem bioItem = new ProfileItem(Constants.BIO_LABEL, myAccount.getBioText(), R.mipmap.ic_account_box);
+        ProfileItem bioItem = new ProfileItem(Constants.BIO_LABEL, myAccount.getBioText(), R.drawable.ic_account_box);
         profileItemList.add(bioItem);
 
-        ProfileItem emailItem = new ProfileItem(Constants.EMAIL_LABEL, myAccount.getEmail(), R.mipmap.ic_email);
+        ProfileItem emailItem = new ProfileItem(Constants.EMAIL_LABEL, myAccount.getEmail(), R.drawable.ic_email);
         profileItemList.add(emailItem);
 
-        ProfileItem resetPass = new ProfileItem(Constants.RESETPASS_LABEL, "", R.mipmap.ic_restore);
+        ProfileItem resetPass = new ProfileItem(Constants.RESETPASS_LABEL, "", R.drawable.ic_restore);
         profileItemList.add(resetPass);
 
-        ProfileItem signout = new ProfileItem(Constants.SIGNOUT_LABEL, "", R.mipmap.ic_power_settings);
+        ProfileItem signout = new ProfileItem(Constants.SIGNOUT_LABEL, "", R.drawable.ic_power_settings);
         profileItemList.add(signout);
     }
 
