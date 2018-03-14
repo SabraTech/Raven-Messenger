@@ -17,7 +17,7 @@ const mailTransport = nodemailer.createTransport({
 
 const APP_NAME = 'Raven Messenger';
 
-exports.sendRequestNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onWrite((event) => {
+exports.sendRequestNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onCreate((event) => {
     const receiver_id = event.params.receiver_id;
     const from_sender_id = event.params.sender_id;
     console.log('we have notification to send to : ', receiver_id);
@@ -29,9 +29,10 @@ exports.sendRequestNotification = functions.database.ref('/notifications/{receiv
     console.log('you have notification from: ', from_sender_id);
 
     //get sender name
-    const senderUser = admin.database().ref(`/user/${from_sender_id}/name`).once('value');
-    return senderUser.then(senderUserNameResult => {
-        const senderUserName = senderUserNameResult.val();
+    const senderUser = admin.database().ref(`/user/${from_sender_id}`).once('value');
+    return senderUser.then(senderUserResult => {
+        const senderUserName = senderUserResult.val().name;
+        const senderImage = senderUserResult.val().avatar;
         //get token of receiver device
         const token = admin.database().ref(`/user/${receiver_id}/token`).once('value');
         return token.then(result => {
@@ -41,7 +42,7 @@ exports.sendRequestNotification = functions.database.ref('/notifications/{receiv
                 data: {
                     title: "New Friend request",
                     body: `${senderUserName} has sent you a friend request `,
-                    from_sender_id: from_sender_id
+                    avatar: senderImage
                 }
             };
 
@@ -54,8 +55,45 @@ exports.sendRequestNotification = functions.database.ref('/notifications/{receiv
     });
 });
 
+exports.sendAcceptNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onDelete((event) => {
+    const receiver_id = event.params.receiver_id;
+    const from_sender_id = event.params.sender_id;
+    console.log('we have notification to send to : ', receiver_id);
+    if (!event.data.val()) {
+        return console.log('A notification has been deleted from data base: ', receiver_id);
+    }
 
-exports.sendChatNotification = functions.database.ref('/message/{room_id}/{message_id}').onWrite((event) => {
+
+    console.log('you have notification from: ', from_sender_id);
+
+    //get sender name
+    const receiverUser = admin.database().ref(`/user/${receiver_id}`).once('value');
+    return receiverUser.then(receiverUserResult => {
+        const receiverUserName = receiverUserResult.val().name;
+        const receiverImage = receiverUserResult.val().avatar;
+        //get token of receiver device
+        const token = admin.database().ref(`/user/${sender_id}/token`).once('value');
+        return token.then(result => {
+            const token_id = result.val();
+            console.log('token::   ', token_id);
+            const payload = {
+                data: {
+                    title: "Accept Friend request",
+                    body: `${receiverUserName} has accepted your friend request `,
+                    avatar: receiverImage
+                }
+            };
+
+            //send notification
+            return admin.messaging().sendToDevice(token_id, payload).then(response => {
+                console.log("Notification sent :: ", token_id);
+                return response;
+            });
+        });
+    });
+});
+
+exports.sendChatNotification = functions.database.ref('/message/{room_id}/{message_id}').onCreate((event) => {
 
     const room_id = event.params.room_id;
     const message_id = event.params.message_id;

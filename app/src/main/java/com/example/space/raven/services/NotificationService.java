@@ -5,11 +5,14 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
+import android.util.Base64;
 
 import com.example.space.raven.R;
 import com.example.space.raven.data.StaticConfig;
@@ -37,7 +40,9 @@ public class NotificationService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         String notificationTitle = data.get("title");
         String notificationBody = data.get("body");
-        // String notificationImage = data.get("image");
+        String notificationAvatar = data.get("avatar");
+        byte[] decodedString = Base64.decode(notificationAvatar, Base64.DEFAULT);
+        Bitmap notificationImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
         Intent resultIntent;
         if (notificationTitle.equals("New Message")) {
@@ -88,7 +93,7 @@ public class NotificationService extends FirebaseMessagingService {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId);
         mBuilder.setSmallIcon(R.drawable.ic_notification);
 
-        // mBuilder.setLargeIcon(notificationImage);
+        mBuilder.setLargeIcon(notificationImage);
         mBuilder.setContentTitle(notificationTitle);
         mBuilder.setContentText(notificationBody);
         // mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
