@@ -37,6 +37,7 @@ public class NotificationService extends FirebaseMessagingService {
         Map<String, String> data = remoteMessage.getData();
         String notificationTitle = data.get("title");
         String notificationBody = data.get("body");
+        // String notificationImage = data.get("image");
 
         Intent resultIntent;
         if (notificationTitle.equals("New Message")) {
@@ -51,9 +52,13 @@ public class NotificationService extends FirebaseMessagingService {
             resultIntent.putCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID, idFriend);
             resultIntent.putExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID, idRoom);
             resultIntent.putExtra(StaticConfig.INTENT_KEY_CHAT_AVATAR, avatar);
-        } else {
+        } else if (notificationTitle.equals("New Friend request")) {
             resultIntent = new Intent(this, TabsActivity.class);
             resultIntent.putExtra("selected_index", "1");
+        } else {
+//            notificationTitle.equals("Accept Friend request")
+            resultIntent = new Intent(this, TabsActivity.class);
+            resultIntent.putExtra("selected_index", "0");
         }
 
         PendingIntent resultPendingIntent =
@@ -81,14 +86,16 @@ public class NotificationService extends FirebaseMessagingService {
 
         //define builder
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, channelId);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setSmallIcon(R.drawable.ic_notification);
+
+        // mBuilder.setLargeIcon(notificationImage);
         mBuilder.setContentTitle(notificationTitle);
         mBuilder.setContentText(notificationBody);
-        mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+        // mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         mBuilder.setSound(notificationSound);
         mBuilder.setContentIntent(resultPendingIntent);
         mBuilder.setAutoCancel(true);
-        //mBuilder.setBadgeIconType(R.drawable.ic_messaging);
+        mBuilder.setBadgeIconType(R.drawable.ic_notification);
         mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000, 1000});
         mBuilder.setLights(Color.BLUE, 3000, 3000);
         Notification notification = mBuilder.build();
