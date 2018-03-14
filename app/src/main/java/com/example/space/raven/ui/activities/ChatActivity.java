@@ -57,6 +57,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     public static final int VIEW_TYPE_FRIEND_MESSAGE = 1;
     public static final int IMAGE_GALLERY = 0;
     public static final int IMAGE_CAPTURE = 1;
+    public static final String FILE_PROVIDER_AUTHORITIES = "com.example.space.raven.fileprovider";
+
     public static HashMap<String, Bitmap> bitmapAvatarFriend;
     public Bitmap bitmapAvataruser;
 
@@ -215,7 +217,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         File photo = createTemporaryFile("picture", ".jpg");
                         if (photo != null) {
                             camPhoto = FileProvider.getUriForFile(view.getContext(),
-                                    "com.example.space.raven.fileprovider",
+                                    FILE_PROVIDER_AUTHORITIES,
                                     photo);
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, camPhoto);
                         }
@@ -242,7 +244,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // add here loading bar for the uploading the image
             uploadDialog.setCancelable(false)
-                    .setTitle("Image updating....")
+                    .setTitle("Image uploading....")
                     .setTopColorRes(R.color.colorPrimary)
                     .show();
             Uri imageUri = camPhoto;
@@ -277,7 +279,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             // add here loading bar for the uploading the image
             // decide what should done to delete and not upload the duplicate !!!!!!!!!!!
             uploadDialog.setCancelable(false)
-                    .setTitle("Image updating....")
+                    .setTitle("Image uploading....")
                     .setTopColorRes(R.color.colorPrimary)
                     .show();
             Uri ImageUri = data.getData();

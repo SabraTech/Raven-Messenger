@@ -20,7 +20,7 @@ public class SharedPreferenceHelper {
     private static String SHARE_KEY_AVATAR = "avatar";
     private static String SHARE_KEY_UID = "uid";
     private static String SHARE_KEY_TOKEN = "token";
-    private static String SHARE_KEY_BIO = "bio";
+    private static String SHARE_KEY_BIO = "bioText";
 
 
     private SharedPreferenceHelper() {

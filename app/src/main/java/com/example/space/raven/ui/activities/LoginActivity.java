@@ -208,7 +208,6 @@ public class LoginActivity extends AppCompatActivity {
                             currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                             userToken = FirebaseInstanceId.getInstance().getToken();
                             userReference.child(currentUserId).child("token").setValue(userToken);
-                            Toast.makeText(LoginActivity.this, userToken, Toast.LENGTH_SHORT).show();
                             saveUserInfo();
                             progressDialog.dismiss();
                             Intent intent = new Intent(LoginActivity.this, TabsActivity.class);
@@ -237,7 +236,7 @@ public class LoginActivity extends AppCompatActivity {
                 userInfo.setName((String) hashUser.get("name"));
                 userInfo.setEmail((String) hashUser.get("email"));
                 userInfo.setAvatar((String) hashUser.get("avatar"));
-                userInfo.setBioText((String) hashUser.get("bio"));
+                userInfo.setBioText((String) hashUser.get("bioText"));
                 userInfo.setToken((String) hashUser.get("token"));
                 SharedPreferenceHelper.getInstance(LoginActivity.this).saveUserInfo(userInfo);
             }
