@@ -132,9 +132,9 @@ public class MyProfileFragment extends Fragment {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //switch to display photos
                             Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("image/*");
-                            intent.setAction(Intent.ACTION_PICK);
-                            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                            startActivityForResult(intent, PICK_IMAGE);
                             dialogInterface.dismiss();
                         }
                     })

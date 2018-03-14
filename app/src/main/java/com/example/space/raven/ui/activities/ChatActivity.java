@@ -7,13 +7,16 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -36,8 +39,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
+import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -65,6 +71,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private View rootView;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference messageReference;
+    private LovelyProgressDialog uploadDialog;
+    private Uri camPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_chat_room);
         bitmapAvatarFriend = new HashMap<>();
 
+        uploadDialog = new LovelyProgressDialog(this);
         Intent intentData = getIntent();
         idFriend = intentData.getCharSequenceArrayListExtra(StaticConfig.INTENT_KEY_CHAT_ID);
         roomId = intentData.getStringExtra(StaticConfig.INTENT_KEY_CHAT_ROOM_ID);
@@ -178,7 +187,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (view.getId() == R.id.btn_send) {
             String content = editTextMessage.getText().toString().trim();
@@ -203,6 +212,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 public void onClick(DialogInterface dialogInterface, int i) {
                     if (options[i].equals("Take Photo")) {
                         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        File photo = createTemporaryFile("picture", ".jpg");
+                        if (photo != null) {
+                            camPhoto = FileProvider.getUriForFile(view.getContext(),
+                                    "com.example.space.raven.fileprovider",
+                                    photo);
+                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, camPhoto);
+                        }
                         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(takePictureIntent, IMAGE_CAPTURE);
                         }
@@ -225,19 +241,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == IMAGE_CAPTURE && resultCode == RESULT_OK) {
             // add here loading bar for the uploading the image
-            Bitmap image = (Bitmap) data.getExtras().get("data");
-            UploadPostTask uploadPostTask = new UploadPostTask();
-            uploadPostTask.execute(image);
-        }
-
-        if (requestCode == IMAGE_GALLERY && resultCode == RESULT_OK) {
-            // add here loading bar for the uploading the image
-            // decide what should done to delete and not upload the duplicate !!!!!!!!!!!
-            Uri ImageUri = data.getData();
-            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(UUID.randomUUID().toString() + ".jpg").putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            uploadDialog.setCancelable(false)
+                    .setTitle("Image updating....")
+                    .setTopColorRes(R.color.colorPrimary)
+                    .show();
+            Uri imageUri = camPhoto;
+            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(UUID.randomUUID().toString() + ".jpg").putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
+                        uploadDialog.dismiss();
                         final String downloadUrl = task.getResult().getDownloadUrl().toString();
                         Message message = new Message();
                         message.text = CipherHandler.encrypt(downloadUrl);
@@ -247,14 +260,68 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.idReceiverRoom = roomId;
                         message.timestamp = System.currentTimeMillis();
                         messageReference.child(roomId).push().setValue(message);
+                        adapter.notifyDataSetChanged();
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
                     } else {
+                        uploadDialog.dismiss();
+                        Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+//            Bitmap image = (Bitmap) data.getExtras().get("data");
+//            UploadPostTask uploadPostTask = new UploadPostTask();
+//            uploadPostTask.execute(image);
+        }
+
+        if (requestCode == IMAGE_GALLERY && resultCode == RESULT_OK) {
+            // add here loading bar for the uploading the image
+            // decide what should done to delete and not upload the duplicate !!!!!!!!!!!
+            uploadDialog.setCancelable(false)
+                    .setTitle("Image updating....")
+                    .setTopColorRes(R.color.colorPrimary)
+                    .show();
+            Uri ImageUri = data.getData();
+            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(UUID.randomUUID().toString() + ".jpg").putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        uploadDialog.dismiss();
+                        final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                        Message message = new Message();
+                        message.text = CipherHandler.encrypt(downloadUrl);
+                        message.type = Message.IMAGE;
+                        message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        message.idReceiver = idFriend.get(0).toString();
+                        message.idReceiverRoom = roomId;
+                        message.timestamp = System.currentTimeMillis();
+                        messageReference.child(roomId).push().setValue(message);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        uploadDialog.dismiss();
                         Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
     }
+
+    private File createTemporaryFile(String part, String format) {
+        File tempDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        tempDir = new File(tempDir.getAbsolutePath() + "/.ravenTemp/");
+        if (!tempDir.exists()) {
+            tempDir.mkdirs();
+        }
+        File returnFile = null;
+        try {
+            returnFile = File.createTempFile(part, format, tempDir);
+            returnFile.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnFile;
+    }
+
 
     private class UploadPostTask
             extends AsyncTask<Bitmap, Void, Void> {
@@ -263,7 +330,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         protected Void doInBackground(Bitmap... params) {
             Bitmap bitmap = params[0];
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, byteArrayOutputStream);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+            Log.e(ChatActivity.class.getName(), "************ \n image dimen:: " + bitmap.getWidth() + " " + bitmap.getHeight());
             FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(UUID.randomUUID().toString() + ".jpg").putBytes(
                     byteArrayOutputStream.toByteArray()).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -278,6 +346,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.idReceiverRoom = roomId;
                         message.timestamp = System.currentTimeMillis();
                         messageReference.child(roomId).push().setValue(message);
+                        adapter.notifyDataSetChanged();
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();

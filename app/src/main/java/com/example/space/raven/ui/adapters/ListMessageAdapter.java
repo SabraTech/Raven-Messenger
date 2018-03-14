@@ -76,7 +76,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public boolean onLongClick(View view) {
                         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("message", conversation.getMessages().get(position).text);
+                        ClipData clip = ClipData.newPlainText("message", CipherHandler.decrypt(conversation.getMessages().get(position).text));
                         clipboard.setPrimaryClip(clip);
                         Toast.makeText(context, "Message Copied!", Toast.LENGTH_SHORT).show();
                         return true;
@@ -115,7 +115,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((ItemMessageFriendHolder) holder).txtContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageFriendHolder) holder).txtContent.setPadding(0, 0, 0, 0);
 
-                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent, new Callback() {
+                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent, new Callback() {
                     @Override
                     public void onSuccess() {
 
@@ -123,7 +123,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     @Override
                     public void onError() {
-                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent);
+                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent);
                     }
                 });
 
@@ -166,7 +166,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     @Override
                     public boolean onLongClick(View view) {
                         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText("message", conversation.getMessages().get(position).text);
+                        ClipData clip = ClipData.newPlainText("message", CipherHandler.decrypt(conversation.getMessages().get(position).text));
                         clipboard.setPrimaryClip(clip);
                         Toast.makeText(context, "Message Copied!", Toast.LENGTH_SHORT).show();
                         return true;
@@ -179,7 +179,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ((ItemMessageUserHolder) holder).txtContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageUserHolder) holder).txtContent.setPadding(0, 0, 0, 0);
 
-                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent, new Callback() {
+                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent, new Callback() {
                     @Override
                     public void onSuccess() {
 
@@ -187,7 +187,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     @Override
                     public void onError() {
-                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent);
+                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent);
                     }
                 });
 
