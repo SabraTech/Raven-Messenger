@@ -16,6 +16,7 @@ import com.example.space.raven.data.FriendDB;
 import com.example.space.raven.data.StaticConfig;
 import com.example.space.raven.models.Friend;
 import com.example.space.raven.models.FriendList;
+import com.example.space.raven.models.Message;
 import com.example.space.raven.ui.adapters.ListFriendsAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -172,11 +173,20 @@ public class FriendsFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() != null) {
-                        Friend user = new Friend();
+                        final Friend user = new Friend();
                         HashMap userInfoMap = (HashMap) dataSnapshot.getValue();
                         user.setName((String) userInfoMap.get("name"));
                         user.setEmail((String) userInfoMap.get("email"));
                         user.setAvatar((String) userInfoMap.get("avatar"));
+                        HashMap messageMap = (HashMap) userInfoMap.get("message");
+                        Message message = new Message();
+                        message.idSender = (String) messageMap.get("idSender");
+                        message.idReceiver = (String) messageMap.get("idReceiver");
+                        message.idReceiverRoom = (String) messageMap.get("idReceiverRoom");
+                        message.text = (String) messageMap.get("text");
+                        message.type = (long) messageMap.get("type");
+                        message.timestamp = (long) messageMap.get("timestamp");
+                        user.setMessage(message);
                         user.id = id;
                         user.idRoom = id.compareTo(currentUid) > 0 ? (currentUid + id).hashCode() + "" : "" + (id + currentUid).hashCode();
                         friendList.getFriendsList().add(user);

@@ -39,7 +39,11 @@ public class SplashActivity extends AppCompatActivity {
                 requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS);
             } else if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_ASK_PERMISSIONS);
+            } else {
+                displaySplashScreen();
             }
+        } else {
+            displaySplashScreen();
         }
     }
 

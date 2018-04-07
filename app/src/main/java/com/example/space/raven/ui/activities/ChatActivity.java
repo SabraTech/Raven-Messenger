@@ -73,6 +73,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private View rootView;
     private LinearLayoutManager linearLayoutManager;
     private DatabaseReference messageReference;
+    private DatabaseReference usersReference;
     private LovelyProgressDialog uploadDialog;
     private Uri camPhoto;
 
@@ -110,6 +111,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         messageReference = FirebaseDatabase.getInstance().getReference().child("message");
         messageReference.keepSynced(true);
+        usersReference = FirebaseDatabase.getInstance().getReference().child("user");
+        usersReference.keepSynced(true);
 
         // debug this if the return works
         String base64AvatarUser = SharedPreferenceHelper.getInstance(this).getUserInfo().getAvatar();
@@ -138,6 +141,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.text = (String) messageMap.get("text");
                         message.type = (long) messageMap.get("type");
                         message.timestamp = (long) messageMap.get("timestamp");
+                        DatabaseReference user1 = usersReference.child((String) messageMap.get("idSender"));
+                        DatabaseReference user2 = usersReference.child((String) messageMap.get("idReceiver"));
+                        user1.child("message").setValue(message);
+                        user2.child("message").setValue(message);
                         conversation.getMessages().add(message);
                         adapter.notifyDataSetChanged();
                         linearLayoutManager.scrollToPosition(conversation.getMessages().size() - 1);
@@ -262,7 +269,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.idReceiverRoom = roomId;
                         message.timestamp = System.currentTimeMillis();
                         messageReference.child(roomId).push().setValue(message);
-                        adapter.notifyDataSetChanged();
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
                     } else {
                         uploadDialog.dismiss();
@@ -297,7 +303,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         message.idReceiverRoom = roomId;
                         message.timestamp = System.currentTimeMillis();
                         messageReference.child(roomId).push().setValue(message);
-                        adapter.notifyDataSetChanged();
                         Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
                     } else {
                         uploadDialog.dismiss();

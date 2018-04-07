@@ -82,6 +82,11 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         ((View) ((ItemFriendViewHolder) holder).txtName.getParent().getParent().getParent()).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (message.type == Message.IMAGE) {
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(R.string.image);
+                } else {
+                    ((ItemFriendViewHolder) holder).txtMessage.setText(messageText);
+                }
                 ((ItemFriendViewHolder) holder).txtMessage.setTypeface(Typeface.DEFAULT);
                 ((ItemFriendViewHolder) holder).txtName.setTypeface(Typeface.DEFAULT);
                 Intent intent = new Intent(context, ChatActivity.class);
