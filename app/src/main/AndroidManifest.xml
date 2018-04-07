@@ -36,6 +36,7 @@
         <!--Service for notification service-->
         <service
             android:name="com.example.space.raven.services.NotificationService"
+            android:enabled="true"
             android:exported="true">
 
             <intent-filter>
