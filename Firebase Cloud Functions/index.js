@@ -59,11 +59,6 @@ exports.sendAcceptNotification = functions.database.ref('/notifications/{receive
     const receiver_id = event.params.receiver_id;
     const from_sender_id = event.params.sender_id;
     console.log('we have notification to send to : ', receiver_id);
-    if (!event.data.val()) {
-        return console.log('A notification has been deleted from data base: ', receiver_id);
-    }
-
-
     console.log('you have notification from: ', from_sender_id);
 
     //get sender name
