@@ -31,6 +31,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -68,7 +70,17 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        String time = new SimpleDateFormat("EEE, d MMM yyyy").format(new Date(conversation.getMessages().get(position).timestamp));
+        String today = new SimpleDateFormat("EEE, d MMM yyyy").format(new Date(System.currentTimeMillis()));
+
         if (holder instanceof ItemMessageFriendHolder) {
+
+            if (today.equals(time)) {
+                ((ItemMessageFriendHolder) holder).txtTime.setText(new SimpleDateFormat("HH:mm").format(new Date(conversation.getMessages().get(position).timestamp)));
+            } else {
+                ((ItemMessageFriendHolder) holder).txtTime.setText(new SimpleDateFormat("MMM d").format(new Date(conversation.getMessages().get(position).timestamp)));
+            }
+
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageFriendHolder) holder).imageContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageFriendHolder) holder).txtContent.setText(CipherHandler.decrypt(conversation.getMessages().get(position).text));
@@ -159,6 +171,13 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
         } else if (holder instanceof ItemMessageUserHolder) {
+
+            if (today.equals(time)) {
+                ((ItemMessageUserHolder) holder).txtTime.setText(new SimpleDateFormat("HH:mm").format(new Date(conversation.getMessages().get(position).timestamp)));
+            } else {
+                ((ItemMessageUserHolder) holder).txtTime.setText(new SimpleDateFormat("MMM d").format(new Date(conversation.getMessages().get(position).timestamp)));
+            }
+
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageUserHolder) holder).imageContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageUserHolder) holder).txtContent.setText(CipherHandler.decrypt(conversation.getMessages().get(position).text));
@@ -217,12 +236,14 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 class ItemMessageUserHolder extends RecyclerView.ViewHolder {
     public TextView txtContent;
+    public TextView txtTime;
     public CircleImageView avatar;
     public ImageView imageContent;
 
     public ItemMessageUserHolder(View view) {
         super(view);
         txtContent = view.findViewById(R.id.textContentUser);
+        txtTime = view.findViewById(R.id.timeContentUser);
         imageContent = view.findViewById(R.id.imageContentUser);
         avatar = view.findViewById(R.id.image_view_user);
     }
@@ -230,12 +251,14 @@ class ItemMessageUserHolder extends RecyclerView.ViewHolder {
 
 class ItemMessageFriendHolder extends RecyclerView.ViewHolder {
     public TextView txtContent;
+    public TextView txtTime;
     public CircleImageView avatar;
     public ImageView imageContent;
 
     public ItemMessageFriendHolder(View view) {
         super(view);
         txtContent = view.findViewById(R.id.textContentFriend);
+        txtTime = view.findViewById(R.id.timeContentFriend);
         imageContent = view.findViewById(R.id.imageContentFriend);
         avatar = view.findViewById(R.id.image_view_friend);
     }

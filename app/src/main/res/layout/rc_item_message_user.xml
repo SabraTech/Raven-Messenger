@@ -15,32 +15,43 @@
         android:layout_marginEnd="5dp"
         android:src="@drawable/default_avatar" />
 
-    <TextView
-        android:id="@+id/textContentUser"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/image_view_user"
+        android:background="@drawable/rounded_corner1"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_toStartOf="@id/image_view_user"
-        android:autoLink="web"
-        android:background="@drawable/rounded_corner1"
-        android:padding="10dp"
-        android:text="a"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#ffffff" />
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageContentUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_toStartOf="@id/image_view_user"
-        android:background="@drawable/rounded_corner1"
-        android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/textContentUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="web"
+            android:padding="10dp"
+            android:text="a"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
+
+        <ImageView
+            android:id="@+id/imageContentUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/timeContentUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="time"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
 </RelativeLayout>
