@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.space.raven.ui.activities.TabsActivity"
+    tools:context="com.example.space.ravenmessenger.ui.activities.TabsActivity"
     tools:showIn="@layout/activity_tabs">
 
     <android.support.v4.view.ViewPager

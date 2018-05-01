@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "661751091080",
-    "firebase_url": "https://raven-1863b.firebaseio.com",
-    "project_id": "raven-1863b",
-    "storage_bucket": "raven-1863b.appspot.com"
+    "project_number": "684366185011",
+    "firebase_url": "https://raven-messenger-d5426.firebaseio.com",
+    "project_id": "raven-messenger-d5426",
+    "storage_bucket": "raven-messenger-d5426.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:661751091080:android:4e682bb0aaf15f37",
+        "mobilesdk_app_id": "1:684366185011:android:4d8ec98ad32edc83",
         "android_client_info": {
-          "package_name": "com.example.space.raven"
+          "package_name": "com.example.space.ravenmessenger"
         }
       },
       "oauth_client": [
         {
-          "client_id": "661751091080-i0gnemvve3p5ti3anfq77g6tp7e8bmvh.apps.googleusercontent.com",
+          "client_id": "684366185011-jmc4vl5t6gicfsaj7tdd939vbm35fkvr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.space.raven",
+            "package_name": "com.example.space.ravenmessenger",
             "certificate_hash": "7ce70a50d7c11fd0b25504eb91565255509a5e02"
           }
         },
         {
-          "client_id": "661751091080-n6c8n00ssul3topj5de9ltfhpcnl1era.apps.googleusercontent.com",
+          "client_id": "684366185011-2r9ckiv1qg4suj4e5f625jkvspord077.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAVCyTZ9yQg8mlgP9QA-7R4nC-65EWm7fs"
+          "current_key": "AIzaSyBs5u89zmg1IMGCE_Cgu42oq9Y2AOFqseM"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "661751091080-n6c8n00ssul3topj5de9ltfhpcnl1era.apps.googleusercontent.com",
+              "client_id": "684366185011-2r9ckiv1qg4suj4e5f625jkvspord077.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

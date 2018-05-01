@@ -17,11 +17,11 @@ const mailTransport = nodemailer.createTransport({
 
 const APP_NAME = 'Raven Messenger';
 
-exports.sendRequestNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onCreate((event) => {
-    const receiver_id = event.params.receiver_id;
-    const from_sender_id = event.params.sender_id;
+exports.sendRequestNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onCreate((snapshot, context) => {
+    const receiver_id = context.params.receiver_id;
+    const from_sender_id = context.params.sender_id;
     console.log('we have notification to send to : ', receiver_id);
-    if (!event.data.val()) {
+    if (!snapshot.val()) {
         return console.log('A notification has been deleted from data base: ', receiver_id);
     }
 
@@ -55,9 +55,9 @@ exports.sendRequestNotification = functions.database.ref('/notifications/{receiv
     });
 });
 
-exports.sendAcceptNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onDelete((event) => {
-    const receiver_id = event.params.receiver_id;
-    const from_sender_id = event.params.sender_id;
+exports.sendAcceptNotification = functions.database.ref('/notifications/{receiver_id}/{sender_id}').onDelete((snapshot, context) => {
+    const receiver_id = context.params.receiver_id;
+    const from_sender_id = context.params.sender_id;
     console.log('we have notification to send to : ', receiver_id);
     console.log('you have notification from: ', from_sender_id);
 
@@ -88,12 +88,12 @@ exports.sendAcceptNotification = functions.database.ref('/notifications/{receive
     });
 });
 
-exports.sendChatNotification = functions.database.ref('/message/{room_id}/{message_id}').onCreate((event) => {
+exports.sendChatNotification = functions.database.ref('/message/{room_id}/{message_id}').onCreate((snapshot, context) => {
 
-    const room_id = event.params.room_id;
-    const message_id = event.params.message_id;
+    const room_id = context.params.room_id;
+    const message_id = context.params.message_id;
     console.log('we have notification to send to the message id : ', message_id);
-    if (!event.data.val()) {
+    if (!snapshot.val()) {
         return console.log('A notification has been deleted from data base: ', room_id);
     }
     // get receiver id
@@ -137,8 +137,8 @@ exports.sendChatNotification = functions.database.ref('/message/{room_id}/{messa
 });
 
 
-exports.sendWelcomeEmail = functions.database.ref('/user/{user_id}').onCreate((event) => {
-    const user_id = event.params.user_id;
+exports.sendWelcomeEmail = functions.database.ref('/user/{userId}').onCreate((snapshot, context) => {
+    const user_id = context.params.userId;
     const user = admin.database().ref(`/user/${user_id}`).once('value');
     return user.then(user_data => {
         const email = user_data.val().email;

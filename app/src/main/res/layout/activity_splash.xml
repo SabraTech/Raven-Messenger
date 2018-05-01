@@ -4,4 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.space.raven.ui.activities.SplashActivity" />
+    tools:context="com.example.space.ravenmessenger.ui.activities.SplashActivity" />

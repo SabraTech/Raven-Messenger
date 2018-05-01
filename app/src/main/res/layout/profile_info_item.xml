@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.space.raven.ui.fragments.MyProfileFragment"
+    tools:context="com.example.space.ravenmessenger.ui.fragments.MyProfileFragment"
     tools:showIn="@layout/fragment_profile_setting">
 
     <ImageView
