@@ -42,7 +42,8 @@ before_install:
   #- adb shell input keyevent 82 &
 
 script:
-  ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+  ./gradlew assembleDebug
+    #./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
     #- ./gradlew build jacocoTestReport publishSnapshot
     #- ./gradlew build jacocoTestReport assembleAndroidTest
     #- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI

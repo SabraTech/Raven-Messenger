@@ -200,6 +200,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (view.getId() == R.id.btn_send) {
             String content = editTextMessage.getText().toString().trim();
+            System.out.println(content);
             if (content.length() > 0) {
                 editTextMessage.setText("");
                 Message message = new Message();
