@@ -76,6 +76,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference usersReference;
     private LovelyProgressDialog uploadDialog;
     private Uri camPhoto;
+//    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +174,17 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             });
             recyclerChat.setAdapter(adapter);
         }
+
+
+//        // Instantiate the cache
+//        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+//
+//        // Set up the network to use HttpURLConnection as the HTTP client.
+//        Network network = new BasicNetwork(new HurlStack());
+//
+//        // Instantiate the RequestQueue with the cache and network.
+//        requestQueue = new RequestQueue(cache, network);
+
     }
 
     @Override
@@ -212,6 +224,43 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 message.timestamp = System.currentTimeMillis();
                 messageReference.child(roomId).push().setValue(message);
             }
+//        } else if (view.getId() == R.id.btn_predict_emoji) {
+//            String content = editTextMessage.getText().toString().trim();
+//            if (content.length() > 0) {
+//                content = content.replaceAll(" ", "+");
+//
+//                // or this
+//                // RequestQueue queue = Volley.newRequestQueue(this);
+//
+//                // Start the queue
+//                requestQueue.start();
+//                String url = "http://0.0.0.0:8080/emoji?message=" + content;
+//
+//                // Formulate the request and handle the response.
+//                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//                                // String indexOfEmoji = response;
+//                                // parse the string on ,
+//                                // view each emoji on textView clickable
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//                                // Handle error
+//                                // log the error here with the server
+//                            }
+//                        });
+//
+//                // Add the request to the RequestQueue.
+//                requestQueue.add(stringRequest);
+
+//            } else {
+//                Toast.makeText(ChatActivity.this, "No message to predict!", Toast.LENGTH_SHORT).show();
+//            }
+
         } else if (view.getId() == R.id.btn_add_image) {
             final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
             AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
