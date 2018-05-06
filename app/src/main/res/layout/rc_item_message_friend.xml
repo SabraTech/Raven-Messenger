@@ -13,46 +13,49 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:src="@drawable/default_avatar" />
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/textContentFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corner2"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/image_view_friend"
-        android:orientation="vertical">
+        android:autoLink="web"
+        android:background="@drawable/rounded_corner2"
+        android:padding="10dp"
+        android:text="A"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000" />
 
+    <ImageView
+        android:id="@+id/imageContentFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/image_view_friend"
+        android:background="@drawable/rounded_corner2"
+        android:padding="10dp" />
 
-        <TextView
-            android:id="@+id/textContentFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:padding="10dp"
-            android:text="A"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#000" />
-
-        <ImageView
-            android:id="@+id/imageContentFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp" />
-
-        <TextView
-            android:id="@+id/timeContentFriend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="time"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#000" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/timeContentFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:text="time"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000" />
 
 
 </RelativeLayout>
