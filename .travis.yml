@@ -52,8 +52,8 @@ before_script:
 
 script:
   - ./gradlew assembleDebug
-  - ./gradlew clean build
-  - ./gradlew connectedAndroidTest
+#  - ./gradlew clean build
+#  - ./gradlew connectedAndroidTest
     #./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
     #- ./gradlew build jacocoTestReport publishSnapshot
     #- ./gradlew build jacocoTestReport assembleAndroidTest
