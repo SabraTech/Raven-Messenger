@@ -59,7 +59,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     public static final int VIEW_TYPE_FRIEND_MESSAGE = 1;
     public static final int IMAGE_GALLERY = 0;
     public static final int IMAGE_CAPTURE = 1;
-    public static final String FILE_PROVIDER_AUTHORITIES = "com.example.space.raven.fileprovider";
+    public static final String FILE_PROVIDER_AUTHORITIES = "com.example.space.ravenmessenger.fileprovider";
 
     public static HashMap<String, Bitmap> bitmapAvatarFriend;
     public Bitmap bitmapAvataruser;

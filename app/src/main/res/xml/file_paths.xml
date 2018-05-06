@@ -2,5 +2,5 @@
 <paths>
     <external-path
         name="my_images"
-        path="Android/data/com.example.space.raven/files/Pictures" />
+        path="Android/data/com.example.space.ravenmessenger/files/Pictures" />
 </paths>
