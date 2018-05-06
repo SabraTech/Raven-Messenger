@@ -41,8 +41,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -212,7 +214,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         String currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (view.getId() == R.id.btn_send) {
             String content = editTextMessage.getText().toString().trim();
-            System.out.println(content);
             if (content.length() > 0) {
                 editTextMessage.setText("");
                 Message message = new Message();
@@ -360,6 +361,27 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
             });
+        }
+    }
+
+    // log print in file method
+    private void appendText(String text) {
+        File logFile = new File("/storage/emulated/0/log.txt");
+        if (!logFile.exists()) {
+            try {
+                logFile.createNewFile();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
+            buf.append(text);
+            buf.newLine();
+            buf.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
