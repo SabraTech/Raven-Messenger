@@ -54,7 +54,8 @@ script:
   - ./gradlew assembleDebug
 #  - ./gradlew clean build
 #  - ./gradlew connectedAndroidTest
-    #./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+  - ./gradlew clean build connectedCheck -PdisablePreDex --stacktrace
+  - ./gradlew jacocoTestReport
     #- ./gradlew build jacocoTestReport publishSnapshot
     #- ./gradlew build jacocoTestReport assembleAndroidTest
     #- ./gradlew connectedCheck

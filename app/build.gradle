@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.google.firebase.firebase-perf'
-//apply plugin: 'jacoco-android'
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco-android'
 
 android {
-//    flavorDimensions "default"
+    flavorDimensions "default"
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.space.ravenmessenger"
@@ -12,7 +13,7 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
-//        multiDexEnabled true
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,23 +21,23 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        debug {
-//            testCoverageEnabled true
-//        }
+        debug {
+            testCoverageEnabled true
+        }
     }
-//    productFlavors {
-//        free {}
-//        paid {}
-//    }
-//    jacocoAndroidUnitTestReport {
-//        csv.enabled false
-//        html.enabled true
-//        xml.enabled true
-//    }
-//    compileOptions {
-//        sourceCompatibility 1.8
-//        targetCompatibility 1.8
-//    }
+    productFlavors {
+        free {}
+        paid {}
+    }
+    jacocoAndroidUnitTestReport {
+        csv.enabled false
+        html.enabled true
+        xml.enabled true
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -51,13 +52,13 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     // firebase dependencies
-    implementation 'com.google.firebase:firebase-database:15.0.0'
+    implementation 'com.google.firebase:firebase-database:15.0.1'
     implementation 'com.google.firebase:firebase-auth:15.1.0'
     implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-storage:15.0.2'
     implementation 'com.google.firebase:firebase-messaging:15.0.2'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.2'
-    implementation 'com.google.firebase:firebase-perf:15.0.0'
+    implementation 'com.google.firebase:firebase-perf:15.2.0'
 
 
     // Support dependencies
