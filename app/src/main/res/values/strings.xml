@@ -3,6 +3,9 @@
 
     <string name="find_users">Find Users</string>
 
+    <string name="tooltip_find_user">Add Friend</string>
+    <string name="tooltip_register">Create Account</string>
+
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_password_2">Re-enter Password</string>

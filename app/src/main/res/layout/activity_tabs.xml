@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimary"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
+        android:tooltipText="@string/tooltip_find_user"
         app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_person_add" />
 

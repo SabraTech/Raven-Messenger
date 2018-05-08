@@ -135,6 +135,7 @@
         android:onClick="clickRegisterLayout"
         android:src="@drawable/ic_signup"
         android:transitionName="loginFab"
+        android:tooltipText="@string/tooltip_register"
         app:fabSize="normal" />
 
 
