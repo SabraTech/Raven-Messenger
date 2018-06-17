@@ -29,6 +29,7 @@ import com.example.space.ravenmessenger.encryption.CipherHandler;
 import com.example.space.ravenmessenger.models.Conversation;
 import com.example.space.ravenmessenger.models.Message;
 import com.example.space.ravenmessenger.ui.adapters.ListMessageAdapter;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -306,21 +307,41 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     .setTopColorRes(R.color.colorPrimary)
                     .show();
             Uri imageUri = camPhoto;
-            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(UUID.randomUUID().toString() + ".jpg").putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            String imageName = UUID.randomUUID().toString() + ".jpg";
+            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(imageName).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
                         uploadDialog.dismiss();
-                        final String downloadUrl = task.getResult().getDownloadUrl().toString();
-                        Message message = new Message();
-                        message.text = CipherHandler.encrypt(downloadUrl);
-                        message.type = Message.IMAGE;
-                        message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        message.idReceiver = idFriend.get(0).toString();
-                        message.idReceiverRoom = roomId;
-                        message.timestamp = System.currentTimeMillis();
-                        messageReference.child(roomId).push().setValue(message);
-                        Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
+                        task.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw task.getException();
+                                }
+                                return FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(imageName).getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    final String downloadUrl = task.getResult().toString();
+                                    Message message = new Message();
+                                    message.text = CipherHandler.encrypt(downloadUrl);
+                                    message.type = Message.IMAGE;
+                                    message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    message.idReceiver = idFriend.get(0).toString();
+                                    message.idReceiverRoom = roomId;
+                                    message.timestamp = System.currentTimeMillis();
+                                    messageReference.child(roomId).push().setValue(message);
+                                    Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Handle failures
+                                    uploadDialog.dismiss();
+                                    Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     } else {
                         uploadDialog.dismiss();
                         Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
@@ -340,21 +361,41 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     .setTopColorRes(R.color.colorPrimary)
                     .show();
             Uri ImageUri = data.getData();
-            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(UUID.randomUUID().toString() + ".jpg").putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            String imageName = UUID.randomUUID().toString() + ".jpg";
+            FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(imageName).putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
                         uploadDialog.dismiss();
-                        final String downloadUrl = task.getResult().getDownloadUrl().toString();
-                        Message message = new Message();
-                        message.text = CipherHandler.encrypt(downloadUrl);
-                        message.type = Message.IMAGE;
-                        message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        message.idReceiver = idFriend.get(0).toString();
-                        message.idReceiverRoom = roomId;
-                        message.timestamp = System.currentTimeMillis();
-                        messageReference.child(roomId).push().setValue(message);
-                        Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
+                        task.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw task.getException();
+                                }
+                                return FirebaseStorage.getInstance().getReference().child("Pictures_Messages").child(imageName).getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    final String downloadUrl = task.getResult().toString();
+                                    Message message = new Message();
+                                    message.text = CipherHandler.encrypt(downloadUrl);
+                                    message.type = Message.IMAGE;
+                                    message.idSender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    message.idReceiver = idFriend.get(0).toString();
+                                    message.idReceiverRoom = roomId;
+                                    message.timestamp = System.currentTimeMillis();
+                                    messageReference.child(roomId).push().setValue(message);
+                                    Toast.makeText(ChatActivity.this, "Picture Sent!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Handle failures
+                                    uploadDialog.dismiss();
+                                    Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     } else {
                         uploadDialog.dismiss();
                         Toast.makeText(ChatActivity.this, "Error: Picture not sent. Try Again!", Toast.LENGTH_SHORT).show();
@@ -416,7 +457,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     if (task.isSuccessful()) {
-                        final String downloadUrl = task.getResult().getDownloadUrl().toString();
+                        final String downloadUrl = task.getResult().getStorage().getDownloadUrl().toString();
                         Message message = new Message();
                         message.text = CipherHandler.encrypt(downloadUrl);
                         message.type = Message.IMAGE;
