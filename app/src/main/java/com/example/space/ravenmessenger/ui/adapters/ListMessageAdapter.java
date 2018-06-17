@@ -83,6 +83,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageFriendHolder) holder).imageContent.setVisibility(View.INVISIBLE);
+                ((ItemMessageFriendHolder) holder).txtContent.setVisibility(View.VISIBLE);
                 ((ItemMessageFriendHolder) holder).txtContent.setText(CipherHandler.decrypt(conversation.getMessages().get(position).text));
                 ((ItemMessageFriendHolder) holder).txtContent.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -126,8 +127,8 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else if (conversation.getMessages().get(position).type == Message.IMAGE) {
                 ((ItemMessageFriendHolder) holder).txtContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageFriendHolder) holder).txtContent.setPadding(0, 0, 0, 0);
-
-                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent, new Callback() {
+                ((ItemMessageFriendHolder) holder).imageContent.setVisibility(View.VISIBLE);
+                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).config(Bitmap.Config.RGB_565).into(((ItemMessageFriendHolder) holder).imageContent, new Callback() {
                     @Override
                     public void onSuccess() {
 
@@ -135,7 +136,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     @Override
                     public void onError() {
-                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().placeholder(R.drawable.default_image).into(((ItemMessageFriendHolder) holder).imageContent);
+                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().placeholder(R.drawable.default_image).config(Bitmap.Config.RGB_565).into(((ItemMessageFriendHolder) holder).imageContent);
                     }
                 });
 
@@ -180,6 +181,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             if (conversation.getMessages().get(position).type == Message.TEXT) {
                 ((ItemMessageUserHolder) holder).imageContent.setVisibility(View.INVISIBLE);
+                ((ItemMessageUserHolder) holder).txtContent.setVisibility(View.VISIBLE);
                 ((ItemMessageUserHolder) holder).txtContent.setText(CipherHandler.decrypt(conversation.getMessages().get(position).text));
                 ((ItemMessageUserHolder) holder).txtContent.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
@@ -197,8 +199,8 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else if (conversation.getMessages().get(position).type == Message.IMAGE) {
                 ((ItemMessageUserHolder) holder).txtContent.setVisibility(View.INVISIBLE);
                 ((ItemMessageUserHolder) holder).txtContent.setPadding(0, 0, 0, 0);
-
-                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent, new Callback() {
+                ((ItemMessageUserHolder) holder).imageContent.setVisibility(View.VISIBLE);
+                Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_image).config(Bitmap.Config.RGB_565).into(((ItemMessageUserHolder) holder).imageContent, new Callback() {
                     @Override
                     public void onSuccess() {
 
@@ -206,7 +208,7 @@ public class ListMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                     @Override
                     public void onError() {
-                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().placeholder(R.drawable.default_image).into(((ItemMessageUserHolder) holder).imageContent);
+                        Picasso.with(context).load(CipherHandler.decrypt(conversation.getMessages().get(position).text)).fit().centerCrop().placeholder(R.drawable.default_image).config(Bitmap.Config.RGB_565).into(((ItemMessageUserHolder) holder).imageContent);
                     }
                 });
 
