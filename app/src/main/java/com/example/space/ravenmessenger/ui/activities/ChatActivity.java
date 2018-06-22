@@ -1,7 +1,10 @@
 package com.example.space.ravenmessenger.ui.activities;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -22,12 +25,23 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
+import com.android.volley.Network;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.BasicNetwork;
+import com.android.volley.toolbox.DiskBasedCache;
+import com.android.volley.toolbox.HurlStack;
+import com.android.volley.toolbox.StringRequest;
 import com.example.space.ravenmessenger.R;
 import com.example.space.ravenmessenger.data.SharedPreferenceHelper;
 import com.example.space.ravenmessenger.data.StaticConfig;
 import com.example.space.ravenmessenger.encryption.CipherHandler;
 import com.example.space.ravenmessenger.models.Conversation;
 import com.example.space.ravenmessenger.models.Message;
+import com.example.space.ravenmessenger.ui.adapters.EmojiAdapter;
 import com.example.space.ravenmessenger.ui.adapters.ListMessageAdapter;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,10 +63,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
+
+import static com.example.space.ravenmessenger.data.EmojiPrediction.emojiMap;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -61,16 +78,17 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     public static final int IMAGE_GALLERY = 0;
     public static final int IMAGE_CAPTURE = 1;
     public static final String FILE_PROVIDER_AUTHORITIES = "com.example.space.ravenmessenger.fileprovider";
+    public static final String ACTION_EMOJI_CHOSEN = "com.example.space.raven.emoji_chosen";
 
     public static HashMap<String, Bitmap> bitmapAvatarFriend;
     public Bitmap bitmapAvataruser;
 
-    private RecyclerView recyclerChat;
+    private RecyclerView recyclerChat, recyclerEmoji;
     private ListMessageAdapter adapter;
     private String roomId;
     private ArrayList<CharSequence> idFriend;
     private Conversation conversation;
-    private ImageButton btnSend, btnEmoij, btnImage;
+    private ImageButton btnSend, btnEmoij, btnImage, btnChooseEmoji;
     private EmojiconEditText editTextMessage;
     private EmojIconActions emojIconActions;
     private View rootView;
@@ -79,7 +97,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference usersReference;
     private LovelyProgressDialog uploadDialog;
     private Uri camPhoto;
-//    private RequestQueue requestQueue;
+    private BroadcastReceiver chooseEmoji;
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +131,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
         btnImage = findViewById(R.id.btn_add_image);
         btnImage.setOnClickListener(this);
+
+        btnChooseEmoji = findViewById(R.id.btn_predict_emoji);
+        btnChooseEmoji.setOnClickListener(this);
+
+        recyclerEmoji = findViewById(R.id.emoji_recycler_view);
 
         messageReference = FirebaseDatabase.getInstance().getReference().child("message");
         messageReference.keepSynced(true);
@@ -179,14 +203,29 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-//        // Instantiate the cache
-//        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-//
-//        // Set up the network to use HttpURLConnection as the HTTP client.
-//        Network network = new BasicNetwork(new HurlStack());
-//
-//        // Instantiate the RequestQueue with the cache and network.
-//        requestQueue = new RequestQueue(cache, network);
+        // Instantiate the cache
+        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
+
+        // Set up the network to use HttpURLConnection as the HTTP client.
+        Network network = new BasicNetwork(new HurlStack());
+
+        // Instantiate the RequestQueue with the cache and network.
+        requestQueue = new RequestQueue(cache, network);
+
+
+        chooseEmoji = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String emojiCode = intent.getStringExtra("code");
+                editTextMessage.append(emojiCode);
+                // remove the view of emoji here
+                recyclerEmoji.setVisibility(View.GONE);
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter(ACTION_EMOJI_CHOSEN);
+        this.registerReceiver(chooseEmoji, intentFilter);
+
 
     }
 
@@ -226,42 +265,56 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 message.timestamp = System.currentTimeMillis();
                 messageReference.child(roomId).push().setValue(message);
             }
-//        } else if (view.getId() == R.id.btn_predict_emoji) {
-//            String content = editTextMessage.getText().toString().trim();
-//            if (content.length() > 0) {
-//                content = content.replaceAll(" ", "+");
-//
-//                // or this
-//                // RequestQueue queue = Volley.newRequestQueue(this);
-//
-//                // Start the queue
-//                requestQueue.start();
-//                String url = "http://0.0.0.0:8080/emoji?message=" + content;
-//
-//                // Formulate the request and handle the response.
-//                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//                                // String indexOfEmoji = response;
-//                                // parse the string on ,
-//                                // view each emoji on textView clickable
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                // Handle error
-//                                // log the error here with the server
-//                            }
-//                        });
-//
-//                // Add the request to the RequestQueue.
-//                requestQueue.add(stringRequest);
+        } else if (view.getId() == R.id.btn_predict_emoji) {
+            String content = editTextMessage.getText().toString().trim();
+            if (content.length() > 0) {
+                content = content.replaceAll(" ", "+");
 
-//            } else {
-//                Toast.makeText(ChatActivity.this, "No message to predict!", Toast.LENGTH_SHORT).show();
-//            }
+                // or this
+                // RequestQueue queue = Volley.newRequestQueue(this);
+
+                // Start the queue
+                requestQueue.start();
+                String url = "http://10.10.10.39:8080/emoji?message=" + content;
+
+                // Formulate the request and handle the response.
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                String indexOfEmoji = response;
+                                StringBuilder sb = new StringBuilder(indexOfEmoji);
+                                sb.deleteCharAt(indexOfEmoji.length() - 1);
+                                sb.deleteCharAt(0);
+                                String index = sb.toString();
+                                String[] parts = index.split(" ");
+                                List<String> emojis = new ArrayList<>();
+                                for (String s : parts) {
+                                    emojis.add(emojiMap.get(s));
+                                }
+
+                                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                                recyclerEmoji.setVisibility(View.VISIBLE);
+                                recyclerEmoji.setLayoutManager(linearLayoutManager);
+                                EmojiAdapter emojiAdapter = new EmojiAdapter(ChatActivity.this, emojis);
+                                recyclerEmoji.setAdapter(emojiAdapter);
+                                // view each emoji on textView clickable
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Handle error
+                                // log the error here with the server
+                            }
+                        });
+
+                // Add the request to the RequestQueue.
+                requestQueue.add(stringRequest);
+
+            } else {
+                Toast.makeText(ChatActivity.this, "No message to predict!", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (view.getId() == R.id.btn_add_image) {
             final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
