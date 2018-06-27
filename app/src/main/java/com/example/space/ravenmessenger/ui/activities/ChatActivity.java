@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -41,6 +42,8 @@ import com.example.space.ravenmessenger.data.StaticConfig;
 import com.example.space.ravenmessenger.encryption.CipherHandler;
 import com.example.space.ravenmessenger.models.Conversation;
 import com.example.space.ravenmessenger.models.Message;
+import com.example.space.ravenmessenger.smartreply.SmartReply;
+import com.example.space.ravenmessenger.smartreply.SmartReplyClient;
 import com.example.space.ravenmessenger.ui.adapters.EmojiAdapter;
 import com.example.space.ravenmessenger.ui.adapters.ListMessageAdapter;
 import com.google.android.gms.tasks.Continuation;
@@ -100,11 +103,17 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private BroadcastReceiver chooseEmoji;
     private RequestQueue requestQueue;
 
+    private Handler handler;
+    private SmartReplyClient smartReplyClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
         bitmapAvatarFriend = new HashMap<>();
+
+        smartReplyClient = new SmartReplyClient(getApplicationContext());
+        handler = new Handler();
 
         uploadDialog = new LovelyProgressDialog(this);
         Intent intentData = getIntent();
@@ -173,6 +182,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         DatabaseReference user2 = usersReference.child((String) messageMap.get("idReceiver"));
                         user1.child("message").setValue(message);
                         user2.child("message").setValue(message);
+
+                        // process the message on smartreply
+                        // and add the replies to the adapter and view it
+                        String messageText = message.text;
+                        sendSmartreply(messageText);
+
                         conversation.getMessages().add(message);
                         adapter.notifyDataSetChanged();
                         linearLayoutManager.scrollToPosition(conversation.getMessages().size() - 1);
@@ -227,6 +242,36 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         this.registerReceiver(chooseEmoji, intentFilter);
 
 
+        // make another broadcast to handle the click on the response
+        // and update the text field
+
+
+    }
+
+    private void sendSmartreply(String message) {
+        handler.post(
+                () -> {
+                    SmartReply[] ans = smartReplyClient.predict(new String[]{message});
+                    for (SmartReply reply : ans) {
+                        // add to the arraylist of replies to be viewed in
+                        // the adapter
+
+                    }
+                    // here load the adapter and make it visible
+                }
+        );
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        handler.post(smartReplyClient::loadModel);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.post(smartReplyClient::unloadModel);
     }
 
     @Override
