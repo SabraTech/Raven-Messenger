@@ -217,7 +217,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onReceive(Context context, Intent intent) {
                 String emojiCode = intent.getStringExtra("code");
-                editTextMessage.append(emojiCode);
+                editTextMessage.append(" " + emojiCode);
                 // remove the view of emoji here
                 recyclerEmoji.setVisibility(View.GONE);
             }
@@ -282,12 +282,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                String indexOfEmoji = response;
-                                StringBuilder sb = new StringBuilder(indexOfEmoji);
+                                String indexOfEmoji = "[2 4  6  20 7]";
+                                StringBuilder sb = new StringBuilder(response);
                                 sb.deleteCharAt(indexOfEmoji.length() - 1);
                                 sb.deleteCharAt(0);
                                 String index = sb.toString();
-                                String[] parts = index.split(" ");
+                                String[] parts = index.split("\\s+");
                                 List<String> emojis = new ArrayList<>();
                                 for (String s : parts) {
                                     emojis.add(emojiMap.get(s));
