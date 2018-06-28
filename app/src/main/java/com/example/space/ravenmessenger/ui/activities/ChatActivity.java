@@ -311,6 +311,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 messageReference.child(roomId).push().setValue(message);
             }
         } else if (view.getId() == R.id.btn_predict_emoji) {
+            sendSmartreply("Hi How are you ?");
             String content = editTextMessage.getText().toString().trim();
             if (content.length() > 0) {
                 content = content.replaceAll(" ", "+");

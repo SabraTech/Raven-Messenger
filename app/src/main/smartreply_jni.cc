@@ -2,8 +2,8 @@
 #include <utility>
 #include <vector>
 
-#include "tensorflow/contrib/lite/model.h"
-#include "tensorflow/contrib/lite/models/smartreply/predictor.h"
+#include "model.h"
+#include "predictor.h"
 
 const char kIllegalStateException[] = "java/lang/IllegalStateException";
 
@@ -39,7 +39,7 @@ struct JNIStorage {
 };
 
 extern "C" JNIEXPORT jlong JNICALL
-Java_com_example_android_smartreply_SmartReplyClient_loadJNI(
+Java_com_example_space_ravenmessenger_smartreply_SmartReplyClient_loadJNI(
     JNIEnv* env, jobject thiz, jobject model_buffer,
     jobjectArray backoff_list) {
   const char* buf =
@@ -60,7 +60,7 @@ Java_com_example_android_smartreply_SmartReplyClient_loadJNI(
 }
 
 extern "C" JNIEXPORT jobjectArray JNICALL
-Java_com_example_android_smartreply_SmartReplyClient_predictJNI(
+Java_com_example_space_ravenmessenger_smartreply_SmartReplyClient_predictJNI(
     JNIEnv* env, jobject /*thiz*/, jlong storage_ptr, jobjectArray input_text) {
   // Predict
   if (storage_ptr == 0) {
@@ -105,7 +105,7 @@ Java_com_example_android_smartreply_SmartReplyClient_predictJNI(
 }
 
 extern "C" JNIEXPORT void JNICALL
-Java_com_example_android_smartreply_SmartReplyClient_unloadJNI(
+Java_com_example_space_ravenmessenger_smartreply_SmartReplyClient_unloadJNI(
     JNIEnv* env, jobject thiz, jlong storage_ptr) {
   if (storage_ptr != 0) {
     JNIStorage* storage = reinterpret_cast<JNIStorage*>(storage_ptr);

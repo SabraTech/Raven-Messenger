@@ -22,7 +22,7 @@ android_binary(
     srcs = glob(["java/**/*.java"]),
     assets = [":assets"],
     assets_dir = "",
-    custom_package = "com.example.android.smartreply",
+    custom_package = "com.example.space.ravenmessenger",
     manifest = "AndroidManifest.xml",
     nocompress_extensions = [
         ".tflite",
