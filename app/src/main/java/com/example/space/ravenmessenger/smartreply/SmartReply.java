@@ -3,7 +3,7 @@ package com.example.space.ravenmessenger.smartreply;
 import android.support.annotation.Keep;
 
 /**
- * SmartReply contains predicted message, and confidence.
+ * SmartReplyData contains predicted message, and confidence.
  * <p>
  * NOTE: this class used by JNI, class name and constructor should not be obfuscated.
  */

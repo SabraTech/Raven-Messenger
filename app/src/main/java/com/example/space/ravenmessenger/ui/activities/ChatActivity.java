@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
@@ -37,15 +36,16 @@ import com.android.volley.toolbox.DiskBasedCache;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
 import com.example.space.ravenmessenger.R;
+import com.example.space.ravenmessenger.data.EmojiPrediction;
 import com.example.space.ravenmessenger.data.SharedPreferenceHelper;
+import com.example.space.ravenmessenger.data.SmartReplyData;
 import com.example.space.ravenmessenger.data.StaticConfig;
 import com.example.space.ravenmessenger.encryption.CipherHandler;
 import com.example.space.ravenmessenger.models.Conversation;
 import com.example.space.ravenmessenger.models.Message;
-import com.example.space.ravenmessenger.smartreply.SmartReply;
-import com.example.space.ravenmessenger.smartreply.SmartReplyClient;
 import com.example.space.ravenmessenger.ui.adapters.EmojiAdapter;
 import com.example.space.ravenmessenger.ui.adapters.ListMessageAdapter;
+import com.example.space.ravenmessenger.ui.adapters.SmartReplyAdapter;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -72,8 +72,6 @@ import java.util.UUID;
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 
-import static com.example.space.ravenmessenger.data.EmojiPrediction.emojiMap;
-
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final int VIEW_TYPE_USER_MESSAGE = 0;
@@ -82,11 +80,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     public static final int IMAGE_CAPTURE = 1;
     public static final String FILE_PROVIDER_AUTHORITIES = "com.example.space.ravenmessenger.fileprovider";
     public static final String ACTION_EMOJI_CHOSEN = "com.example.space.raven.emoji_chosen";
+    public static final String ACTION_SMART_REPLY_CHOSEN = "com.example.space.raven.smart_reply_chosen";
 
     public static HashMap<String, Bitmap> bitmapAvatarFriend;
     public Bitmap bitmapAvataruser;
 
-    private RecyclerView recyclerChat, recyclerEmoji;
+    private RecyclerView recyclerChat, recyclerEmojiAndSmart;
     private ListMessageAdapter adapter;
     private String roomId;
     private ArrayList<CharSequence> idFriend;
@@ -100,20 +99,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference usersReference;
     private LovelyProgressDialog uploadDialog;
     private Uri camPhoto;
-    private BroadcastReceiver chooseEmoji;
+    private BroadcastReceiver chooseEmoji, chooseReply;
     private RequestQueue requestQueue;
-
-    private Handler handler;
-    private SmartReplyClient smartReplyClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_room);
         bitmapAvatarFriend = new HashMap<>();
-
-        smartReplyClient = new SmartReplyClient(getApplicationContext());
-        handler = new Handler();
 
         uploadDialog = new LovelyProgressDialog(this);
         Intent intentData = getIntent();
@@ -144,7 +137,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         btnChooseEmoji = findViewById(R.id.btn_predict_emoji);
         btnChooseEmoji.setOnClickListener(this);
 
-        recyclerEmoji = findViewById(R.id.emoji_recycler_view);
+        recyclerEmojiAndSmart = findViewById(R.id.emoji_reply_recycler_view);
 
         messageReference = FirebaseDatabase.getInstance().getReference().child("message");
         messageReference.keepSynced(true);
@@ -183,14 +176,27 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         user1.child("message").setValue(message);
                         user2.child("message").setValue(message);
 
-                        // process the message on smartreply
-                        // and add the replies to the adapter and view it
-                        String messageText = message.text;
-                        sendSmartreply(messageText);
-
                         conversation.getMessages().add(message);
                         adapter.notifyDataSetChanged();
                         linearLayoutManager.scrollToPosition(conversation.getMessages().size() - 1);
+
+                        if (message.idReceiver.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            // process the message on smartreply
+                            // and add the replies to the adapter and view it
+                            String messageText = message.text;
+                            List<String> replies;
+                            if (SmartReplyData.repliesMap.containsKey(messageText)) {
+                                replies = SmartReplyData.repliesMap.get(messageText);
+                            } else {
+                                replies = SmartReplyData.defaultReplies;
+                            }
+
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                            recyclerEmojiAndSmart.setVisibility(View.VISIBLE);
+                            recyclerEmojiAndSmart.setLayoutManager(linearLayoutManager);
+                            SmartReplyAdapter smartReplyAdapter = new SmartReplyAdapter(ChatActivity.this, replies);
+                            recyclerEmojiAndSmart.setAdapter(smartReplyAdapter);
+                        }
                     }
                 }
 
@@ -233,45 +239,26 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             public void onReceive(Context context, Intent intent) {
                 String emojiCode = intent.getStringExtra("code");
                 editTextMessage.append(" " + emojiCode);
-                // remove the view of emoji here
-                recyclerEmoji.setVisibility(View.GONE);
+                recyclerEmojiAndSmart.setVisibility(View.GONE);
             }
         };
 
-        IntentFilter intentFilter = new IntentFilter(ACTION_EMOJI_CHOSEN);
-        this.registerReceiver(chooseEmoji, intentFilter);
+        IntentFilter intentFilterEmoji = new IntentFilter(ACTION_EMOJI_CHOSEN);
+        this.registerReceiver(chooseEmoji, intentFilterEmoji);
 
 
-        // make another broadcast to handle the click on the response
-        // and update the text field
+        chooseReply = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String messageText = intent.getStringExtra("text");
+                editTextMessage.setText(messageText);
+                recyclerEmojiAndSmart.setVisibility(View.GONE);
+            }
+        };
 
+        IntentFilter intentFilterReply = new IntentFilter(ACTION_SMART_REPLY_CHOSEN);
+        this.registerReceiver(chooseReply, intentFilterReply);
 
-    }
-
-    private void sendSmartreply(String message) {
-        handler.post(
-                () -> {
-                    SmartReply[] ans = smartReplyClient.predict(new String[]{message});
-                    for (SmartReply reply : ans) {
-                        // add to the arraylist of replies to be viewed in
-                        // the adapter
-
-                    }
-                    // here load the adapter and make it visible
-                }
-        );
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        handler.post(smartReplyClient::loadModel);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        handler.post(smartReplyClient::unloadModel);
     }
 
     @Override
@@ -311,7 +298,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 messageReference.child(roomId).push().setValue(message);
             }
         } else if (view.getId() == R.id.btn_predict_emoji) {
-            sendSmartreply("Hi How are you ?");
             String content = editTextMessage.getText().toString().trim();
             if (content.length() > 0) {
                 content = content.replaceAll(" ", "+");
@@ -336,15 +322,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                                 String[] parts = index.split("\\s+");
                                 List<String> emojis = new ArrayList<>();
                                 for (String s : parts) {
-                                    emojis.add(emojiMap.get(s));
+                                    emojis.add(EmojiPrediction.emojiMap.get(s));
                                 }
 
                                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ChatActivity.this, LinearLayoutManager.HORIZONTAL, false);
-                                recyclerEmoji.setVisibility(View.VISIBLE);
-                                recyclerEmoji.setLayoutManager(linearLayoutManager);
+                                recyclerEmojiAndSmart.setVisibility(View.VISIBLE);
+                                recyclerEmojiAndSmart.setLayoutManager(linearLayoutManager);
                                 EmojiAdapter emojiAdapter = new EmojiAdapter(ChatActivity.this, emojis);
-                                recyclerEmoji.setAdapter(emojiAdapter);
-                                // view each emoji on textView clickable
+                                recyclerEmojiAndSmart.setAdapter(emojiAdapter);
                             }
                         },
                         new Response.ErrorListener() {

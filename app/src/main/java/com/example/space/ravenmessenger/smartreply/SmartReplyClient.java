@@ -19,7 +19,7 @@ import java.util.List;
  * Interface to load TfLite model and provide predictions.
  **/
 public class SmartReplyClient implements AutoCloseable {
-    private static final String TAG = "SmartReply";
+    private static final String TAG = "SmartReplyData";
     private static final String MODEL_PATH = "smartreply.tflite";
     private static final String BACKOFF_PATH = "backoff_response.txt";
     private static final String JNI_LIB = "smartreply_jni";
