@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger.svg?token=j6p6yigJthYN7GFd3EEY&branch=master)](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger)
 [![codecov](https://codecov.io/gh/SabraTech/Bot-Assistant-Messenger/branch/master/graph/badge.svg?token=4dNvuKyiH0)](https://codecov.io/gh/SabraTech/Bot-Assistant-Messenger)
 [![CodeFactor](https://www.codefactor.io/repository/github/sabratech/bot-assistant-messenger/badge)](https://www.codefactor.io/repository/github/sabratech/bot-assistant-messenger)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/119a915c2e5142809f8d0488223a86b7)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SabraTech/Bot-Assistant-Messenger&amp;utm_campaign=Badge_Grade)
 
 Raven is a smart messaging app that helps you say more and do more.
 Express yourself better with Emoji prediction, Smart Reply.
