@@ -20,6 +20,7 @@ import com.example.space.ravenmessenger.models.FriendList;
 import com.example.space.ravenmessenger.models.Message;
 import com.example.space.ravenmessenger.ui.activities.ChatActivity;
 import com.example.space.ravenmessenger.ui.fragments.FriendsFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,6 +49,7 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private FriendList friendList;
     private Context context;
     private FriendsFragment friendsFragment;
+    private String currentUid;
 
     public ListFriendsAdapter(Context context, FriendList friendList, FriendsFragment friendsFragment) {
         this.context = context;
@@ -61,6 +63,8 @@ public class ListFriendsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         markMap = new HashMap<>();
 
         progressDialog = new LovelyProgressDialog(context);
+
+        currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @Override

@@ -183,7 +183,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         if (message.idReceiver.equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
                             // process the message on smartreply
                             // and add the replies to the adapter and view it
-                            String messageText = message.text;
+                            String messageText = CipherHandler.decrypt(message.text);
                             List<String> replies;
                             if (SmartReplyData.repliesMap.containsKey(messageText)) {
                                 replies = SmartReplyData.repliesMap.get(messageText);
@@ -287,6 +287,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.btn_send) {
             String content = editTextMessage.getText().toString().trim();
             if (content.length() > 0) {
+                recyclerEmojiAndSmart.setVisibility(View.GONE);
                 editTextMessage.setText("");
                 Message message = new Message();
                 message.text = CipherHandler.encrypt(content);
@@ -316,7 +317,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                             public void onResponse(String response) {
                                 String indexOfEmoji = "[2 4  6  20 7]";
                                 StringBuilder sb = new StringBuilder(response);
-                                sb.deleteCharAt(indexOfEmoji.length() - 1);
+                                sb.deleteCharAt(sb.length() - 1);
                                 sb.deleteCharAt(0);
                                 String index = sb.toString();
                                 String[] parts = index.split("\\s+");
