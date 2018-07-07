@@ -12,7 +12,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -40,6 +40,13 @@ android {
     }
     lintOptions {
         abortOnError false
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        def appName = "Raven"
+        outputFileName = appName+"-${variant.versionName}.apk"
     }
 }
 
