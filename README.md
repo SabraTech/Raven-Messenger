@@ -1,7 +1,6 @@
 # Raven Messenger
 
 [![Build Status](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger.svg?token=j6p6yigJthYN7GFd3EEY&branch=master)](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger)
-[![codecov](https://codecov.io/gh/SabraTech/Bot-Assistant-Messenger/branch/master/graph/badge.svg?token=4dNvuKyiH0)](https://codecov.io/gh/SabraTech/Bot-Assistant-Messenger)
 [![CodeFactor](https://www.codefactor.io/repository/github/sabratech/bot-assistant-messenger/badge)](https://www.codefactor.io/repository/github/sabratech/bot-assistant-messenger)
 
 Raven is a smart messaging app that helps you say more and do more.
@@ -29,3 +28,11 @@ Raven is free, fast, and secure.
 1. Notification
     - Push notification on status bar when has new message, added as a friend and accepted as a friend.
 1. End-to-end encryption
+
+
+## Documentation
+You can find the full project documentation is the following [thesis](https://drive.google.com/open?id=1LLqL7eC-qHemsBffHi_oZGxXleqGRnkY)
+
+
+## Screenshots
+
