@@ -12,6 +12,11 @@ Express yourself better with Emoji prediction, Smart Reply.
 Connect however you want. Send a text message, share a photo.
 Raven is free, fast, and secure. 
 
+# Install
+
+You can try Raven now on your phone ([click to download the APK](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Raven-1.0.apk?raw=true))
+
+
 # Features
 1. Signin, Signout and Register
     - Register: allow user register a new account with email and password.
@@ -65,6 +70,7 @@ Profile Screen
 Chat Screen
 
 <img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/chat1-screen.png" width="200px"/>
+
 
 # Demo
 
