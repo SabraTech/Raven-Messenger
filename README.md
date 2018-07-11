@@ -1,3 +1,5 @@
+# ![Raven Logo](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Logo.png)
+
 # Raven Messenger
 
 [![Build Status](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger.svg?token=j6p6yigJthYN7GFd3EEY&branch=master)](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger)
@@ -28,11 +30,40 @@ Raven is free, fast, and secure.
 1. Notification
     - Push notification on status bar when has new message, added as a friend and accepted as a friend.
 1. End-to-end encryption
+1. Emoji prediction on text
+1. Smart reply on text
 
 
 ## Documentation
-You can find the full project documentation is the following [thesis](https://drive.google.com/open?id=1LLqL7eC-qHemsBffHi_oZGxXleqGRnkY)
+You can find the full project documentation in the following [thesis](https://drive.google.com/open?id=1LLqL7eC-qHemsBffHi_oZGxXleqGRnkY)
 
 
 ## Screenshots
 
+Splash Screen
+
+![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/splash-screen.png)
+
+Login Screen
+
+![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/login-screen.png)
+
+Signup Screen
+
+![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/signup-screen.png)
+
+Reset password Screen
+
+![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/reset-screen.png)
+
+Profile Screen
+
+![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/profile-screen.png)
+
+Chat Screen
+
+![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/chat1-screen.png)
+
+## Demo
+
+[![IMAGE ALT TEXT HERE](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Demo.png)](https://drive.google.com/open?id=1j9CeCYL8Oo8Fmli-uCFBvy8wApqH-pZ1)
