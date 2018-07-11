@@ -1,5 +1,5 @@
 <p align="center"> 
-<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Logo.png">
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Logo.png" width="300px">
 </p>
 
 # Raven Messenger
@@ -12,7 +12,7 @@ Express yourself better with Emoji prediction, Smart Reply.
 Connect however you want. Send a text message, share a photo.
 Raven is free, fast, and secure. 
 
-## Features
+# Features
 1. Signin, Signout and Register
     - Register: allow user register a new account with email and password.
     - Signin: user must signin with email and password to use app.
@@ -36,36 +36,38 @@ Raven is free, fast, and secure.
 1. Smart reply on text
 
 
-## Documentation
+# Documentation
 You can find the full project documentation in the following [thesis](https://drive.google.com/open?id=1LLqL7eC-qHemsBffHi_oZGxXleqGRnkY)
 
 
-## Screenshots
+# Screenshots
 
 Splash Screen
+
 <img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/splash-screen.png" width="200px"/>
-![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/splash-screen.png)
 
 Login Screen
 
-![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/login-screen.png)
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/login-screen.png" width="200px"/>
 
 Signup Screen
 
-![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/signup-screen.png)
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/signup-screen.png" width="200px"/>
 
 Reset password Screen
 
-![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/reset-screen.png)
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/reset-screen.png" width="200px"/>
 
 Profile Screen
 
-![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/profile-screen.png)
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/profile-screen.png" width="200px"/>
 
 Chat Screen
 
-![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/chat1-screen.png)
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/chat1-screen.png" width="200px"/>
 
-## Demo
+# Demo
+
+Click on the image below
 
 [![IMAGE ALT TEXT HERE](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Demo.png)](https://drive.google.com/open?id=1j9CeCYL8Oo8Fmli-uCFBvy8wApqH-pZ1)
