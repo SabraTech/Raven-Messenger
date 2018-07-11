@@ -5,7 +5,7 @@
 # Raven Messenger
 
 [![Build Status](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger.svg?token=j6p6yigJthYN7GFd3EEY&branch=master)](https://travis-ci.com/SabraTech/Bot-Assistant-Messenger)
-[![CodeFactor](https://www.codefactor.io/repository/github/sabratech/bot-assistant-messenger/badge)](https://www.codefactor.io/repository/github/sabratech/bot-assistant-messenger)
+[![CodeFactor](https://www.codefactor.io/repository/github/sabratech/raven-messenger/badge)](https://www.codefactor.io/repository/github/sabratech/raven-messenger)
 
 Raven is a smart messaging app that helps you say more and do more.
 Express yourself better with Emoji prediction, Smart Reply.
