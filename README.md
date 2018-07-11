@@ -1,4 +1,6 @@
-# ![Raven Logo](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Logo.png)
+<p align="center"> 
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/Logo.png">
+</p>
 
 # Raven Messenger
 
@@ -41,7 +43,7 @@ You can find the full project documentation in the following [thesis](https://dr
 ## Screenshots
 
 Splash Screen
-
+<img src="https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/splash-screen.png" width="200px"/>
 ![screenshot](https://github.com/SabraTech/Bot-Assistant-Messenger/blob/master/DocData/splash-screen.png)
 
 Login Screen
